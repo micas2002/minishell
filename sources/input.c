@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/06 11:39:51 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/07 15:03:26 by mibernar         ###   ########.fr       */
+/*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
+/*   Updated: 2022/12/07 15:03:38 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHEL_H
+#include "minishell.h"
 
-//MAIN.C
+void	parser(char *str)
+{
 
-//INPUT.C
-void	parser(char *str);
-
-#endif
+}

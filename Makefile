@@ -6,7 +6,7 @@
 #    By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/06 11:39:55 by mibernar          #+#    #+#              #
-#    Updated: 2022/12/06 12:01:21 by mibernar         ###   ########.fr        #
+#    Updated: 2022/12/07 14:53:45 by mibernar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ OBJECTS = $(addprefix $(OBJECTS_DIRECTORY), $(OBJECTS_LIST))
 
 CC = gcc
 FLAGS = -Wall -Werror -Wextra -g3
-LIBRARIES = -L$(LIBFT_DIRECTORY) -lft
+LIBRARIES = -L$(LIBFT_DIRECTORY) -lft -lreadline
 INCLUDES = -I $(HEADERS_DIRECTORY) -I $(LIBFT_HEADERS)
 
 # COLORS
