@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/09 12:31:53 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:52:02 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ int	is_operator(char c)
 
 void	lexer(char *str, t_minish minish)
 {
-	int	i;
+	int		i;
+	int		x;
+	int		y;
 
 	i = 0;
 	while (str[i])
@@ -70,5 +72,28 @@ void	lexer(char *str, t_minish minish)
 			minish.nb_tokens++;
 		}
 	}
-	printf("number of tokens:%d\n", minish.nb_tokens);
+	minish.tokens = malloc(sizeof(char *) * minish.nb_tokens + 1);
+	i = 0;
+	x = 0;
+	y = -1;
+	while (str[i])
+	{
+		if (str[i] == ' ' || str[i] == '	')
+			i++;
+		else
+		{
+			x = i;
+			if (str[i] == '\"')
+				i = d_quotes(str, i);
+			if (str[i] == '\'')
+				i = s_quotes(str, i);
+			else
+				i = other_input(str, i);
+			minish.tokens[++y] = ft_substr(str, x, i - x);
+		}
+	}
+	minish.tokens[++y] = NULL;
+	y = -1;
+	while (minish.tokens[++y])
+		printf("array:%s\n", minish.tokens[y]);
 }

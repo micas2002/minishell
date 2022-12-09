@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:39:51 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/08 17:33:24 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:51:28 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 
 typedef struct s_minish
 {
-	int	nb_tokens;
+	int		nb_tokens;
+	char	**tokens;
 }t_minish;
 
 //MAIN.C
