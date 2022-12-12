@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/12 11:50:23 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:21:12 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	s_quotes(char *str, int i)
 	return (i);
 }
 
-void	lexer(char *str, t_minish minish)
+void	lexer(char *str, t_minish *minish)
 {
 	int		i;
 	int		x;
@@ -91,11 +91,10 @@ void	lexer(char *str, t_minish minish)
 				i = operators(str, i);
 			else
 				i = other_input(str, i);
-			minish.nb_tokens++;
+			minish->nb_tokens++;
 		}
 	}
-	printf("nb of tokens:%d\n", minish.nb_tokens);
-	minish.tokens = malloc(sizeof(char *) * minish.nb_tokens + 1);
+	minish->tokens = malloc(sizeof(char *) * minish->nb_tokens + 1);
 	i = 0;
 	x = 0;
 	y = 0;
@@ -114,10 +113,9 @@ void	lexer(char *str, t_minish minish)
 				i = operators(str, i);
 			else
 				i = other_input(str, i);
-			minish.tokens[y] = ft_substr(str, x, i - x);
-			printf("array:%s\n", minish.tokens[y]);
+			minish->tokens[y] = ft_substr(str, x, i - x);
 			y++;
 		}
 	}
-	minish.tokens[++y] = NULL;
+	minish->tokens[y] = NULL;
 }

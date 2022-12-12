@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:39:51 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/09 12:51:28 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:19:27 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ typedef struct s_minish
 //MAIN.C
 
 //INPUT.C
-void	parser(char *str, t_minish minish);
+void	parser(char *str, t_minish *minish);
 
 //LEXER.C
-void	lexer(char *str, t_minish minish);
+void	lexer(char *str, t_minish *minish);
 
 #endif
