@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/12 13:21:12 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:29:31 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	d_quotes(char *str, int i)
 	if (str[i] == '\0' && str[i - 1] != '\"')
 	{
 		printf("ERROR: unclosed quotes\n");
-		exit (0);
+		terminal();
 	}
 	return (i);
 }
@@ -65,7 +65,7 @@ int	s_quotes(char *str, int i)
 	if (str[i] == '\0' && str[i - 1] != '\'')
 	{
 		printf("ERROR: unclosed quotes\n");
-		exit (0);
+		terminal();
 	}
 	return (i);
 }

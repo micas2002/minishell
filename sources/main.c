@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/12 13:19:17 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:28:36 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-int	main(void)
+void	terminal(void)
 {
 	char		*str;
 	t_minish	minish;
@@ -27,5 +27,10 @@ int	main(void)
 		// str = "a | a";
 		parser(str, &minish);
 	}
+}
+
+int	main(void)
+{
+	terminal();
 	return (0);
 }
