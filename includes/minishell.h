@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:39:51 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/12 13:29:08 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/12 13:56:00 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,11 @@ void	parser(char *str, t_minish *minish);
 
 //LEXER.C
 void	lexer(char *str, t_minish *minish);
+int		s_quotes(char *str, int i);
+int		d_quotes(char *str, int i);
+int		other_input(char *str, int i);
+int		operators(char *str, int i);
+int		is_operator(char c);
+
 
 #endif
