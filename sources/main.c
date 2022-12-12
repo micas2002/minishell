@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/09 12:17:30 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:42:37 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(void)
 	{
 		minish.nb_tokens = 0;
 		str = readline("myshell:$ ");
-		//str = "a";
+		// str = "a | a";
 		parser(str, minish);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/09 13:54:52 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/12 11:50:23 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	operators(char *str, int i)
 {
 	while (str[++i])
 	{
-		if (is_operator(str[i] == 0))
+		if (is_operator(str[i]) == 0)
 			break ;
 	}
 	return (i);
@@ -47,6 +47,11 @@ int	d_quotes(char *str, int i)
 		if (str[i] == '\"')
 			break ;
 	}
+	if (str[i] == '\0' && str[i - 1] != '\"')
+	{
+		printf("ERROR: unclosed quotes\n");
+		exit (0);
+	}
 	return (i);
 }
 
@@ -56,6 +61,11 @@ int	s_quotes(char *str, int i)
 	{
 		if (str[i] == '\'')
 			break ;
+	}
+	if (str[i] == '\0' && str[i - 1] != '\'')
+	{
+		printf("ERROR: unclosed quotes\n");
+		exit (0);
 	}
 	return (i);
 }
@@ -88,7 +98,7 @@ void	lexer(char *str, t_minish minish)
 	minish.tokens = malloc(sizeof(char *) * minish.nb_tokens + 1);
 	i = 0;
 	x = 0;
-	y = -1;
+	y = 0;
 	while (str[i])
 	{
 		if (str[i] == ' ' || str[i] == '	')
@@ -104,11 +114,10 @@ void	lexer(char *str, t_minish minish)
 				i = operators(str, i);
 			else
 				i = other_input(str, i);
-			minish.tokens[++y] = ft_substr(str, x, i - x);
+			minish.tokens[y] = ft_substr(str, x, i - x);
+			printf("array:%s\n", minish.tokens[y]);
+			y++;
 		}
 	}
 	minish.tokens[++y] = NULL;
-	y = -1;
-	while (minish.tokens[++y])
-		printf("array:%s\n", minish.tokens[y]);
 }
