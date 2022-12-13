@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/12 13:28:36 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:26:32 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@
 
 void	terminal(void)
 {
-	char		*str;
-	t_minish	minish;
+	char	*str;
+	t_sh	sh;
 
 	while (1)
 	{
-		minish.nb_tokens = 0;
+		sh.nb_tokens = 0;
 		str = readline("myshell:$ ");
 		// str = "a | a";
-		parser(str, &minish);
+		parser(str, &sh);
 	}
 }
 

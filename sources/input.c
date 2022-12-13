@@ -6,28 +6,44 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/12 13:56:38 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:44:36 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "./libft.h"
 
-void	commands(t_minish *minish)
+void	commands(t_sh *sh, int i)
 {
-	if ()
+	if (ft_strcmp(sh->tokens[i], "echo") == 1)
+		printf("command foud\n");
+	else if (ft_strcmp(sh->tokens[i], "cd") == 1)
+		printf("command foud\n");
+	else if (ft_strcmp(sh->tokens[i], "pwd") == 1)
+		printf("command foud\n");
+	else if (ft_strcmp(sh->tokens[i], "export") == 1)
+		printf("command foud\n");
+	else if (ft_strcmp(sh->tokens[i], "unset") == 1)
+		printf("command foud\n");
+	else if (ft_strcmp(sh->tokens[i], "env") == 1)
+		printf("command foud\n");
+	else if (ft_strcmp(sh->tokens[i], "exit") == 1)
+		printf("command foud\n");
+	else
+		printf("command not found\n");
 }
 
-void	parser(char *str, t_minish *minish)
+void	parser(char *str, t_sh *sh)
 {
 	int	i = -1;
 
-	lexer(str, minish);
-	while (minish->tokens[++i])
-		printf("token:%s\n", minish->tokens[i]);
+	lexer(str, sh);
+	//while (sh->tokens[++i])
+	//	printf("token:%s\n", sh->tokens[i]);
 	i = -1;
-	while (minish->tokens[++i])
+	while (sh->tokens[++i])
 	{
-		if (i == 0 || (is_operator(minish->tokens[i]) == 0 || minish->tokens))
+		if (i == 0 || sh->tokens[i - 1][ft_strlen(sh->tokens[i - 1]) - 1] == '|')
+			commands(sh, i);
 	}
 }
