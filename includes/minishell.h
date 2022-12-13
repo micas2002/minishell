@@ -53,6 +53,6 @@ void	pwd(t_sh *sh);
 void	cd(t_sh *sh, int i);
 
 //SIGNALS.C
-void	ctrl_c(int signum);
+void	handle_signals(int signum);
 
 #endif
