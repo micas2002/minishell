@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/13 11:44:36 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:55:06 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	commands(t_sh *sh, int i)
 {
 	if (ft_strcmp(sh->tokens[i], "echo") == 1)
-		printf("command foud\n");
+		echo(sh, i);
 	else if (ft_strcmp(sh->tokens[i], "cd") == 1)
 		printf("command foud\n");
 	else if (ft_strcmp(sh->tokens[i], "pwd") == 1)

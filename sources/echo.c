@@ -1,38 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/13 12:35:24 by mibernar         ###   ########.fr       */
+/*   Created: 2022/12/13 11:51:10 by mibernar          #+#    #+#             */
+/*   Updated: 2022/12/13 11:56:43 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 
-void	terminal(void)
+void	echo(t_sh *sh, int i)
 {
-	char	*str;
-	t_sh	sh;
-
-	while (1)
-	{
-		sh.nb_tokens = 0;
-		str = readline("myshell:$ ");
-		add_history(str);
-		// str = "a | a";
-		parser(str, &sh);
-		free (str);
-	}
-}
-
-int	main(void)
-{
-	terminal();
-	return (0);
+	while (sh->tokens[++i] && ft_strcmp(sh->tokens[i], "|") == 0)
+		printf("%s ", sh->tokens[i]);
+	printf("\n");
 }
