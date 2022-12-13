@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "./libft.h"
@@ -43,5 +44,8 @@ int		ft_strcmp(const char *s1, const char *s2);
 
 //ECHO.C
 void	echo(t_sh *sh, int i);
+
+//PWD.C
+void	pwd(t_sh *sh);
 
 #endif

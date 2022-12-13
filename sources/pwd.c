@@ -1,39 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/13 15:11:23 by mibernar         ###   ########.fr       */
+/*   Created: 2022/12/13 15:28:46 by mibernar          #+#    #+#             */
+/*   Updated: 2022/12/13 15:40:28 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 
-void	terminal(void)
+void	pwd(t_sh *sh)
 {
-	char	*str;
-	t_sh	sh;
+	char	*dir_path;
 
-	while (1)
-	{
-		sh.nb_tokens = 0;
-		str = readline("myshell:$ ");
-		add_history(str);
-		// str = "a | a";
-		parser(str, &sh);
-		free (str);
-	}
-	rl_clear_history();
-}
-
-int	main(void)
-{
-	terminal();
-	return (0);
+	(void) sh;
+	dir_path = malloc(sizeof(char) * 999);
+	getcwd(dir_path, 999);
+	printf("%s\n", dir_path);
+	free (dir_path);
 }
