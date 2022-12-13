@@ -48,4 +48,7 @@ void	echo(t_sh *sh, int i);
 //PWD.C
 void	pwd(t_sh *sh);
 
+//CD.C
+void	cd(t_sh *sh, int i);
+
 #endif
