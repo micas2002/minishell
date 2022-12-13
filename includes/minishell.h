@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <unistd.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "./libft.h"
@@ -50,5 +51,8 @@ void	pwd(t_sh *sh);
 
 //CD.C
 void	cd(t_sh *sh, int i);
+
+//SIGNALS.C
+void	ctrl_c(int signum);
 
 #endif

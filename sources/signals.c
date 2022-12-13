@@ -1,40 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/13 17:10:55 by mibernar         ###   ########.fr       */
+/*   Created: 2022/12/13 16:42:26 by mibernar          #+#    #+#             */
+/*   Updated: 2022/12/13 17:11:26 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 
-void	terminal(void)
+void	ctrl_c(int signum)
 {
-	char	*str;
-	t_sh	sh;
-
-	while (1)
-	{
-		sh.nb_tokens = 0;
-		signal(SIGINT, ctrl_c);
-		str = readline("myshell:$ ");
-		add_history(str);
-		// str = "a | a";
-		parser(str, &sh);
-		free (str);
-	}
-	rl_clear_history();
-}
-
-int	main(void)
-{
-	terminal();
-	return (0);
+	(void) signum;
+	printf("\nmyshell:$ ");
 }
