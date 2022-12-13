@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/13 15:54:46 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/13 16:13:06 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	commands(t_sh *sh, int i)
 		printf("command foud\n");
 	else if (ft_strcmp(sh->tokens[i], "env") == 1)
 		printf("command foud\n");
-	else if (ft_strcmp(sh->tokens[i], "exit") == 1)
-		printf("command foud\n");
+	else if (ft_strcmp(sh->tokens[i], "exit") == 1 && i == 0)
+		exit (0);
 	else
 		printf("command not found\n");
 }
