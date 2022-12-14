@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:42:26 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/13 17:29:01 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:46:56 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	handle_signals(int signum)
 {
-	if (signum == SIGINT)
-		printf("\nmyshell:$ ");
-	else if (signum == SIGQUIT)
-		return ;
+	(void) signum;
+	printf("\nmyshell:$ ");
 }
