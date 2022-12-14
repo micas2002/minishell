@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:48:53 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/13 16:05:55 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:18:53 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	cd(t_sh *sh, int i)
 {
+	if (!sh->tokens[i + 1])
+	{
+		printf("relative or absolute path needed\n");
+		return ;
+	}
 	if (ft_strcmp(sh->tokens[i + 1], "..") == 1)
 		chdir("..");
 	else
