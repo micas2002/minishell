@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/13 16:13:06 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/14 18:07:58 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ void	commands(t_sh *sh, int i)
 
 void	parser(char *str, t_sh *sh)
 {
-	int	i = -1;
+	int	i;
 
 	lexer(str, sh);
+	//i = -1;
+	//printf("%d\n", sh->nb_tokens);
 	//while (sh->tokens[++i])
-	//	printf("token:%s\n", sh->tokens[i]);
+	//	printf("token:%s", sh->tokens[i]);
 	i = -1;
 	while (sh->tokens[++i])
 	{
