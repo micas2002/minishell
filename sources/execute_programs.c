@@ -1,41 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   execute_programs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/15 17:07:25 by mibernar         ###   ########.fr       */
+/*   Created: 2022/12/15 15:58:14 by mibernar          #+#    #+#             */
+/*   Updated: 2022/12/15 17:06:37 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 
-void	terminal(void)
+void	execute_program(t_sh *sh, int i)
 {
-	char	*str;
-	t_sh	sh;
+	int		x;
+	int		y;
+	int		z;
+	char	**args;
 
-	while (1)
-	{
-		signal(SIGINT, handle_signals);
-		signal(SIGQUIT, SIG_IGN);
-		sh.nb_tokens = 0;
-		//str = readline("myshell:$ ");
-		str = "./minishell aa aaa";
-		add_history(str);
-		parser(str, &sh);
-		//free (str);
-	}
-	rl_clear_history();
-}
-
-int	main(void)
-{
-	terminal();
-	return (0);
+	x = i;
+	while (sh->tokens[++x] && ft_strcmp(sh->tokens[x], "|") == 0)
+		;
+	i++;
+	args = malloc(sizeof(char *) * x - i + 1);
+	y = -1;
+	while (i != x)
+		args[++y] = sh->tokens[i++];
+	z = -1;
+	while (args[++z])
+		printf("%s", args[z]);
+//	execve(ft_substr(sh->tokens[i], 1, ft_strlen(sh->tokens[i] - 1)), args,);
 }

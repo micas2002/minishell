@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/14 18:07:58 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/15 16:11:11 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	commands(t_sh *sh, int i)
 		printf("command foud\n");
 	else if (ft_strcmp(sh->tokens[i], "exit") == 1 && i == 0)
 		exit (0);
+	else if (sh->tokens[i][0] == '.' && sh->tokens[i][1] == '/')
+		execute_program(sh, i);
 	else
 		printf("command not found\n");
 }

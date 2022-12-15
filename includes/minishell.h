@@ -55,4 +55,7 @@ void	cd(t_sh *sh, int i);
 //SIGNALS.C
 void	handle_signals(int signum);
 
+//EXECUTE_PROGRAMS.C
+void	execute_program(t_sh *sh, int i);
+
 #endif

@@ -6,7 +6,7 @@
 #    By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/06 11:39:55 by mibernar          #+#    #+#              #
-#    Updated: 2022/12/13 16:44:06 by mibernar         ###   ########.fr        #
+#    Updated: 2022/12/15 16:12:46 by mibernar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ HEADERS_LIST = minishell.h
 HEADERS_DIRECTORY = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
-SOURCES_LIST = main.c input.c lexer.c ft_strcmp.c echo.c pwd.c cd.c signals.c
+SOURCES_LIST = main.c input.c lexer.c ft_strcmp.c echo.c pwd.c cd.c signals.c execute_programs.c
 SOURCES_DIRECTORY = ./sources/
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
