@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/15 17:07:25 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/16 12:54:42 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	terminal(void)
 		signal(SIGINT, handle_signals);
 		signal(SIGQUIT, SIG_IGN);
 		sh.nb_tokens = 0;
-		//str = readline("myshell:$ ");
-		str = "./minishell aa aaa";
+		str = readline("myshell:$ ");
+		//str = "./minishell aa aaa";
 		add_history(str);
 		parser(str, &sh);
 		//free (str);
