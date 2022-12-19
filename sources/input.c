@@ -6,13 +6,15 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/15 16:11:11 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:48:37 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "./libft.h"
 
+//Checks if command is valid. If yes, gives paramaters to the respetcitve
+//function and executes the command funciton. If not found, prints a message
 void	commands(t_sh *sh, int i)
 {
 	if (ft_strcmp(sh->tokens[i], "echo") == 1)
@@ -35,6 +37,8 @@ void	commands(t_sh *sh, int i)
 		printf("command not found\n");
 }
 
+//Parser that devides the input into tokens using lexer and then check if the
+//command given is valid or not. If valid, calls command function
 void	parser(char *str, t_sh *sh)
 {
 	int	i;

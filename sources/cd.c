@@ -6,12 +6,17 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:48:53 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/14 18:18:53 by mibernar         ###   ########.fr       */
+/*   Updated: 2022/12/19 13:36:32 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+//Implementation of cd command. If there's no arguments after command, prompts
+//a message; if the argument after the command is "..", it returns to previous
+//directory; last if there's other argument after command, moves to that
+//directory if chrdir == 0, if not, prompts a message
 void	cd(t_sh *sh, int i)
 {
 	if (!sh->tokens[i + 1])
