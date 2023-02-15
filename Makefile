@@ -8,7 +8,7 @@ HEADERS_LIST = minishell.h
 HEADERS_DIRECTORY = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
-SOURCES_LIST = main.c input.c lexer.c ft_strcmp.c echo.c pwd.c cd.c signals.c execute_programs.c
+SOURCES_LIST = main.c input.c lexer.c echo.c pwd.c cd.c signals.c execute_programs.c env.c
 SOURCES_DIRECTORY = ./sources/
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 

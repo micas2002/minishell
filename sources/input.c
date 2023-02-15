@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/15 16:11:28 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:48:11 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	commands(t_sh *sh, int i, char **env)
 	else if (ft_strcmp(sh->tokens[i], "unset") == 1)
 		printf("command foud\n");
 	else if (ft_strcmp(sh->tokens[i], "env") == 1)
-		printf("command foud\n");
+		enviroment(env);
 	else if (ft_strcmp(sh->tokens[i], "exit") == 1 && i == 0)
 		exit (0);
 	else if (sh->tokens[i][0] == '.' && sh->tokens[i][1] == '/')

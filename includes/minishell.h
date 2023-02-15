@@ -58,4 +58,7 @@ void	handle_signals(int signum);
 //EXECUTE_PROGRAMS.C
 void	execute_program(t_sh *sh, int i, char **env);
 
+//ENV.C
+void	enviroment(char **env);
+
 #endif
