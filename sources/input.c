@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/15 16:48:11 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:21:20 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,43 +15,43 @@
 
 //Checks if command is valid. If yes, gives paramaters to the respetcitve
 //function and executes the command funciton. If not found, prints a message
-void	commands(t_sh *sh, int i, char **env)
+void	commands(t_shell *shell, int i, char **env)
 {
-	if (ft_strcmp(sh->tokens[i], "echo") == 1)
-		echo(sh, i);
-	else if (ft_strcmp(sh->tokens[i], "cd") == 1)
-		cd(sh, i);
-	else if (ft_strcmp(sh->tokens[i], "pwd") == 1)
-		pwd(sh);
-	else if (ft_strcmp(sh->tokens[i], "export") == 1)
+	if (ft_strcmp(shell->tokens[i], "echo") == 1)
+		echo(shell, i);
+	else if (ft_strcmp(shell->tokens[i], "cd") == 1)
+		cd(shell, i);
+	else if (ft_strcmp(shell->tokens[i], "pwd") == 1)
+		pwd(shell);
+	else if (ft_strcmp(shell->tokens[i], "export") == 1)
 		printf("command foud\n");
-	else if (ft_strcmp(sh->tokens[i], "unset") == 1)
+	else if (ft_strcmp(shell->tokens[i], "unset") == 1)
 		printf("command foud\n");
-	else if (ft_strcmp(sh->tokens[i], "env") == 1)
+	else if (ft_strcmp(shell->tokens[i], "env") == 1)
 		enviroment(env);
-	else if (ft_strcmp(sh->tokens[i], "exit") == 1 && i == 0)
+	else if (ft_strcmp(shell->tokens[i], "exit") == 1 && i == 0)
 		exit (0);
-	else if (sh->tokens[i][0] == '.' && sh->tokens[i][1] == '/')
-		execute_program(sh, i, env);
+	else if (shell->tokens[i][0] == '.' && shell->tokens[i][1] == '/')
+		execute_program(shell, i, env);
 	else
 		printf("command not found\n");
 }
 
 //Parser that devides the input into tokens using lexer and then check if the
 //command given is valid or not. If valid, calls command function
-void	parser(char *str, t_sh *sh, char **env)
+void	parser(char *str, t_shell *shell, char **env)
 {
 	int	i;
 
-	lexer(str, sh, env);
+	lexer(str, shell, env);
 	//i = -1;
-	//printf("%d\n", sh->nb_tokens);
-	//while (sh->tokens[++i])
-	//	printf("token:%s", sh->tokens[i]);
+	//printf("%d\n", shell->nb_tokens);
+	//while (shell->tokens[++i])
+	//	printf("token:%s", shell->tokens[i]);
 	i = -1;
-	while (sh->tokens[++i])
+	while (shell->tokens[++i])
 	{
-		if (i == 0 || sh->tokens[i - 1][ft_strlen(sh->tokens[i - 1]) - 1] == '|')
-			commands(sh, i, env);
+		if (i == 0 || shell->tokens[i - 1][ft_strlen(shell->tokens[i - 1]) - 1] == '|')
+			commands(shell, i, env);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/15 16:15:12 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:21:40 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	s_quotes(char *str, int i, char **env)
 //quotes) and checks if the argument is a sinlge quote, double quote, an
 //operator(for example a pipe), or other kind of input. Creates an array of size
 //equal to the number os tokens and saves each token his own string
-void	lexer(char *str, t_sh *sh, char **env)
+void	lexer(char *str, t_shell *shell, char **env)
 {
 	int		i;
 	int		x;
@@ -100,10 +100,10 @@ void	lexer(char *str, t_sh *sh, char **env)
 				i = operators(str, i);
 			else
 				i = other_input(str, i);
-			sh->nb_tokens++;
+			shell->nb_tokens++;
 		}
 	}
-	sh->tokens = malloc(sizeof(char *) * sh->nb_tokens + 1);
+	shell->tokens = malloc(sizeof(char *) * shell->nb_tokens + 1);
 	i = 0;
 	x = 0;
 	y = 0;
@@ -122,9 +122,9 @@ void	lexer(char *str, t_sh *sh, char **env)
 				i = operators(str, i);
 			else
 				i = other_input(str, i);
-			sh->tokens[y] = ft_substr(str, x, i - x);
+			shell->tokens[y] = ft_substr(str, x, i - x);
 			y++;
 		}
 	}
-	sh->tokens[y] = NULL;
+	shell->tokens[y] = NULL;
 }

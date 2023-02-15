@@ -20,20 +20,26 @@
 # include <readline/history.h>
 # include "./libft.h"
 
-typedef struct s_sh
+/**
+ * @brief 
+ * 
+ * @param nb_tokens int
+ * @param tokens char **
+ */
+typedef struct s_shell
 {
 	int		nb_tokens;
 	char	**tokens;
-}t_sh;
+}	t_shell;
 
 //MAIN.C
 void	terminal(char **env);
 
 //INPUT.C
-void	parser(char *str, t_sh *sh, char **env);
+void	parser(char *str, t_shell *sh, char **env);
 
 //LEXER.C
-void	lexer(char *str, t_sh *sh, char **env);
+void	lexer(char *str, t_shell *sh, char **env);
 int		s_quotes(char *str, int i, char **env);
 int		d_quotes(char *str, int i, char **env);
 int		other_input(char *str, int i);
@@ -41,19 +47,19 @@ int		operators(char *str, int i);
 int		is_operator(char c);
 
 //ECHO.C
-void	echo(t_sh *sh, int i);
+void	echo(t_shell *sh, int i);
 
 //PWD.C
-void	pwd(t_sh *sh);
+void	pwd(t_shell *sh);
 
 //CD.C
-void	cd(t_sh *sh, int i);
+void	cd(t_shell *sh, int i);
 
 //SIGNALS.C
 void	handle_signals(int signum);
 
 //EXECUTE_PROGRAMS.C
-void	execute_program(t_sh *sh, int i, char **env);
+void	execute_program(t_shell *sh, int i, char **env);
 
 //ENV.C
 void	enviroment(char **env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/15 16:10:38 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:21:55 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@
 void	terminal(char **env)
 {
 	char	*str;
-	t_sh	sh;
+	t_shell	shell;
 
 	while (1)
 	{
 		signal(SIGINT, handle_signals);
 		signal(SIGQUIT, SIG_IGN);
-		sh.nb_tokens = 0;
+		shell.nb_tokens = 0;
 		str = readline("myshell:$ ");
 		//str = "./minishell aa aaa";
 		add_history(str);
-		parser(str, &sh, env);
+		parser(str, &shell, env);
 		free (str);
 	}
 	rl_clear_history();

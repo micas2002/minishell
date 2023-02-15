@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:28:46 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/19 13:58:48 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/15 18:22:13 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 //implementation of pwd command. Gets current dir path with getcwd and prints
 //it's output
-void	pwd(t_sh *sh)
+void	pwd(t_shell *shell)
 {
 	char	*dir_path;
 
-	(void) sh;
+	(void) shell;
 	dir_path = malloc(sizeof(char) * FILENAME_MAX);
 	getcwd(dir_path, FILENAME_MAX);
 	printf("%s\n", dir_path);
