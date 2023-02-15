@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/15 18:21:40 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/15 19:01:48 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,16 @@ void	lexer(char *str, t_shell *shell, char **env)
 	int		x;
 	int		y;
 
+	if (shell->tokens != NULL)
+	{
+		i = 0;
+		while (shell->tokens[i] != NULL)
+		{
+			free(shell->tokens[i]);
+			i++;
+		}
+		free(shell->tokens);
+	}
 	i = 0;
 	while (str[i])
 	{
