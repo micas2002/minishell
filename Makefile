@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/12/06 11:39:55 by mibernar          #+#    #+#              #
-#    Updated: 2022/12/15 16:12:46 by mibernar         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = minishell
 
 LIBFT_DIRECTORY = ./libft/
@@ -35,46 +23,54 @@ INCLUDES = -I $(HEADERS_DIRECTORY) -I $(LIBFT_HEADERS)
 
 # COLORS
 
-GREEN = \033[0;32m
-RED = \033[0;31m
+GREEN = \033[0;92m
+RED = \033[0;91m
+CYAN = \033[0;96m
+BLUE = \033[0;94m
+YELLOW = \033[0;93m
 RESET = \033[0m
 
-all: $(NAME)
+all: ## Compiles the whole project
+	@make -s $(NAME)
 
 $(NAME): $(LIBFT) $(OBJECTS_DIRECTORY) $(OBJECTS)
-	@echo "\n$(GREEN)Starting compile$(RESET)"
+	@echo "\n\nStarting compile, now have some $(BLUE)colorful $(RED)text $(YELLOW)slayyyy$(RESET)"
 	@$(CC) $(FLAGS) $(INCLUDES) $(OBJECTS) $(LIBRARIES) -o $(NAME)
-	@echo "$(NAME): $(GREEN)object files were created$(RESET)"
-	@echo "$(NAME): $(GREEN)$(NAME) was created$(RESET)"
+	@echo "$(CYAN)$(NAME):$(RESET) $(GREEN)object files$(RESET) were created and have come to free us, $(YELLOW)monkeys$(RESET) united."
+	@echo "$(CYAN)$(NAME):$(RESET) $(GREEN)$(NAME)$(RESET) was created, like $(BLUE)god$(RESET) intended"
 
-$(OBJECTS_DIRECTORY):
+$(OBJECTS_DIRECTORY): ## Creates the objects directory
 	@mkdir -p $(OBJECTS_DIRECTORY)
-	@echo "$(NAME): $(GREEN)$(OBJECTS_DIRECTORY) was created$(RESET)"
+	@echo "$(CYAN)$(NAME): $(GREEN)$(OBJECTS_DIRECTORY) was created$(RESET)"
 
-$(OBJECTS_DIRECTORY)%.o : $(SOURCES_DIRECTORY)%.c $(HEADERS) 
+$(OBJECTS_DIRECTORY)%.o : $(SOURCES_DIRECTORY)%.c $(HEADERS) ## Compiles each '*.c'
 	@$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
 	@echo "$(GREEN).$(RESET)\c"
 
-$(LIBFT):
-	@echo "$(NAME): $(GREEN)Creating $(LIBFT)$(RESET)"
-	@make -sC $(LIBFT_DIRECTORY)
+$(LIBFT): ## Compiles the libft
+	@echo "$(CYAN)$(NAME): $(RESET)Creating $(GREEN)$(LIBFT)$(RESET)"
+	@make -sC $(LIBFT_DIRECTORY) --no-print-directory
 
 
-clean:
-	@make -sC $(LIBFT_DIRECTORY) clean
+clean: ## Cleans all the '*.o' files and deletes the objects directory
 	@rm -rf $(OBJECTS_DIRECTORY)
-	@echo "$(NAME): $(RED)$(OBJECTS_DIRECTORY) was deleted$(RESET)"
-	@echo "$(NAME): $(RED)object files deleted$(RESET)"
+	@echo "$(CYAN)$(NAME): $(RED)$(OBJECTS_DIRECTORY)$(RESET) was deleted, *insert sadge emote*"
+	@echo "$(CYAN)$(NAME): $(RED)object files$(RESET) deleted, it was like Voldemort said *FETUS DELETUS*"
+	@make -sC $(LIBFT_DIRECTORY) clean --no-print-directory
 
-fclean: clean
-	@rm -f $(LIBFT)
-	@make -sC $(LIBFT_DIRECTORY) fclean
-	@echo "$(NAME): $(RED)$(LIBFT) was deleted$(RESET)"
+fclean: clean ## Calls clean and deletes all executables and compiled libs
+	@echo "$(CYAN)$(NAME): $(RED)$(LIBFT) was deleted$(RESET)"
 	@rm -f $(NAME)
-	@echo "$(NAME): $(RED)$(NAME) was deleted$(RESET)"
+	@echo "$(CYAN)$(NAME): $(RED)$(NAME) was deleted$(RESET)"
+	@make -sC $(LIBFT_DIRECTORY) fclean --no-print-directory
 
-re:
-	@make fclean
-	@make all
+re: ## Deep cleans the project and recompiles it
+	@make -s fclean
+	@make -s all
+	
+help: ## Shows all the options and it's uses
+	@echo "usage: make [target]"
+	@echo ""
+	@egrep "^(.+)\:\ .*##\ (.+)" ${MAKEFILE_LIST} | sed 's/:.*##/#/' | column -t -c 2 -s '#'
 
 .PHONY	: re fclean clean all

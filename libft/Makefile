@@ -6,7 +6,7 @@
 #    By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/17 12:27:56 by fialexan          #+#    #+#              #
-#    Updated: 2022/10/28 15:46:45 by fialexan         ###   ########.fr        #
+#    Updated: 2023/02/15 16:13:05 by fialexan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,11 @@ OBJECTS = $(addprefix $(OBJECTS_DIRECTORY), $(OBJECTS_LIST))
 
 # COLORS
 
-GREEN = \033[0;32m
-RED = \033[0;31m
+GREEN = \033[0;92m
+RED = \033[0;91m
+CYAN = \033[0;96m
+BLUE = \033[0;94m
+YELLOW = \033[0;93m
 RESET = \033[0m
 
 # RULES
@@ -52,12 +55,12 @@ all: $(NAME)
 $(NAME): $(OBJECTS_DIRECTORY) $(OBJECTS)
 	@ar rc $(NAME) $(OBJECTS)
 	@ranlib $(NAME)
-	@echo "\n$(NAME): $(GREEN) objects files were created$(RESET)"
-	@echo "$(NAME): $(GREEN)$(NAME) was created$(RESET)"
+	@echo "\n\t$(CYAN)$(NAME): $(GREEN) objects files $(RESET)were created"
+	@echo "\t$(CYAN)$(NAME): $(GREEN)$(NAME)$(RESET) was created"
 	
 $(OBJECTS_DIRECTORY):
 	@mkdir -p $(OBJECTS_DIRECTORY)
-	@echo "$(NAME): $(GREEN)$(OBJECTS_DIRECTORY) was created$(RESET)"
+	@echo "\t$(CYAN)$(NAME): $(GREEN)$(OBJECTS_DIRECTORY) was created$(RESET)"
 	
 $(OBJECTS_DIRECTORY)%.o: $(SOURCES_DIRECTORY)%.c $(HEADERS)
 	@$(CC) $(FLAGS) $(INCLUDES) $< -o $@
@@ -65,12 +68,12 @@ $(OBJECTS_DIRECTORY)%.o: $(SOURCES_DIRECTORY)%.c $(HEADERS)
 
 clean:
 	@rm -rf $(OBJECTS_DIRECTORY)
-	@echo "$(NAME): $(RED)$(OBJECTS_DIRECTORY) was deleted$(RESET)"
-	@echo "$(NAME): $(RED) object files were annihilated$(RESET)"
+	@echo "\t$(CYAN)$(NAME): $(RED)$(OBJECTS_DIRECTORY)$(RESET) was deleted"
+	@echo "\t$(CYAN)$(NAME): $(RED) object files$(RESET) were annihilated"
 
 fclean:
 	@rm -f $(NAME)
-	@echo "$(NAME): $(RED)$(NAME) was erased from the world surface$(RESET)"
+	@echo "\t$(CYAN)$(NAME): $(RED)$(NAME)$(RESET) was erased from the world surface"
 
 re:
 	@make fclean
