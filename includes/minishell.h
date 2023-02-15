@@ -61,6 +61,15 @@ void	handle_signals(int signum);
 //EXECUTE_PROGRAMS.C
 void	execute_program(t_shell *sh, int i, char **env);
 
+/**
+ * @brief Receives all the enviroments variables, searhs for the 'PATH' variable
+ *  and splits and the paths for the executables.
+ * 
+ * @param envp char **
+ * @return char** 
+ */
+char	**get_command_paths(char **envp);
+
 //ENV.C
 void	enviroment(char **env);
 
