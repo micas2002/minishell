@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/15 18:21:20 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/15 19:17:43 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	commands(t_shell *shell, int i, char **env)
 	else if (ft_strcmp(shell->tokens[i], "export") == 1)
 		printf("command foud\n");
 	else if (ft_strcmp(shell->tokens[i], "unset") == 1)
-		printf("command foud\n");
+		unset(shell, i, env);
 	else if (ft_strcmp(shell->tokens[i], "env") == 1)
 		enviroment(env);
 	else if (ft_strcmp(shell->tokens[i], "exit") == 1 && i == 0)

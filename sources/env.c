@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:49:12 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/15 16:54:12 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/15 19:15:06 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	enviroment(char **env)
 	i = 0;
 	while (env[i])
 	{
-		ft_printf("%s\n", env[i]);
+		printf("%s\n", env[i]);
 		i++;
 	}
 }
