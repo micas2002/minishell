@@ -40,9 +40,6 @@ int		other_input(char *str, int i);
 int		operators(char *str, int i);
 int		is_operator(char c);
 
-//FT_STRCMP.C
-int		ft_strcmp(const char *s1, const char *s2);
-
 //ECHO.C
 void	echo(t_sh *sh, int i);
 
