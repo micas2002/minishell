@@ -27,15 +27,15 @@ typedef struct s_sh
 }t_sh;
 
 //MAIN.C
-void	terminal(void);
+void	terminal(char **env);
 
 //INPUT.C
-void	parser(char *str, t_sh *sh);
+void	parser(char *str, t_sh *sh, char **env);
 
 //LEXER.C
-void	lexer(char *str, t_sh *sh);
-int		s_quotes(char *str, int i);
-int		d_quotes(char *str, int i);
+void	lexer(char *str, t_sh *sh, char **env);
+int		s_quotes(char *str, int i, char **env);
+int		d_quotes(char *str, int i, char **env);
 int		other_input(char *str, int i);
 int		operators(char *str, int i);
 int		is_operator(char c);
@@ -56,6 +56,6 @@ void	cd(t_sh *sh, int i);
 void	handle_signals(int signum);
 
 //EXECUTE_PROGRAMS.C
-void	execute_program(t_sh *sh, int i);
+void	execute_program(t_sh *sh, int i, char **env);
 
 #endif

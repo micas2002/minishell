@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/19 13:48:37 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:11:28 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 //Checks if command is valid. If yes, gives paramaters to the respetcitve
 //function and executes the command funciton. If not found, prints a message
-void	commands(t_sh *sh, int i)
+void	commands(t_sh *sh, int i, char **env)
 {
 	if (ft_strcmp(sh->tokens[i], "echo") == 1)
 		echo(sh, i);
@@ -32,18 +32,18 @@ void	commands(t_sh *sh, int i)
 	else if (ft_strcmp(sh->tokens[i], "exit") == 1 && i == 0)
 		exit (0);
 	else if (sh->tokens[i][0] == '.' && sh->tokens[i][1] == '/')
-		execute_program(sh, i);
+		execute_program(sh, i, env);
 	else
 		printf("command not found\n");
 }
 
 //Parser that devides the input into tokens using lexer and then check if the
 //command given is valid or not. If valid, calls command function
-void	parser(char *str, t_sh *sh)
+void	parser(char *str, t_sh *sh, char **env)
 {
 	int	i;
 
-	lexer(str, sh);
+	lexer(str, sh, env);
 	//i = -1;
 	//printf("%d\n", sh->nb_tokens);
 	//while (sh->tokens[++i])
@@ -52,6 +52,6 @@ void	parser(char *str, t_sh *sh)
 	while (sh->tokens[++i])
 	{
 		if (i == 0 || sh->tokens[i - 1][ft_strlen(sh->tokens[i - 1]) - 1] == '|')
-			commands(sh, i);
+			commands(sh, i, env);
 	}
 }

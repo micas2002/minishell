@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2022/12/19 13:57:23 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/15 16:15:12 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	other_input(char *str, int i)
 }
 
 //Saves the double quote token. If the quote is not closed, promts a message
-int	d_quotes(char *str, int i)
+int	d_quotes(char *str, int i, char **env)
 {
 	while (str[++i])
 	{
@@ -54,13 +54,13 @@ int	d_quotes(char *str, int i)
 	if (str[i] == '\0' && str[i - 1] != '\"')
 	{
 		printf("ERROR: unclosed quotes\n");
-		terminal();
+		terminal(env);
 	}
 	return (i);
 }
 
 //Saves the single quote token. If the quote is not closed, promts a message 
-int	s_quotes(char *str, int i)
+int	s_quotes(char *str, int i, char **env)
 {
 	while (str[++i])
 	{
@@ -70,7 +70,7 @@ int	s_quotes(char *str, int i)
 	if (str[i] == '\0' && str[i - 1] != '\'')
 	{
 		printf("ERROR: unclosed quotes\n");
-		terminal();
+		terminal(env);
 	}
 	return (i);
 }
@@ -79,7 +79,7 @@ int	s_quotes(char *str, int i)
 //quotes) and checks if the argument is a sinlge quote, double quote, an
 //operator(for example a pipe), or other kind of input. Creates an array of size
 //equal to the number os tokens and saves each token his own string
-void	lexer(char *str, t_sh *sh)
+void	lexer(char *str, t_sh *sh, char **env)
 {
 	int		i;
 	int		x;
@@ -93,9 +93,9 @@ void	lexer(char *str, t_sh *sh)
 		else
 		{
 			if (str[i] == '\"')
-				i = d_quotes(str, i);
+				i = d_quotes(str, i, env);
 			if (str[i] == '\'')
-				i = s_quotes(str, i);
+				i = s_quotes(str, i, env);
 			if (is_operator(str[i]) == 1)
 				i = operators(str, i);
 			else
@@ -115,9 +115,9 @@ void	lexer(char *str, t_sh *sh)
 		{
 			x = i;
 			if (str[i] == '\"')
-				i = d_quotes(str, i);
+				i = d_quotes(str, i, env);
 			if (str[i] == '\'')
-				i = s_quotes(str, i);
+				i = s_quotes(str, i, env);
 			if (is_operator(str[i]) == 1)
 				i = operators(str, i);
 			else
