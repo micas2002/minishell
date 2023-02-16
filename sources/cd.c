@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:48:53 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/15 18:20:17 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:48:34 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	cd(t_shell *shell, int i)
 		printf("relative or absolute path needed\n");
 		return ;
 	}
-	if (ft_strcmp(shell->tokens[i + 1], "..") == 1)
+	if (ft_strcmp(shell->tokens[i + 1], "..") == 0)
 		chdir("..");
 	else
 	{

@@ -17,7 +17,7 @@ OBJECTS_DIRECTORY = objects/
 OBJECTS = $(addprefix $(OBJECTS_DIRECTORY), $(OBJECTS_LIST))
 
 CC = gcc
-FLAGS = -Wall -Werror -Wextra -g3
+FLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 LIBRARIES = -L$(LIBFT_DIRECTORY) -lft -lreadline
 INCLUDES = -I $(HEADERS_DIRECTORY) -I $(LIBFT_HEADERS)
 
@@ -41,7 +41,7 @@ $(NAME): $(LIBFT) $(OBJECTS_DIRECTORY) $(OBJECTS)
 
 $(OBJECTS_DIRECTORY): ## Creates the objects directory
 	@mkdir -p $(OBJECTS_DIRECTORY)
-	@echo "$(CYAN)$(NAME): $(GREEN)$(OBJECTS_DIRECTORY) was created$(RESET)"
+	@echo "$(CYAN)$(NAME): $(GREEN)$(OBJECTS_DIRECTORY)$(RESET) was created $(YELLOW)WOW $(BLUE)OMG$(RESET) i'm so $(GREEN)talented$(RESET)"
 
 $(OBJECTS_DIRECTORY)%.o : $(SOURCES_DIRECTORY)%.c $(HEADERS) ## Compiles each '*.c'
 	@$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@

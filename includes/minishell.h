@@ -18,6 +18,7 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 # include "./libft.h"
 
 /**
@@ -32,6 +33,10 @@ typedef struct s_shell
 	char	**tokens;
 	char	**env;
 }	t_shell;
+
+extern int		g_exit_value;
+
+// Defines
 
 //MAIN.C
 void	terminal(char **env);
@@ -63,6 +68,43 @@ void	handle_signals(int signum);
 //EXECUTE_PROGRAMS.C
 void	execute_program(t_shell *shell, int i, char **env);
 
+/**
+ * @brief Receives all the enviroments variables, searhs for the 'PATH' variable
+ *  and splits and the paths for the executables.
+ * 
+ * @param envp char **
+ * @return char** 
+ */
+char	**get_command_paths(char **envp);
+
+/**
+ * @brief Get the path for the command given
+ * 
+ * @param paths char **
+ * @param command_name char *
+ * @return char* 
+ */
+char	*get_command(char **paths, char *command_name);
+
+/**
+ * @brief Runs the program with the given args
+ * 
+ * @param shell t_shell * 
+ * @param i int
+ * @param env char **
+ */
+void	run_program(t_shell *shell, int i, char **env);
+
+/**
+ * @brief Get the arguments for the command
+ * 
+ * @param shell 
+ * @param i 
+ * @return char** 
+ */
+char	**get_arguments(t_shell *shell, int i);
+
+void	free_double_array(char **double_array);
 //ENV.C
 void	enviroment(t_shell *shell);
 

@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 13:01:57 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:18:05 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 // into the shell. Signal is handling SIGINT to write a newline and ignores
 // SIGQUIT. Adds the commands to the history using add_history and parses
 // the input using parser
+
+int		g_exit_value;
+
 void	terminal(char **env)
 {
 	char	*str;
@@ -45,5 +48,5 @@ int	main(int argc, char **argv, char **env)
 	(void) argc;
 	(void) argv;
 	terminal(env);
-	return (0);
+	return (g_exit_value);
 }
