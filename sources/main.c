@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 12:13:36 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:35:00 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,18 @@
 void	terminal(char **env)
 {
 	char	*str;
-	t_shell	*shell;
+	t_shell	shell;
 
-	shell = malloc(sizeof(t_shell));
-	shell->tokens = NULL;
+	shell.tokens = NULL;
 	while (1)
 	{
 		signal(SIGINT, handle_signals);
 		signal(SIGQUIT, SIG_IGN);
-		shell->nb_tokens = 0;
+		shell.nb_tokens = 0;
 		str = readline("myshell:$ ");
 		//str = "./minishell aa aaa";
 		add_history(str);
-		parser(str, shell, env);
+		parser(str, &shell, env);
 		free (str);
 	}
 	rl_clear_history();
