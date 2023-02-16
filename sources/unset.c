@@ -6,24 +6,23 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:11:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 13:01:05 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:16:38 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_prev_env(t_shell *shell)
+void	free_double_array(char **double_array)
 {
 	int	i;
 
 	i = 0;
-	while (shell->env[i])
+	while (double_array[i])
 	{
-		printf("here\n");
-		free(shell->env[i]);
+		free(double_array[i]);
 		i++;
 	}
-	free(shell->env);
+	free(double_array);
 }
 
 int	get_env_size(t_shell *shell)
@@ -58,6 +57,7 @@ char	**new_env(t_shell *shell, int i)
 		}
 	}
 	new_env[x] = NULL;
+	//free_double_array(shell->env);
 	return (new_env);
 }
 
