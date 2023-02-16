@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/15 19:01:48 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:13:22 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,13 @@ void	lexer(char *str, t_shell *shell, char **env)
 			shell->nb_tokens++;
 		}
 	}
-	shell->tokens = malloc(sizeof(char *) * shell->nb_tokens + 1);
+	shell->tokens = malloc(sizeof(char *) * (shell->nb_tokens + 1));
 	i = 0;
 	x = 0;
 	y = 0;
 	while (str[i])
 	{
-		if (str[i] == ' ' || str[i] == '	')
+		if (str[i] == ' ' || str[i] == '\t')
 			i++;
 		else
 		{
