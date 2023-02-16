@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 12:13:22 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:10:58 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//Checks if the character is a metachar
 int	is_operator(char c)
 {
 	if (c == '|' || c == '&' || c == ';' || c == '(' || c == ')' || c == '<'
@@ -21,7 +20,6 @@ int	is_operator(char c)
 	return (0);
 }
 
-//Saves the operator token
 int	operators(char *str, int i)
 {
 	while (str[++i])
@@ -32,7 +30,6 @@ int	operators(char *str, int i)
 	return (i);
 }
 
-//Saves the input that isn't any of the other listed
 int	other_input(char *str, int i)
 {
 	while (str[++i])
@@ -43,7 +40,6 @@ int	other_input(char *str, int i)
 	return (i);
 }
 
-//Saves the double quote token. If the quote is not closed, promts a message
 int	d_quotes(char *str, int i, t_shell *shell)
 {
 	while (str[++i])
@@ -59,7 +55,6 @@ int	d_quotes(char *str, int i, t_shell *shell)
 	return (i);
 }
 
-//Saves the single quote token. If the quote is not closed, promts a message 
 int	s_quotes(char *str, int i, t_shell *shell)
 {
 	while (str[++i])
@@ -75,26 +70,13 @@ int	s_quotes(char *str, int i, t_shell *shell)
 	return (i);
 }
 
-//Lexer takes input and devides it into tokens. Skips any spaces(if not between
-//quotes) and checks if the argument is a sinlge quote, double quote, an
-//operator(for example a pipe), or other kind of input. Creates an array of size
-//equal to the number os tokens and saves each token his own string
 void	lexer(char *str, t_shell *shell)
 {
 	int		i;
 	int		x;
 	int		y;
 
-	if (shell->tokens != NULL)
-	{
-		i = 0;
-		while (shell->tokens[i] != NULL)
-		{
-			free(shell->tokens[i]);
-			i++;
-		}
-		free(shell->tokens);
-	}
+	free_tokens(shell);
 	i = 0;
 	while (str[i])
 	{
