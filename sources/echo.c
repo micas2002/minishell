@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:51:10 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/15 18:20:35 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:48:15 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	echo(t_shell *shell, int i)
 	int	x;
 
 	x = i + 1;
-	if (ft_strcmp(shell->tokens[++i], "-n") == 1)
+	if (ft_strcmp(shell->tokens[++i], "-n") == 0)
 		i++;
-	while (shell->tokens[i] && ft_strcmp(shell->tokens[i], "|") == 0)
+	while (shell->tokens[i] && ft_strcmp(shell->tokens[i], "|") != 0)
 		printf("%s", shell->tokens[i++]);
-	if (ft_strcmp(shell->tokens[x], "-n") == 1)
+	if (ft_strcmp(shell->tokens[x], "-n") == 0)
 		return ;
 	printf("\n");
 }

@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/15 18:21:20 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:46:35 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@
 //function and executes the command funciton. If not found, prints a message
 void	commands(t_shell *shell, int i, char **env)
 {
-	if (ft_strcmp(shell->tokens[i], "echo") == 1)
+	if (ft_strcmp(shell->tokens[i], "echo") == 0)
 		echo(shell, i);
-	else if (ft_strcmp(shell->tokens[i], "cd") == 1)
+	else if (ft_strcmp(shell->tokens[i], "cd") == 0)
 		cd(shell, i);
-	else if (ft_strcmp(shell->tokens[i], "pwd") == 1)
+	else if (ft_strcmp(shell->tokens[i], "pwd") == 0)
 		pwd(shell);
-	else if (ft_strcmp(shell->tokens[i], "export") == 1)
+	else if (ft_strcmp(shell->tokens[i], "export") == 0)
 		printf("command foud\n");
-	else if (ft_strcmp(shell->tokens[i], "unset") == 1)
+	else if (ft_strcmp(shell->tokens[i], "unset") == 0)
 		printf("command foud\n");
-	else if (ft_strcmp(shell->tokens[i], "env") == 1)
+	else if (ft_strcmp(shell->tokens[i], "env") == 0)
 		enviroment(env);
-	else if (ft_strcmp(shell->tokens[i], "exit") == 1 && i == 0)
+	else if (ft_strcmp(shell->tokens[i], "exit") == 0 && i == 0)
 		exit (0);
 	else if (shell->tokens[i][0] == '.' && shell->tokens[i][1] == '/')
 		execute_program(shell, i, env);
@@ -44,10 +44,10 @@ void	parser(char *str, t_shell *shell, char **env)
 	int	i;
 
 	lexer(str, shell, env);
-	//i = -1;
-	//printf("%d\n", shell->nb_tokens);
-	//while (shell->tokens[++i])
-	//	printf("token:%s", shell->tokens[i]);
+	// i = -1;
+	// printf("%d\n", shell->nb_tokens);
+	// while (shell->tokens[++i])
+	// 	printf("token:%s", shell->tokens[i]);
 	i = -1;
 	while (shell->tokens[++i])
 	{
