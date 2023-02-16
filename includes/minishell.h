@@ -18,6 +18,7 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 # include "./libft.h"
 
 /**
@@ -31,6 +32,13 @@ typedef struct s_shell
 	int		nb_tokens;
 	char	**tokens;
 }	t_shell;
+
+int		g_exit_value;
+
+// Defines
+
+# define EXIT_FAILURE 10
+# define EXIT_SUCCESS 20
 
 //MAIN.C
 void	terminal(char **env);

@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:58:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/15 19:36:11 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:31:03 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,64 @@
 //input. Gives the arguments to execve function
 void	execute_program(t_shell *shell, int i, char **env)
 {
-	char	**paths;
-	char	*command;
+	int	process;
 
+	process = fork();
+	if (process == 0)
+		run_program(shell, i, env);
+	waitpid(process, &g_exit_value, 0);
+}
+
+void	run_program(t_shell *shell, int i, char **env)
+{
+	char	*command;
+	char	**args;
+
+	command = NULL;
 	if (ft_strncmp("./", shell->tokens[i], 2) == 0)
 	{
 		command = getcwd(command, FILENAME_MAX);
 		command = ft_strjoin(command, "/");
-		command = ft_strjoing(command, shell->tokens[i] + 2);
+		command = ft_strjoin(command, shell->tokens[i] + 2);
 	}
-	else
+	else if (shell->tokens[i][0] != '/')
 	{
+		args = get_command_paths(env);
+		command = get_command(args, shell->tokens[i]);
+		if (command == NULL)
+		{
+			printf("command not found\n");
+			exit(EXIT_FAILURE);
+		}
 	}
+	free_double_array(args);
+	args = get_arguments(shell, i);
+	if (execve(command, args, env) == -1)
+	{
+		printf("could not run command\n");
+		exit(EXIT_FAILURE);
+	}
+	exit(EXIT_SUCCESS);
+}
+
+char	*get_command(char **paths, char *command_name)
+{
+	int		index;
+	char	*temporary;
+	char	*command;
+
+	index = 0;
+	while (paths[index] != NULL)
+	{
+		temporary = ft_strjoin(paths[index], "/");
+		command = ft_strjoin(temporary, command_name);
+		free(temporary);
+		if (access(command, F_OK) == 0)
+			return (command);
+		free(command);
+		index++;
+	}
+	return (NULL);
 }
 
 char	**get_command_paths(char **envp)
@@ -47,4 +93,38 @@ char	**get_command_paths(char **envp)
 		index++;
 	}
 	return (NULL);
+}
+
+char	**get_arguments(t_shell *shell, int i)
+{
+	char	**args;
+	int		iter;
+
+	iter = i;
+	while (shell->tokens[iter] != NULL && is_operator(shell->tokens[iter]))
+		iter++;
+	args = malloc(sizeof(char *) * (iter - i + 1));
+	if (args == NULL)
+		return (NULL);
+	iter = i;
+	while (shell->tokens[iter] != NULL && is_operator(shell->tokens[iter]))
+	{
+		args[iter - i] = ft_strdup(shell->tokens[iter]);
+		iter++;
+	}
+	return (args);
+}
+
+void	free_double_array(char **double_array)
+{
+	int	iter;
+
+	iter = 0;
+	while (double_array[iter] != NULL)
+	{			exit(EXIT_FAILURE);
+
+		free(double_array[iter]);
+		iter++;
+	}
+	free(double_array);
 }
