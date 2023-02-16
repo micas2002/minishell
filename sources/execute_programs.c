@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:58:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 15:20:10 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:14:30 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	run_program(t_shell *shell, int i, char **env)
 {
 	char	*command;
 	char	**args;
+	int		iq;
 
 	command = NULL;
 	if (ft_strncmp("./", shell->tokens[i], 2) == 0)
@@ -52,10 +53,10 @@ void	run_program(t_shell *shell, int i, char **env)
 	}
 	free_double_array(args);
 	args = get_arguments(shell, i);
-	printf("here\n");
 	if (args == NULL)
 		printf("NULL\n");
-	if (execve(command, args, env) == -1)
+	iq = execve(command, args, env);
+	if (iq == -1)
 	{
 		printf("could not run command\n");
 		exit(EXIT_FAILURE);
@@ -108,22 +109,24 @@ char	**get_arguments(t_shell *shell, int i)
 	int		iter;
 
 	iter = i;
-	while (shell->tokens[iter] != NULL && is_operator(shell->tokens[iter][0] != 0))
-		iter++;
+	while (shell->tokens[iter] != NULL)
+	{
+		if (is_operator(shell->tokens[iter][0]) == 0)
+			iter++;
+	}
 	args = malloc(sizeof(char *) * (iter - i + 1));
 	if (args == NULL)
 		return (NULL);
 	iter = i;
-	while (shell->tokens[iter] != NULL && is_operator(shell->tokens[iter][0] != 0))
+	while (shell->tokens[iter] != NULL)
 	{
-		args[iter - i] = ft_strdup(shell->tokens[iter]);
-		iter++;
+		if (is_operator(shell->tokens[iter][0]) == 0)
+		{
+			args[iter - i] = ft_strdup(shell->tokens[iter]);
+			iter++;
+		}
 	}
-	if (args[0] == NULL)
-	{
-		free(args);
-		return (NULL);
-	}
+	args[iter] = NULL;
 	return (args);
 }
 
@@ -134,7 +137,6 @@ void	free_double_array(char **double_array)
 	iter = 0;
 	while (double_array[iter] != NULL)
 	{
-
 		free(double_array[iter]);
 		iter++;
 	}
