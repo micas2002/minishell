@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_programs.c                                 :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/15 15:58:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 14:53:40 by mibernar         ###   ########.fr       */
+/*   Created: 2023/02/16 14:22:41 by mibernar          #+#    #+#             */
+/*   Updated: 2023/02/16 14:32:11 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//Implementation of the search and execute the right executable. Checks the
-//number of arguments given to the executable and allocates an array with that
-//input. Gives the arguments to execve function
-void	execute_program(t_shell *shell, int i, char **env)
+void	export(t_shell *shell, int i)
 {
-	char	**paths;
-	
+	char	**new_env;
+	int		x;
+
+	new_env = malloc(sizeof(char **) * (get_env_size(shell) + 1));
+	x = 0;
+	while (shell->env[x] != NULL)
+	{
+		new_env[x] = malloc(sizeof(char) * ft_strlen(shell->env[x]));
+		new_env[x] = shell->env[x];
+		x++;
+	}
+	new_env[x] = shell->tokens[++i];
+	new_env[++x] = NULL;
+	shell->env = new_env;
+	//free_double_array(shell->env);
 }

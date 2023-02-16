@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 12:52:11 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:55:02 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	commands(t_shell *shell, int i)
 	else if (ft_strcmp(shell->tokens[i], "pwd") == 1)
 		pwd(shell);
 	else if (ft_strcmp(shell->tokens[i], "export") == 1)
-		printf("command foud\n");
+		export(shell, i);
 	else if (ft_strcmp(shell->tokens[i], "unset") == 1)
 		unset(shell, i);
 	else if (ft_strcmp(shell->tokens[i], "env") == 1)
