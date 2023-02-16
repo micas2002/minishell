@@ -104,7 +104,6 @@ void	run_program(t_shell *shell, int i, char **env);
  */
 char	**get_arguments(t_shell *shell, int i);
 
-void	free_double_array(char **double_array);
 //ENV.C
 void	enviroment(t_shell *shell);
 

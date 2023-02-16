@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_programs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:58:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 17:14:30 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:34:41 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,17 +129,4 @@ char	**get_arguments(t_shell *shell, int i)
 	}
 	args[iter] = NULL;
 	return (args);
-}
-
-void	free_double_array(char **double_array)
-{
-	int	iter;
-
-	iter = 0;
-	while (double_array[iter] != NULL)
-	{
-		free(double_array[iter]);
-		iter++;
-	}
-	free(double_array);
 }
