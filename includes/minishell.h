@@ -64,6 +64,7 @@ void	cd(t_shell *shell, int i);
 
 //SIGNALS.C
 void	handle_signals(int signum);
+void	handle_signals_i(int signum);
 
 //EXECUTE_PROGRAMS.C
 void	execute_program(t_shell *shell, int i, char **env);
