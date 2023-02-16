@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 11:46:35 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:27:00 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	commands(t_shell *shell, int i, char **env)
 		enviroment(env);
 	else if (ft_strcmp(shell->tokens[i], "exit") == 0 && i == 0)
 		exit (0);
-	else if (shell->tokens[i][0] == '.' && shell->tokens[i][1] == '/')
-		execute_program(shell, i, env);
+	// else if (shell->tokens[i][0] == '.' && shell->tokens[i][1] == '/')
+	// 	execute_program(shell, i, env);
 	else
-		printf("command not found\n");
+		execute_program(shell, i, env);
 }
 
 //Parser that devides the input into tokens using lexer and then check if the

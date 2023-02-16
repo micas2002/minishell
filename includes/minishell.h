@@ -33,12 +33,9 @@ typedef struct s_shell
 	char	**tokens;
 }	t_shell;
 
-int		g_exit_value;
+extern int		g_exit_value;
 
 // Defines
-
-# define EXIT_FAILURE 10
-# define EXIT_SUCCESS 20
 
 //MAIN.C
 void	terminal(char **env);
@@ -78,6 +75,34 @@ void	execute_program(t_shell *sh, int i, char **env);
  */
 char	**get_command_paths(char **envp);
 
+/**
+ * @brief Get the path for the command given
+ * 
+ * @param paths char **
+ * @param command_name char *
+ * @return char* 
+ */
+char	*get_command(char **paths, char *command_name);
+
+/**
+ * @brief Runs the program with the given args
+ * 
+ * @param shell t_shell * 
+ * @param i int
+ * @param env char **
+ */
+void	run_program(t_shell *shell, int i, char **env);
+
+/**
+ * @brief Get the arguments for the command
+ * 
+ * @param shell 
+ * @param i 
+ * @return char** 
+ */
+char	**get_arguments(t_shell *shell, int i);
+
+void	free_double_array(char **double_array);
 //ENV.C
 void	enviroment(char **env);
 

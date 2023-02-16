@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:58:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 13:31:03 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/16 15:20:10 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@
 void	execute_program(t_shell *shell, int i, char **env)
 {
 	int	process;
+	int	value;
 
 	process = fork();
+	value = 0;
 	if (process == 0)
 		run_program(shell, i, env);
-	waitpid(process, &g_exit_value, 0);
+	waitpid(process, &value, 0);
+	g_exit_value = value;
 }
 
 void	run_program(t_shell *shell, int i, char **env)
@@ -49,11 +52,15 @@ void	run_program(t_shell *shell, int i, char **env)
 	}
 	free_double_array(args);
 	args = get_arguments(shell, i);
+	printf("here\n");
+	if (args == NULL)
+		printf("NULL\n");
 	if (execve(command, args, env) == -1)
 	{
 		printf("could not run command\n");
 		exit(EXIT_FAILURE);
 	}
+	printf("but not here\n");
 	exit(EXIT_SUCCESS);
 }
 
@@ -101,16 +108,21 @@ char	**get_arguments(t_shell *shell, int i)
 	int		iter;
 
 	iter = i;
-	while (shell->tokens[iter] != NULL && is_operator(shell->tokens[iter]))
+	while (shell->tokens[iter] != NULL && is_operator(shell->tokens[iter][0] != 0))
 		iter++;
 	args = malloc(sizeof(char *) * (iter - i + 1));
 	if (args == NULL)
 		return (NULL);
 	iter = i;
-	while (shell->tokens[iter] != NULL && is_operator(shell->tokens[iter]))
+	while (shell->tokens[iter] != NULL && is_operator(shell->tokens[iter][0] != 0))
 	{
 		args[iter - i] = ft_strdup(shell->tokens[iter]);
 		iter++;
+	}
+	if (args[0] == NULL)
+	{
+		free(args);
+		return (NULL);
 	}
 	return (args);
 }
@@ -121,7 +133,7 @@ void	free_double_array(char **double_array)
 
 	iter = 0;
 	while (double_array[iter] != NULL)
-	{			exit(EXIT_FAILURE);
+	{
 
 		free(double_array[iter]);
 		iter++;
