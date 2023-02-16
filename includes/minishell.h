@@ -31,6 +31,7 @@ typedef struct s_shell
 {
 	int		nb_tokens;
 	char	**tokens;
+	char	**env;
 }	t_shell;
 
 extern int		g_exit_value;
@@ -41,30 +42,31 @@ extern int		g_exit_value;
 void	terminal(char **env);
 
 //INPUT.C
-void	parser(char *str, t_shell *sh, char **env);
+void	parser(char *str, t_shell *shell);
 
 //LEXER.C
-void	lexer(char *str, t_shell *sh, char **env);
-int		s_quotes(char *str, int i, char **env);
-int		d_quotes(char *str, int i, char **env);
+void	lexer(char *str, t_shell *shell);
+int		s_quotes(char *str, int i, t_shell *shell);
+int		d_quotes(char *str, int i, t_shell *shell);
 int		other_input(char *str, int i);
+int		operators(char *str, int i);
 int		operators(char *str, int i);
 int		is_operator(char c);
 
 //ECHO.C
-void	echo(t_shell *sh, int i);
+void	echo(t_shell *shell, int i);
 
 //PWD.C
-void	pwd(t_shell *sh);
+void	pwd(t_shell *shell);
 
 //CD.C
-void	cd(t_shell *sh, int i);
+void	cd(t_shell *shell, int i);
 
 //SIGNALS.C
 void	handle_signals(int signum);
 
 //EXECUTE_PROGRAMS.C
-void	execute_program(t_shell *sh, int i, char **env);
+void	execute_program(t_shell *shell, int i, char **env);
 
 /**
  * @brief Receives all the enviroments variables, searhs for the 'PATH' variable
@@ -104,6 +106,15 @@ char	**get_arguments(t_shell *shell, int i);
 
 void	free_double_array(char **double_array);
 //ENV.C
-void	enviroment(char **env);
+void	enviroment(t_shell *shell);
+
+//UNSET.C
+void	unset(t_shell *shell, int i);
+char	**new_env(t_shell *shell, int i);
+int		get_env_size(t_shell *shell);
+void	free_double_array(char **double_array);
+
+//EXPORT.C
+void	export(t_shell *shell, int i);
 
 #endif

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
 /*   Updated: 2023/02/16 14:27:00 by fialexan         ###   ########.fr       */
@@ -15,7 +15,7 @@
 
 //Checks if command is valid. If yes, gives paramaters to the respetcitve
 //function and executes the command funciton. If not found, prints a message
-void	commands(t_shell *shell, int i, char **env)
+void	commands(t_shell *shell, int i)
 {
 	if (ft_strcmp(shell->tokens[i], "echo") == 0)
 		echo(shell, i);
@@ -33,25 +33,25 @@ void	commands(t_shell *shell, int i, char **env)
 		exit (0);
 	// else if (shell->tokens[i][0] == '.' && shell->tokens[i][1] == '/')
 	// 	execute_program(shell, i, env);
+
 	else
 		execute_program(shell, i, env);
 }
 
 //Parser that devides the input into tokens using lexer and then check if the
 //command given is valid or not. If valid, calls command function
-void	parser(char *str, t_shell *shell, char **env)
+void	parser(char *str, t_shell *shell)
 {
 	int	i;
-
-	lexer(str, shell, env);
-	// i = -1;
-	// printf("%d\n", shell->nb_tokens);
-	// while (shell->tokens[++i])
-	// 	printf("token:%s", shell->tokens[i]);
+	lexer(str, shell);
+	//i = -1;
+	//printf("%d\n", shell->nb_tokens);
+	//while (shell->tokens[++i])
+	//	printf("token:%s", shell->tokens[i]);
 	i = -1;
 	while (shell->tokens[++i])
 	{
 		if (i == 0 || shell->tokens[i - 1][ft_strlen(shell->tokens[i - 1]) - 1] == '|')
-			commands(shell, i, env);
+			commands(shell, i);
 	}
 }

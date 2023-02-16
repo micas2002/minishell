@@ -12,14 +12,14 @@
 
 #include "minishell.h"
 
-void	enviroment(char **env)
+void	enviroment(t_shell *shell)
 {
 	int	i;
 
 	i = 0;
-	while (env[i])
+	while (shell->env[i])
 	{
-		printf("%s\n", env[i]);
+		printf("%s\n", shell->env[i]);
 		i++;
 	}
 }

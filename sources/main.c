@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
 /*   Updated: 2023/02/16 15:18:05 by fialexan         ###   ########.fr       */
@@ -27,6 +27,7 @@ void	terminal(char **env)
 	char	*str;
 	t_shell	shell;
 
+	shell.env = env;
 	shell.tokens = NULL;
 	while (1)
 	{
@@ -34,10 +35,10 @@ void	terminal(char **env)
 		signal(SIGQUIT, SIG_IGN);
 		shell.nb_tokens = 0;
 		str = readline("myshell:$ ");
-		//str = "ls";
+		// str = "unset TERM";
 		add_history(str);
-		parser(str, &shell, env);
-		//free (str);
+		parser(str, &shell);
+		free (str);
 	}
 	rl_clear_history();
 }
