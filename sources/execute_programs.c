@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:58:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 17:34:41 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:39:11 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ char	*get_command(char **paths, char *command_name)
 char	**get_command_paths(char **envp)
 {
 	char	**paths;
-
 	int		index;
 
 	index = 0;

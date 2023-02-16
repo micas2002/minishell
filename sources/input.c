@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 17:33:30 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:49:38 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,13 @@ void	commands(t_shell *shell, int i)
 	else if (ft_strcmp(shell->tokens[i], "pwd") == 0)
 		pwd(shell);
 	else if (ft_strcmp(shell->tokens[i], "export") == 0)
-		printf("command foud\n");
+		export(shell, i);
 	else if (ft_strcmp(shell->tokens[i], "unset") == 0)
-		printf("command foud\n");
+		unset(shell, i);
 	else if (ft_strcmp(shell->tokens[i], "env") == 0)
 		enviroment(shell);
 	else if (ft_strcmp(shell->tokens[i], "exit") == 0 && i == 0)
 		exit (0);
-	// else if (shell->tokens[i][0] == '.' && shell->tokens[i][1] == '/')
-	// 	execute_program(shell, i, env);
-
 	else
 		execute_program(shell, i, shell->env);
 }
@@ -43,15 +40,15 @@ void	commands(t_shell *shell, int i)
 void	parser(char *str, t_shell *shell)
 {
 	int	i;
+	int	len;
+
 	lexer(str, shell);
-	//i = -1;
-	//printf("%d\n", shell->nb_tokens);
-	//while (shell->tokens[++i])
-	//	printf("token:%s", shell->tokens[i]);
-	i = -1;
-	while (shell->tokens[++i])
+	i = 0;
+	while (shell->tokens[i])
 	{
-		if (i == 0 || shell->tokens[i - 1][ft_strlen(shell->tokens[i - 1]) - 1] == '|')
+		len = ft_strlen(shell->tokens[i - 1]);
+		if (i == 0 || shell->tokens[i - 1][len - 1] == '|')
 			commands(shell, i);
+		i++;
 	}
 }

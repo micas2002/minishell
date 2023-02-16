@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:22:41 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 14:32:11 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/16 17:49:47 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ void	export(t_shell *shell, int i)
 	new_env[x] = shell->tokens[++i];
 	new_env[++x] = NULL;
 	shell->env = new_env;
-	//free_double_array(shell->env);
+	free_double_array(shell->env);
 }
