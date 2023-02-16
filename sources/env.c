@@ -6,20 +6,20 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:49:12 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/15 16:54:12 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:53:18 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	enviroment(char **env)
+void	enviroment(t_shell *shell)
 {
 	int	i;
 
 	i = 0;
-	while (env[i])
+	while (shell->env[i])
 	{
-		ft_printf("%s\n", env[i]);
+		printf("%s\n", shell->env[i]);
 		i++;
 	}
 }

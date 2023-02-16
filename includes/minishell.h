@@ -64,4 +64,7 @@ void	execute_program(t_shell *sh, int i, char **env);
 //ENV.C
 void	enviroment(char **env);
 
+//UNSET.C
+void	unset(t_shell *shell, int i, char **env);
+
 #endif

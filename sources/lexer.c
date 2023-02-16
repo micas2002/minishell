@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/15 18:21:40 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/16 12:55:28 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	other_input(char *str, int i)
 }
 
 //Saves the double quote token. If the quote is not closed, promts a message
-int	d_quotes(char *str, int i, char **env)
+int	d_quotes(char *str, int i, t_shell *shell)
 {
 	while (str[++i])
 	{
@@ -54,13 +54,13 @@ int	d_quotes(char *str, int i, char **env)
 	if (str[i] == '\0' && str[i - 1] != '\"')
 	{
 		printf("ERROR: unclosed quotes\n");
-		terminal(env);
+		terminal(shell->env);
 	}
 	return (i);
 }
 
 //Saves the single quote token. If the quote is not closed, promts a message 
-int	s_quotes(char *str, int i, char **env)
+int	s_quotes(char *str, int i, t_shell *shell)
 {
 	while (str[++i])
 	{
@@ -70,7 +70,7 @@ int	s_quotes(char *str, int i, char **env)
 	if (str[i] == '\0' && str[i - 1] != '\'')
 	{
 		printf("ERROR: unclosed quotes\n");
-		terminal(env);
+		terminal(shell->env);
 	}
 	return (i);
 }
@@ -79,7 +79,7 @@ int	s_quotes(char *str, int i, char **env)
 //quotes) and checks if the argument is a sinlge quote, double quote, an
 //operator(for example a pipe), or other kind of input. Creates an array of size
 //equal to the number os tokens and saves each token his own string
-void	lexer(char *str, t_shell *shell, char **env)
+void	lexer(char *str, t_shell *shell)
 {
 	int		i;
 	int		x;
@@ -93,9 +93,9 @@ void	lexer(char *str, t_shell *shell, char **env)
 		else
 		{
 			if (str[i] == '\"')
-				i = d_quotes(str, i, env);
+				i = d_quotes(str, i, shell);
 			if (str[i] == '\'')
-				i = s_quotes(str, i, env);
+				i = s_quotes(str, i, shell);
 			if (is_operator(str[i]) == 1)
 				i = operators(str, i);
 			else
@@ -103,7 +103,7 @@ void	lexer(char *str, t_shell *shell, char **env)
 			shell->nb_tokens++;
 		}
 	}
-	shell->tokens = malloc(sizeof(char *) * shell->nb_tokens + 1);
+	shell->tokens = malloc(sizeof(char *) * (shell->nb_tokens + 1));
 	i = 0;
 	x = 0;
 	y = 0;
@@ -115,9 +115,9 @@ void	lexer(char *str, t_shell *shell, char **env)
 		{
 			x = i;
 			if (str[i] == '\"')
-				i = d_quotes(str, i, env);
+				i = d_quotes(str, i, shell);
 			if (str[i] == '\'')
-				i = s_quotes(str, i, env);
+				i = s_quotes(str, i, shell);
 			if (is_operator(str[i]) == 1)
 				i = operators(str, i);
 			else
