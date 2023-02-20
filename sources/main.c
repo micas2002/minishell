@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/17 18:52:55 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/20 13:05:26 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ void	terminal(char **env)
 
 	shell.env = env;
 	shell.tokens = NULL;
-	receive_signal();
+	receive_signal_i();
 	while (1)
 	{
 		shell.nb_tokens = 0;
 		str = readline("myshell:$ ");
 		//str = "unset TERM";
-		receive_signal_i();
+		receive_signal();
 		add_history(str);
 		parser(str, &shell);
 		free (str);
-		receive_signal();
+		receive_signal_i();
 	}
 	rl_clear_history();
 }

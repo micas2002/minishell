@@ -6,13 +6,13 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:42:26 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/17 18:55:43 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/20 13:04:53 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_signals_i(int sig)
+void	handle_signals(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -29,13 +29,13 @@ void	handle_signals_i(int sig)
 	}
 }
 
-void	receive_signal_i(void)
+void	receive_signal(void)
 {
-	signal(SIGQUIT, handle_signals_i);
-	signal(SIGINT, handle_signals_i);
+	signal(SIGQUIT, handle_signals);
+	signal(SIGINT, handle_signals);
 }
 
-void	handle_signals(int sig)
+void	handle_signals_i(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -47,8 +47,8 @@ void	handle_signals(int sig)
 	}
 }
 
-void	receive_signal(void)
+void	receive_signal_i(void)
 {
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, handle_signals);
+	signal(SIGINT, handle_signals_i);
 }

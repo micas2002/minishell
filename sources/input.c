@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 17:49:38 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:46:00 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	parser(char *str, t_shell *shell)
 	i = 0;
 	while (shell->tokens[i])
 	{
-		len = ft_strlen(shell->tokens[i - 1]);
+		if (i != 0)
+			len = ft_strlen(shell->tokens[i - 1]);
 		if (i == 0 || shell->tokens[i - 1][len - 1] == '|')
 			commands(shell, i);
 		i++;
