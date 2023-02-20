@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/20 13:39:53 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:55:36 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,10 @@
 
 int		g_exit_value;
 
-void	terminal(char **env)
+void	terminal(t_shell shell)
 {
 	char	*str;
-	t_shell	shell;
 
-	shell.env = env;
-	shell.tokens = NULL;
 	receive_signal_i();
 	while (1)
 	{
@@ -45,8 +42,12 @@ void	terminal(char **env)
 
 int	main(int argc, char **argv, char **env)
 {
+	t_shell	shell;
+
+	shell.env = env;
+	shell.tokens = NULL;
 	(void) argc;
 	(void) argv;
-	terminal(env);
+	terminal(shell);
 	return (g_exit_value);
 }

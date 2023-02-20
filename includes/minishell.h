@@ -39,7 +39,7 @@ extern int		g_exit_value;
 // Defines
 
 //MAIN.C
-void	terminal(char **env);
+void	terminal(t_shell shell);
 
 //INPUT.C
 void	parser(char *str, t_shell *shell);
