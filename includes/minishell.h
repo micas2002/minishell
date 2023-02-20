@@ -117,7 +117,10 @@ void	pwd(t_shell *shell);
 void	cd(t_shell *shell, int i);
 
 //SIGNALS.C
+void	receive_signal(void);
 void	handle_signals(int signum);
+void	receive_signal_i(void);
+void	handle_signals_i(int signum);
 
 //EXECUTE_PROGRAMS.C
 void	execute_program(t_shell *shell, int i, char **env);

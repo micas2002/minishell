@@ -6,15 +6,49 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 16:42:26 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/15 15:48:58 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/17 18:55:43 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//When signal received is SIGINT, prints a newline
-void	handle_signals(int signum)
+void	handle_signals_i(int sig)
 {
-	(void) signum;
-	printf("\nmyshell:$ ");
+	if (sig == SIGINT)
+	{
+		write(0, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		g_exit_value = 130;
+	}
+	if (sig == SIGQUIT)
+	{
+		write(0, "Quit (core dumped)\n", 20);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+	}
+}
+
+void	receive_signal_i(void)
+{
+	signal(SIGQUIT, handle_signals_i);
+	signal(SIGINT, handle_signals_i);
+}
+
+void	handle_signals(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(0, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		g_exit_value = 130;
+	}
+}
+
+void	receive_signal(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_signals);
 }
