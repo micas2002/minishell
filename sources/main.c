@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/20 13:05:26 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/20 13:39:53 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	terminal(char **env)
 	{
 		shell.nb_tokens = 0;
 		str = readline("myshell:$ ");
-		//str = "unset TERM";
 		receive_signal();
 		add_history(str);
 		parser(str, &shell);

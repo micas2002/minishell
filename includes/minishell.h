@@ -58,6 +58,8 @@ void	parser(char *str, t_shell *shell);
  */
 void	lexer(char *str, t_shell *shell);
 
+//LEXER_UTILS.C
+
 /**
  * @brief Saves the single quote token. If the quote is not closed, 
  * promts a message.

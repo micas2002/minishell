@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:48:53 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 11:48:34 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/20 13:39:30 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 //Implementation of cd command. If there's no arguments after command, prompts
 //a message; if the argument after the command is "..", it returns to previous
