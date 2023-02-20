@@ -1,32 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 14:22:41 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 17:49:47 by fialexan         ###   ########.fr       */
+/*   Created: 2023/02/16 17:53:34 by fialexan          #+#    #+#             */
+/*   Updated: 2023/02/16 18:47:53 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	export(t_shell *shell, int i)
+void	free_tokens(t_shell *shell)
 {
-	char	**new_env;
-	int		x;
+	int	iter;
 
-	new_env = malloc(sizeof(char **) * (get_env_size(shell) + 1));
-	x = 0;
-	while (shell->env[x] != NULL)
+	if (shell->tokens != NULL)
 	{
-		new_env[x] = malloc(sizeof(char) * ft_strlen(shell->env[x]));
-		new_env[x] = shell->env[x];
-		x++;
+		iter = 0;
+		while (shell->tokens[iter] != NULL)
+		{
+			free(shell->tokens[iter]);
+			iter++;
+		}
+		free(shell->tokens);
 	}
-	new_env[x] = shell->tokens[++i];
-	new_env[++x] = NULL;
-	shell->env = new_env;
-	free_double_array(shell->env);
+}
+
+void	free_double_array(char **double_array)
+{
+	int	i;
+
+	i = 0;
+	while (double_array[i])
+	{
+		free(double_array[i]);
+		i++;
+	}
+	free(double_array);
 }

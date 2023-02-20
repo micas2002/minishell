@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:11:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 13:16:38 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:44:59 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_double_array(char **double_array)
-{
-	int	i;
-
-	i = 0;
-	while (double_array[i])
-	{
-		free(double_array[i]);
-		i++;
-	}
-	free(double_array);
-}
 
 int	get_env_size(t_shell *shell)
 {
@@ -57,7 +44,7 @@ char	**new_env(t_shell *shell, int i)
 		}
 	}
 	new_env[x] = NULL;
-	//free_double_array(shell->env);
+	free_double_array(shell->env);
 	return (new_env);
 }
 
@@ -74,12 +61,5 @@ void	unset(t_shell *shell, int i)
 			break ;
 		x++;
 	}
-	// printf("index: %s\n", shell->env[x]);
 	shell->env = new_env(shell, x);
-	// x = 0;
-	// while (shell->env[x])
-	// {
-	// 	printf("%s\n", shell->env[x]);
-	// 	x++;
-	// }
 }

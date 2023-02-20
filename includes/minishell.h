@@ -45,12 +45,66 @@ void	terminal(char **env);
 void	parser(char *str, t_shell *shell);
 
 //LEXER.C
+
+/**
+ * @brief Lexer takes input and devides it into tokens. Skips any spaces
+ * (if not between quotes) and checks if the argument is a sinlge quote, 
+ * double quote, an operator(for example a pipe), or other kind of input.
+ * Creates an array of size equal to the number os tokens and saves each 
+ * token his own string.
+ * 
+ * @param str char *
+ * @param shell t_shell *
+ */
 void	lexer(char *str, t_shell *shell);
+
+/**
+ * @brief Saves the single quote token. If the quote is not closed, 
+ * promts a message.
+ * 
+ * @param str char *
+ * @param i int
+ * @param shell t_shell
+ * @return int - return the number of char between single quotes (included).
+ */
 int		s_quotes(char *str, int i, t_shell *shell);
+
+/**
+ * @brief Saves the double quote token. If the quote is not closed, 
+ *  promts a message.
+ * 
+ * @param str char *
+ * @param i int
+ * @param shell t_shell * 
+ * @return int - return the number of char between double quotes (included).
+ */
 int		d_quotes(char *str, int i, t_shell *shell);
+
+/**
+ * @brief Saves the input that isn't any of the other listed.
+ * 
+ * @param str char *
+ * @param i int
+ * @return int - return the number of chat between the 'i' until it finds a
+ *  space or operator.
+ */
 int		other_input(char *str, int i);
+
+/**
+ * @brief Saves the operator token.
+ * 
+ * @param str char *
+ * @param i int
+ * @return int - return th number of char that are continuos operators.
+ */
 int		operators(char *str, int i);
-int		operators(char *str, int i);
+
+/**
+ * @brief Checks if the character is a metachar
+ * 
+ * @param c charr
+ * @return int - returns 1 if is a metachar(operator) otherwise returns a 0.
+ */
 int		is_operator(char c);
 
 //ECHO.C
@@ -114,9 +168,25 @@ void	enviroment(t_shell *shell);
 void	unset(t_shell *shell, int i);
 char	**new_env(t_shell *shell, int i);
 int		get_env_size(t_shell *shell);
-void	free_double_array(char **double_array);
 
 //EXPORT.C
 void	export(t_shell *shell, int i);
+
+// Free
+
+/**
+ * @brief Frees all the tokens previously allocate for shell.
+ * 
+ * @param shell t_shell *
+ */
+void	free_tokens(t_shell *shell);
+
+/**
+ * @brief Receives a double array, frees all the arrays and them frees
+ * the double array.
+ * 
+ * @param double_array char **
+ */
+void	free_double_array(char **double_array);
 
 #endif
