@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:51:10 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/20 16:27:23 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:20:12 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 
 void	echo(t_shell *shell, int i)
 {
-	int	x;
+	char	*str;
+	int		x;
 
 	x = i + 1;
 	if (ft_strcmp(shell->tokens[++i], "-n") == 0)
@@ -27,12 +28,15 @@ void	echo(t_shell *shell, int i)
 	while (shell->tokens[i] && ft_strcmp(shell->tokens[i], "|") != 0)
 	{
 		if (shell->tokens[i][0] == '\"')
-			printf("%s", ft_strtrim(shell->tokens[i], "\""));
+			str = ft_strtrim(shell->tokens[i], "\"");
 		else
-			printf("%s", ft_strtrim(shell->tokens[i], "\'"));
+			str = ft_strtrim(shell->tokens[i], "\'");
+		printf("%s", str);
 		if (shell->tokens[i + 1] && is_operator(shell->tokens[i + 1][0]) == 0)
 			printf(" ");
 		i++;
+		if (str)
+			free(str);
 	}
 	if (ft_strcmp(shell->tokens[x], "-n") == 0)
 		return ;
