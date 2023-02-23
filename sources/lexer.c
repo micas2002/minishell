@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/20 13:36:46 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/22 15:13:11 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	save_tokens(t_shell *shell, char *str, int x)
 void	lexer(char *str, t_shell *shell)
 {
 	int		i;
-	int		x;
 
 	free_tokens(shell);
 	i = 0;
@@ -66,6 +65,5 @@ void	lexer(char *str, t_shell *shell)
 		}
 	}
 	shell->tokens = malloc(sizeof(char *) * (shell->nb_tokens + 1));
-	x = 0;
-	save_tokens(shell, str, x);
+	save_tokens(shell, str, 0);
 }

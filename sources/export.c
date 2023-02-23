@@ -3,30 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:22:41 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 17:49:47 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/22 16:25:50 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	get_var_size(t_shell *shell, int i)
+{
+	int	len;
+
+	len = 0;
+	while(shell->tokens[i + 1][len] && shell->tokens[i + 1][len] != '=')
+		len++;
+	return (len);
+}
+
 void	export(t_shell *shell, int i)
 {
 	char	**new_env;
+	int		ctrl_if_exist;
 	int		x;
+	int		y;
 
-	new_env = malloc(sizeof(char **) * (get_env_size(shell) + 1));
+	new_env = malloc(sizeof(char *) * (get_env_size(shell->env) + 2));
+	ctrl_if_exist = 0;
 	x = 0;
-	while (shell->env[x] != NULL)
+	y = 0;
+	while (shell->env[y] != NULL)
 	{
-		new_env[x] = malloc(sizeof(char) * ft_strlen(shell->env[x]));
-		new_env[x] = shell->env[x];
+		if (ft_strncmp(shell->tokens[i + 1], shell->env[y], get_var_size(shell ,i) + 1) == 0)
+		{
+			new_env[x] = ft_strdup(shell->tokens[i + 1]);
+			ctrl_if_exist = 1;
+		}
+		else
+			new_env[x] = ft_strdup(shell->env[y]);
+		x++;
+		y++;
+	}
+	if (ctrl_if_exist == 0)
+	{
+		new_env[x] = ft_strdup(shell->tokens[++i]);
 		x++;
 	}
-	new_env[x] = shell->tokens[++i];
-	new_env[++x] = NULL;
-	shell->env = new_env;
+	new_env[x] = NULL;
 	free_double_array(shell->env);
+	shell->env = new_env;
 }

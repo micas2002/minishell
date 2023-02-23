@@ -12,12 +12,12 @@
 
 #include "minishell.h"
 
-int	get_env_size(t_shell *shell)
+int	get_env_size(char **env)
 {
 	int	i;
 
 	i = 0;
-	while (shell->env[i] != NULL)
+	while (env[i] != NULL)
 		i++;
 	return (i);
 }
@@ -28,7 +28,7 @@ char	**new_env(t_shell *shell, int i)
 	int		x;
 	int		y;
 
-	new_env = malloc(sizeof(char **) * (get_env_size(shell)));
+	new_env = malloc(sizeof(char **) * (get_env_size(shell->env)));
 	x = 0;
 	y = 0;
 	while (shell->env[y] != NULL)
@@ -43,7 +43,7 @@ char	**new_env(t_shell *shell, int i)
 		}
 	}
 	new_env[x] = NULL;
-	// free_double_array(shell->env);
+	free_double_array(shell->env);
 	return (new_env);
 }
 

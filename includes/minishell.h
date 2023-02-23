@@ -169,7 +169,7 @@ void	enviroment(t_shell *shell);
 //UNSET.C
 void	unset(t_shell *shell, int i);
 char	**new_env(t_shell *shell, int i);
-int		get_env_size(t_shell *shell);
+int		get_env_size(char **env);
 
 //EXPORT.C
 void	export(t_shell *shell, int i);
