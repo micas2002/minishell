@@ -12,6 +12,23 @@
 
 #include "minishell.h"
 
+int	check_token_chars(t_shell *shell, int i)
+{
+	int	x;
+
+	i += 1;
+	x = 0;
+	if (shell->tokens[i][x] == '=')
+		return (0);
+	while(shell->tokens[i][x] && shell->tokens[i][x] != '=')
+	{
+		if (ft_isalnum(shell->tokens[i][x]) == 0)
+			return (0);
+		x++;
+	}
+	return (1);
+}
+
 int	get_var_size(t_shell *shell, int i)
 {
 	int	len;
@@ -29,6 +46,11 @@ void	export(t_shell *shell, int i)
 	int		x;
 	int		y;
 
+	if (check_token_chars(shell, i) == 0)
+	{
+		printf("export: `%s': not a valid identifier\n", shell->tokens[i + 1]);
+		return ;
+	}
 	new_env = malloc(sizeof(char *) * (get_env_size(shell->env) + 2));
 	ctrl_if_exist = 0;
 	x = 0;
