@@ -30,6 +30,7 @@
 typedef struct s_shell
 {
 	int		nb_tokens;
+	int		delimiters;
 	char	**tokens;
 	char	**env;
 }	t_shell;
@@ -42,7 +43,29 @@ extern int		g_exit_value;
 void	terminal(t_shell shell);
 
 //INPUT.C
+/**
+ * @brief 
+ * 
+ * @param str 
+ * @param shell 
+ */
 void	parser(char *str, t_shell *shell);
+
+/**
+ * @brief
+ * 
+ * @param shell t_shell * 
+ * @param i int
+ */
+void	commands(t_shell *shell, int i);
+
+/**
+ * @brief Checks if the tokens are valid
+ * 
+ * @param shell t_shell * 
+ * @return int 
+ */
+int		check_tokens(t_shell *shell);
 
 //LEXER.C
 

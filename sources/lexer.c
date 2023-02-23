@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/20 13:36:46 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:38:44 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	lexer(char *str, t_shell *shell)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == ' ' || str[i] == '	')
+		if (str[i] == ' ' || str[i] == '\t')
 			i++;
 		else
 		{
