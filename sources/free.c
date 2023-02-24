@@ -33,6 +33,8 @@ void	free_double_array(char **double_array)
 	int	i;
 
 	i = 0;
+	if (double_array == NULL)
+		return ;
 	while (double_array[i])
 	{
 		free(double_array[i]);
