@@ -35,6 +35,7 @@ void	run_program(t_shell *shell, int i, char **env)
 	int		iq;
 
 	command = NULL;
+	args = NULL;
 	if (ft_strncmp("./", shell->tokens[i], 2) == 0)
 	{
 		command = getcwd(command, FILENAME_MAX);
@@ -61,7 +62,6 @@ void	run_program(t_shell *shell, int i, char **env)
 		printf("could not run command\n");
 		exit(EXIT_FAILURE);
 	}
-	printf("but not here\n");
 	exit(EXIT_SUCCESS);
 }
 
