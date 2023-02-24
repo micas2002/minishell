@@ -41,6 +41,8 @@ extern int		g_exit_value;
 
 # define ERR_CMD_N_FOUND 10
 # define ERR_CMD 20
+# define ERR_NO_FILE 30
+# define ERR_NO_PATH 40
 
 //MAIN.C
 void	terminal(t_shell shell);
