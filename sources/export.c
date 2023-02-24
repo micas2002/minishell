@@ -15,7 +15,9 @@
 int	check_token_chars(t_shell *shell, int i)
 {
 	int	x;
+	// int	equal_exist;
 
+	// equal_exist = 0;
 	i += 1;
 	x = 0;
 	if (shell->tokens[i][x] == '=')
@@ -26,6 +28,8 @@ int	check_token_chars(t_shell *shell, int i)
 			return (0);
 		x++;
 	}
+	if (shell->tokens[i][x] == '\0')
+		return (0);
 	return (1);
 }
 
