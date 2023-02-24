@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/22 15:13:11 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/24 12:53:31 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,25 @@ void	save_tokens(t_shell *shell, char *str, int x)
 		else
 		{
 			x = i;
-			if (str[i] == '\"')
-				i = d_quotes(str, i, shell);
-			if (str[i] == '\'')
-				i = s_quotes(str, i, shell);
-			if (is_operator(str[i]) == 1)
-				i = operators(str, i);
+			if (str[i] == '$')
+			{
+				shell->tokens[y] = get_env_var(shell, ft_substr(str, i + 1, ft_strlen(str)));
+				// printf("%s\n", shell->tokens[y]);
+				y++;
+			}
 			else
-				i = other_input(str, i);
-			shell->tokens[y] = ft_substr(str, x, i - x);
-			y++;
+			{
+				if (str[i] == '\"')
+					i = d_quotes(str, i, shell);
+				if (str[i] == '\'')
+					i = s_quotes(str, i, shell);
+				if (is_operator(str[i]) == 1)
+					i = operators(str, i);
+				else
+					i = other_input(str, i);
+				shell->tokens[y] = ft_substr(str, x, i - x);
+				y++;
+			}
 		}
 	}
 	shell->tokens[y] = NULL;

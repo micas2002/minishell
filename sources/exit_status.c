@@ -1,39 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 16:49:12 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/24 12:47:29 by mibernar         ###   ########.fr       */
+/*   Created: 2023/02/24 11:55:27 by mibernar          #+#    #+#             */
+/*   Updated: 2023/02/24 11:59:11 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env_var(t_shell *shell, char *str)
+int exit_status(void)
 {
-	int	x;
-
-	x = 0;
-	while (shell->env[x])
-	{
-		if (ft_strncmp(shell->env[x], str, ft_strlen(str)) == 0)
-			return (ft_substr(shell->env[x], ft_strlen(str) + 1, ft_strlen(shell->env[x])));
-		x++;
-	}
-	return ("");
-}
-
-void	enviroment(t_shell *shell)
-{
-	int	i;
-
-	i = 0;
-	while (shell->env[i])
-	{
-		printf("%s\n", shell->env[i]);
-		i++;
-	}
+    return (g_exit_value);
 }
