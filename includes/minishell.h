@@ -39,6 +39,9 @@ extern int		g_exit_value;
 
 // Defines
 
+# define ERR_CMD_N_FOUND 10
+# define ERR_CMD 20
+
 //MAIN.C
 void	terminal(t_shell shell);
 
@@ -157,7 +160,7 @@ void	execute_program(t_shell *shell, int i, char **env);
  * @param envp char **
  * @return char** 
  */
-char	**get_command_paths(char **envp);
+char	**get_paths(char **envp);
 
 /**
  * @brief Get the path for the command given
@@ -185,6 +188,28 @@ void	run_program(t_shell *shell, int i, char **env);
  * @return char** 
  */
 char	**get_arguments(t_shell *shell, int i);
+
+// EXECUTE_PROGRAMS_UTILS
+
+/**
+ * @brief Gets the absolute path to command name.
+ * 
+ * @param command_name 
+ * @return char* 
+ */
+char	*get_command_path(char *command_name);
+
+// ERROR_HANDLER
+
+/**
+ * @brief Prints the message associated with 'error_type'
+ * and returns the exit_value.
+ * 
+ * @param error_type int 
+ * @param exit_value int
+ * @return int 
+ */
+int		error_handler(int error_type, int exit_value);
 
 //ENV.C
 void	enviroment(t_shell *shell);
