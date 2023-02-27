@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/27 16:01:46 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:41:24 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,16 @@ void	save_tokens(t_shell *shell, char *str, int x)
 		else
 		{
 			x = i;
-			if (str[i] == '$' && (str[i + 1] != '\0' && str[i + 1] != ' ' && str[i + 1] != '\t'))
+			if (str[i] == '$' && (str[i + 1] != '\0'
+					&& str[i + 1] != ' ' && str[i + 1] != '\t'))
 			{
 				a = i;
 				while (str[a] && (str[a] != ' ' && str[a] != '\t'))
 					a++;
-				// printf("%d %d\n", a, i);
 				env_var = ft_substr(str, i + 1, a - i - 1);
-				printf("\nhere: %s\n", env_var);
 				shell->tokens[y] = get_env_var(shell, env_var);
 				i = a;
-				// printf("AFTER: %d\n", i);
-				free(env_var);
+				// free(env_var);
 			}
 			else
 			{
@@ -63,7 +61,8 @@ void	lexer(char *str, t_shell *shell)
 {
 	int		i;
 
-	free_tokens(shell);
+	if (shell)
+		free_tokens(shell);
 	i = 0;
 	while (str[i])
 	{

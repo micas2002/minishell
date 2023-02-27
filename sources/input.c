@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/27 15:56:02 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:06:21 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	parser(char *str, t_shell *shell)
 	{
 		if (i != 0)
 			len = ft_strlen(shell->tokens[i - 1]);
-		// printf("%d\n", len);
 		if (i == 0 || (len > 0 && shell->tokens[i - 1][len - 1] == '|'))
 			commands(shell, i);
 		i++;
