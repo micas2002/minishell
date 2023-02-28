@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/22 16:37:41 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/28 14:34:31 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	dup_env(t_shell *shell, char **env)
 
 	shell->env = malloc(sizeof(char *) *(get_env_size(env) + 1));
 	i = 0;
-	while(env[i])
+	while (env[i])
 	{
 		shell->env[i] = ft_strdup(env[i]);
 		i++;
