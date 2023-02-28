@@ -165,7 +165,7 @@ char	**get_arguments(t_shell *shell, int i);
 
 //ENV.C
 void	enviroment(t_shell *shell);
-char	*get_env_var(t_shell *shell, char *str);
+int		get_env_var(t_shell *shell, char *str, int token_index, int i);
 
 //UNSET.C
 void	unset(t_shell *shell, int i);

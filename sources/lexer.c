@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/28 15:09:09 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:39:38 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ void	save_tokens(t_shell *shell, char *str, int x)
 				while (str[a] && (str[a] != ' ' && str[a] != '\t'))
 					a++;
 				env_var = ft_substr(str, i + 1, a - i - 1);
-				shell->tokens[y] = get_env_var(shell, env_var);
-				i = a;
+				i = get_env_var(shell, env_var, y, i);
 			}
 			else
 			{

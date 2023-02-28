@@ -6,13 +6,25 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:49:12 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/28 15:53:16 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:28:32 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env_var(t_shell *shell, char *str)
+char	*divide_str(char *str)
+{
+	int	x;
+
+	x = 0;
+	while (str[x] && str[x] != '$')
+		x++;
+	if (str[x] == '?')
+		return (ft_substr(str, 0, x - 1));
+	return (ft_substr(str, 0, x));
+}
+
+int	get_env_var(t_shell *shell, char *str, int token_index, int i)
 {
 	char	*tmp;
 	int		exit_val;
@@ -28,7 +40,10 @@ char	*get_env_var(t_shell *shell, char *str)
 			str = ft_substr(str, 1, ft_strlen(str));
 		exit_val = 1;
 	}
+	tmp = divide_str(str);
 	tmp = ft_strjoin(str, "=");
+	printf("here: %s\n", tmp);
+	i += ft_strlen(tmp);
 	while (shell->env[x])
 	{
 		if (ft_strncmp(shell->env[x], tmp, ft_strlen(tmp)) == 0)
@@ -38,13 +53,12 @@ char	*get_env_var(t_shell *shell, char *str)
 			if (exit_val == 1)
 				str = ft_strjoin(ft_itoa(g_exit_value), str);
 			free(tmp);
-			return (str);
+			break ;
 		}
 		x++;
 	}
-	if (exit_val == 1)
-		return (ft_strjoin(ft_itoa(g_exit_value), str));
-	return ("");
+	shell->tokens[token_index] = str;
+	return (i);
 }
 
 void	enviroment(t_shell *shell)
