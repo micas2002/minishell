@@ -165,6 +165,7 @@ char	**get_arguments(t_shell *shell, int i);
 
 //ENV.C
 void	enviroment(t_shell *shell);
+char	*get_env_var(t_shell *shell, char *str);
 
 //UNSET.C
 void	unset(t_shell *shell, int i);
@@ -190,5 +191,12 @@ void	free_tokens(t_shell *shell);
  * @param double_array char **
  */
 void	free_double_array(char **double_array);
+
+//EXIT_STATUS.C
+/**
+ * @brief Returns the exit status of the last executed command
+ * 
+ */
+int	exit_status(void);
 
 #endif

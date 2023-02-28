@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/22 16:01:13 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:06:21 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	commands(t_shell *shell, int i)
 		enviroment(shell);
 	else if (ft_strcmp(shell->tokens[i], "exit") == 0 && i == 0)
 		exit (0);
+	else if (ft_strcmp(shell->tokens[i], "$?") == 0 && i != 0)
+		exit_status();
 	else
 		execute_program(shell, i, shell->env);
 }
@@ -43,12 +45,16 @@ void	parser(char *str, t_shell *shell)
 	int	len;
 
 	lexer(str, shell);
+	// i = -1;
+	// printf("%d\n", shell->nb_tokens);
+	// while (shell->tokens[++i])
+	// 	printf("token:%s\n", shell->tokens[i]);
 	i = 0;
 	while (shell->tokens[i])
 	{
 		if (i != 0)
 			len = ft_strlen(shell->tokens[i - 1]);
-		if (i == 0 || shell->tokens[i - 1][len - 1] == '|')
+		if (i == 0 || (len > 0 && shell->tokens[i - 1][len - 1] == '|'))
 			commands(shell, i);
 		i++;
 	}
