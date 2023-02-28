@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:58:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 17:39:11 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:06:19 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,16 @@ void	run_program(t_shell *shell, int i, char **env)
 	char	**args;
 	int		iq;
 
+	args = NULL;
 	command = NULL;
 	if (ft_strncmp("./", shell->tokens[i], 2) == 0)
-	{
-		command = getcwd(command, FILENAME_MAX);
-		command = ft_strjoin(command, "/");
-		command = ft_strjoin(command, shell->tokens[i] + 2);
-	}
+		command = get_command_path(shell->tokens[i] + 2);
 	else if (shell->tokens[i][0] != '/')
 	{
-		args = get_command_paths(env);
+		args = get_paths(env);
 		command = get_command(args, shell->tokens[i]);
 		if (command == NULL)
-		{
-			printf("command not found\n");
-			exit(EXIT_FAILURE);
-		}
+			exit(error_handler(ERR_CMD_N_FOUND, EXIT_FAILURE));
 	}
 	free_double_array(args);
 	args = get_arguments(shell, i);
@@ -57,11 +51,7 @@ void	run_program(t_shell *shell, int i, char **env)
 		printf("NULL\n");
 	iq = execve(command, args, env);
 	if (iq == -1)
-	{
-		printf("could not run command\n");
-		exit(EXIT_FAILURE);
-	}
-	printf("but not here\n");
+		exit(error_handler(ERR_CMD, EXIT_FAILURE));
 	exit(EXIT_SUCCESS);
 }
 
@@ -85,7 +75,7 @@ char	*get_command(char **paths, char *command_name)
 	return (NULL);
 }
 
-char	**get_command_paths(char **envp)
+char	**get_paths(char **envp)
 {
 	char	**paths;
 	int		index;

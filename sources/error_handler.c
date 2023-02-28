@@ -1,42 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 17:53:34 by fialexan          #+#    #+#             */
-/*   Updated: 2023/02/24 11:28:30 by fialexan         ###   ########.fr       */
+/*   Created: 2023/02/24 12:16:25 by fialexan          #+#    #+#             */
+/*   Updated: 2023/02/28 15:57:04 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_tokens(t_shell *shell)
+int	error_handler(int error_type, int exit_value)
 {
-	int	iter;
-
-	if (shell->tokens != NULL)
-	{
-		iter = 0;
-		while (shell->tokens[iter] != NULL)
-		{
-			free(shell->tokens[iter]);
-			iter++;
-		}
-		free(shell->tokens);
-	}
-}
-
-void	free_double_array(char **double_array)
-{
-	int	i;
-
-	i = 0;
-	while (double_array[i])
-	{
-		free(double_array[i]);
-		i++;
-	}
-	free(double_array);
+	if (error_type == ERR_CMD_N_FOUND)
+		printf("command not found\n");
+	else if (error_type == ERR_CMD)
+		printf("could not run command\n");
+	else if (error_type == ERR_NO_FILE)
+		printf("no such file or directory\n");
+	else if (error_type == ERR_NO_PATH)
+		printf("relative or absolute path needed\n");
+	return (exit_value);
 }

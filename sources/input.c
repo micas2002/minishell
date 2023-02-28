@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/20 13:42:12 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:07:17 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,37 @@ void	parser(char *str, t_shell *shell)
 			commands(shell, i);
 		i++;
 	}
+}
+
+int	check_tokens(t_shell *shell)
+{
+	int	iterator;
+
+	iterator = 0;
+	while (shell->tokens[iterator] != NULL)
+	{
+		if (operators(shell->tokens[iterator], -1) > 2)
+		{
+			printf("invalid token: '%s'\n", shell->tokens[iterator]);
+			return (0);
+		}
+		iterator++;
+	}
+	return (1);
+}
+
+int	redirection_found(t_shell *shell)
+{
+	int		iterator;
+	char	*str;
+
+	iterator = 0;
+	while (shell->tokens[iterator] != NULL)
+	{
+		str = shell->tokens[iterator];
+		if (str[0] == '<' || str[0] == '>')
+			return (1);
+		iterator += 1;
+	}
+	return (0);
 }
