@@ -36,6 +36,7 @@ void	run_program(t_shell *shell, int i, char **env)
 
 	args = NULL;
 	command = NULL;
+	args = NULL;
 	if (ft_strncmp("./", shell->tokens[i], 2) == 0)
 		command = get_command_path(shell->tokens[i] + 2);
 	else if (shell->tokens[i][0] != '/')

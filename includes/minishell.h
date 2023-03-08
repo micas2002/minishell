@@ -181,11 +181,12 @@ char	*get_command_path(char *command);
 
 //ENV.C
 void	enviroment(t_shell *shell);
+char	*get_env_var(t_shell *shell, char *str);
 
 //UNSET.C
 void	unset(t_shell *shell, int i);
 char	**new_env(t_shell *shell, int i);
-int		get_env_size(t_shell *shell);
+int		get_env_size(char **env);
 
 //EXPORT.C
 void	export(t_shell *shell, int i);
@@ -217,5 +218,11 @@ void	free_double_array(char **double_array);
  * @return int 
  */
 int		error_handler(int error_type, int exit_value);
+//EXIT_STATUS.C
+/**
+ * @brief Returns the exit status of the last executed command
+ * 
+ */
+int	exit_status(void);
 
 #endif

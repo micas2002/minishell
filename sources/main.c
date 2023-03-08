@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/20 15:55:36 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/22 16:37:41 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@
 // the input using parser
 
 int		g_exit_value;
+
+void	dup_env(t_shell *shell, char **env)
+{
+	int	i;
+
+	shell->env = malloc(sizeof(char *) *(get_env_size(env) + 1));
+	i = 0;
+	while(env[i])
+	{
+		shell->env[i] = ft_strdup(env[i]);
+		i++;
+	}
+	shell->env[i] = NULL;
+}
 
 void	terminal(t_shell shell)
 {
@@ -44,7 +58,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
 
-	shell.env = env;
+	dup_env(&shell, env);
 	shell.tokens = NULL;
 	(void) argc;
 	(void) argv;

@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:51:10 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/21 17:20:12 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:12:50 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void	echo(t_shell *shell, int i)
 	char	*str;
 	int		x;
 
+	if (!shell->tokens[i + 1])
+	{
+		printf("\n");
+		return ;
+	}
 	x = i + 1;
 	if (ft_strcmp(shell->tokens[++i], "-n") == 0)
 		i++;
