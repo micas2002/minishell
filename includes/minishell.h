@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <fcntl.h>
 # include <unistd.h>
 # include <signal.h>
 # include <readline/readline.h>
@@ -37,6 +38,11 @@ typedef struct s_shell
 extern int		g_exit_value;
 
 // Defines
+
+# define ERR_CMD_N_FOUND 10
+# define ERR_CMD 20
+# define ERR_NO_FILE 30
+# define ERR_NO_PATH 40
 
 //MAIN.C
 void	terminal(t_shell shell);
@@ -134,7 +140,7 @@ void	execute_program(t_shell *shell, int i, char **env);
  * @param envp char **
  * @return char** 
  */
-char	**get_command_paths(char **envp);
+char	**get_paths(char **envp);
 
 /**
  * @brief Get the path for the command given
@@ -162,6 +168,16 @@ void	run_program(t_shell *shell, int i, char **env);
  * @return char** 
  */
 char	**get_arguments(t_shell *shell, int i);
+
+// EXECUTE_PROGRAM_UTILS
+
+/**
+ * @brief Get the absolute path for the command
+ * 
+ * @param command char *
+ * @return char* 
+ */
+char	*get_command_path(char *command);
 
 //ENV.C
 void	enviroment(t_shell *shell);
@@ -192,6 +208,16 @@ void	free_tokens(t_shell *shell);
  */
 void	free_double_array(char **double_array);
 
+// ERROR_HANDLER
+
+/**
+ * @brief 
+ * 
+ * @param error_type int 
+ * @param exit_value int
+ * @return int 
+ */
+int		error_handler(int error_type, int exit_value);
 //EXIT_STATUS.C
 /**
  * @brief Returns the exit status of the last executed command
