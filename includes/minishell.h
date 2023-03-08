@@ -22,19 +22,6 @@
 # include <sys/wait.h>
 # include "./libft.h"
 
-/**
- * @brief 
- * 
- * @param nb_tokens int
- * @param tokens char **
- */
-typedef struct s_shell
-{
-	int		nb_tokens;
-	char	**tokens;
-	char	**env;
-}	t_shell;
-
 extern int		g_exit_value;
 
 // Defines
@@ -43,6 +30,24 @@ extern int		g_exit_value;
 # define ERR_CMD 20
 # define ERR_NO_FILE 30
 # define ERR_NO_PATH 40
+
+// Structs
+
+typedef struct s_token
+{
+	char	*program_name;
+	char	**arguments;
+	int		num_redirections;
+	char	**redirections;
+	int		num_files;
+	char	**files;
+}	t_token;
+
+typedef struct s_shell
+{
+	t_token	*tokens;	
+	char	**env;
+}	t_shell;
 
 //MAIN.C
 void	terminal(t_shell shell);
@@ -72,10 +77,9 @@ void	lexer(char *str, t_shell *shell);
  * 
  * @param str char *
  * @param i int
- * @param shell t_shell
  * @return int - return the number of char between single quotes (included).
  */
-int		s_quotes(char *str, int i, t_shell *shell);
+int		s_quotes(char *str, int i);
 
 /**
  * @brief Saves the double quote token. If the quote is not closed, 
@@ -83,10 +87,9 @@ int		s_quotes(char *str, int i, t_shell *shell);
  * 
  * @param str char *
  * @param i int
- * @param shell t_shell * 
  * @return int - return the number of char between double quotes (included).
  */
-int		d_quotes(char *str, int i, t_shell *shell);
+int		d_quotes(char *str, int i);
 
 /**
  * @brief Saves the input that isn't any of the other listed.
@@ -223,6 +226,6 @@ int		error_handler(int error_type, int exit_value);
  * @brief Returns the exit status of the last executed command
  * 
  */
-int	exit_status(void);
+int		exit_status(void);
 
 #endif

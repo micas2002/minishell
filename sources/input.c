@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/28 17:07:17 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:25:48 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,56 +39,128 @@ void	commands(t_shell *shell, int i)
 
 //Parser that devides the input into tokens using lexer and then check if the
 //command given is valid or not. If valid, calls command function
-void	parser(char *str, t_shell *shell)
-{
-	int	i;
-	int	len;
 
-	lexer(str, shell);
-	// i = -1;
-	// printf("%d\n", shell->nb_tokens);
-	// while (shell->tokens[++i])
-	// 	printf("token:%s\n", shell->tokens[i]);
-	i = 0;
-	while (shell->tokens[i])
+void	parser(char *input, t_shell *shell)
+{
+	char	**tokens;
+	
+	tokens = divide_in_tokens(input);
+	shell->tokens = divide_tokens(tokens);
+}
+
+char	**divide_in_tokens(char *input)
+{
+	return ft_split(input, '|');
+}
+
+t_token	create_token(char *str)
+{
+	int	redir_count;
+	int	iter;
+	
+	redir_count = 0;
+	iter = 0;
+	while (str[iter])
 	{
-		if (i != 0)
-			len = ft_strlen(shell->tokens[i - 1]);
-		if (i == 0 || (len > 0 && shell->tokens[i - 1][len - 1] == '|'))
-			commands(shell, i);
-		i++;
+		
 	}
 }
 
-int	check_tokens(t_shell *shell)
+t_token	*divide_tokens(char **array)
 {
-	int	iterator;
+	int		iter;
+	t_token	*tokens;
 
-	iterator = 0;
-	while (shell->tokens[iterator] != NULL)
+	iter = 0;
+	while (array[iter] != NULL)
+		iter++;
+	tokens = malloc(sizeof(t_token) * (iter + 1));
+	iter = 0;
+	while (array[iter] != NULL)
 	{
-		if (operators(shell->tokens[iterator], -1) > 2)
-		{
-			printf("invalid token: '%s'\n", shell->tokens[iterator]);
-			return (0);
-		}
-		iterator++;
+		tokens[iter] = create_token(array[iter]);
+		iter++;
 	}
-	return (1);
 }
 
-int	redirection_found(t_shell *shell)
-{
-	int		iterator;
-	char	*str;
 
-	iterator = 0;
-	while (shell->tokens[iterator] != NULL)
+char *my_strtok(char *str, char *delim)
+{
+    static char *backup_str; // start of the next search
+    int				quotes;
+    char		*ret_str;
+    
+    if(str == NULL)
+        str = backup_str;
+    if(str == NULL)
+        return NULL;
+    while (*str == ' ' && *str != '\0')
+	str++;
+	
+	
+
+//     while(1)
+//     {
+//         if(is_delim(*srcString, delim))
+//         {
+//             srcString++;
+//             continue;
+//         }
+//         if(*srcString == '\0')
+//         {
+//             // we've reached the end of the string
+//             return NULL; 
+//         }
+//         break;
+//     }
+    ret_str = str;
+    
+    while (*str != '\0')
+    {
+	if (*str == ' ' && quotes == 0)
 	{
-		str = shell->tokens[iterator];
-		if (str[0] == '<' || str[0] == '>')
-			return (1);
-		iterator += 1;
+		
 	}
-	return (0);
+    }
+    while(1)
+    {
+        if(*srcString == '\0')
+        {
+            /*end of the input string and
+            next exec will return NULL*/
+            backup_string = srcString;
+            return ret;
+        }
+        if(is_delim(*srcString, delim))
+        {
+            *srcString = '\0';
+            backup_string = srcString + 1;
+            return ret;
+        }
+        srcString++;
+    }
 }
+
+
+coco "ola e adeus          amigos"adeus avos
+
+coco
+"ola e adeus          amigos"
+adeus
+avos
+
+coco
+"ola
+e
+adeus
+amigos"adeus
+avos
+
+
+char **
+coco 
+"ola e adeus amigos
+
+
+ft_strjoin(ola, ' ')
+ftstrjoin(ola , e)
