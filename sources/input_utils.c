@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/13 19:16:37 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/13 19:40:33 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ char	**minishell_split(char const *s, char c, int i)
 		return (NULL);
 	x = 0;
 	begin = 0;
+	i = 0;
+	x = 0;
 	while (s[i] != '\0')
 	{
 		if (s[i] == '\'')
