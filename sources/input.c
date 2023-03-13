@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/08 19:25:48 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/13 16:16:012 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@
 //function and executes the command funciton. If not found, prints a message
 void	commands(t_shell *shell, int i)
 {
-	if (ft_strcmp(shell->tokens[i], "echo") == 0)
+	if (ft_strcmp(shell->tokens[i]->program_name, "echo") == 0)
 		echo(shell, i);
-	else if (ft_strcmp(shell->tokens[i], "cd") == 0)
+	else if (ft_strcmp(shell->tokens[i]->program_name, "cd") == 0)
 		cd(shell, i);
-	else if (ft_strcmp(shell->tokens[i], "pwd") == 0)
+	else if (ft_strcmp(shell->tokens[i]->program_name, "pwd") == 0)
 		pwd(shell);
-	else if (ft_strcmp(shell->tokens[i], "export") == 0)
+	else if (ft_strcmp(shell->tokens[i]->program_name, "export") == 0)
 		export(shell, i);
-	else if (ft_strcmp(shell->tokens[i], "unset") == 0)
+	else if (ft_strcmp(shell->tokens[i]->program_name, "unset") == 0)
 		unset(shell, i);
-	else if (ft_strcmp(shell->tokens[i], "env") == 0)
+	else if (ft_strcmp(shell->tokens[i]->program_name, "env") == 0)
 		enviroment(shell);
-	else if (ft_strcmp(shell->tokens[i], "exit") == 0 && i == 0)
+	else if (ft_strcmp(shell->tokens[i]->program_name, "exit") == 0 && i == 0)
 		exit (0);
-	else if (ft_strcmp(shell->tokens[i], "$?") == 0 && i != 0)
+	else if (ft_strcmp(shell->tokens[i]->program_name, "$?") == 0 && i != 0)
 		exit_status();
 	else
 		execute_program(shell, i, shell->env);
@@ -40,36 +40,83 @@ void	commands(t_shell *shell, int i)
 //Parser that devides the input into tokens using lexer and then check if the
 //command given is valid or not. If valid, calls command function
 
-void	parser(char *input, t_shell *shell)
+int	parser(char *input, t_shell *shell)
 {
-	char	**tokens;
-	
-	tokens = divide_in_tokens(input);
-	shell->tokens = divide_tokens(tokens);
+	char	**commands;
+
+	if (quote_checker(input) == 0)
+		return (error_handler(ERR_UNCLOSED_QUOTES, 1));
+	commands = ft_split(input, '|');
+	shell->tokens = divide_tokens(&commands);
+	return (0);
 }
 
-char	**divide_in_tokens(char *input)
+t_token	*create_token(char **str)
 {
-	return ft_split(input, '|');
-}
+	t_token	*token;
+	int		iter;
+	int		command;
 
-t_token	create_token(char *str)
-{
-	int	redir_count;
-	int	iter;
-	
-	redir_count = 0;
+	token = get_redirection(str, 0, -1);
 	iter = 0;
-	while (str[iter])
+	command = 0;
+	while (str[iter] != NULL)
+		iter++;
+	token->arguments = malloc(sizeof(char *)
+			* (iter - (token->num_files * 2) + 1));
+	iter = 0;
+	while (str[iter] != NULL)
 	{
-		
+		if (is_redir(str[iter]) == 1 && str[iter + 1] != NULL)
+			iter += 2;
+		else if (is_redir(str[iter]) == 1 && str[iter + 1] == NULL)
+			return (NULL);
+		else
+		{
+			if (command == 0)
+				token->program_name = ft_strdup(str[iter]);
+			token->arguments[command] = ft_strdup(str[iter]);
+			command++;
+			iter++;
+		}
 	}
+	return (token);
 }
 
-t_token	*divide_tokens(char **array)
+t_token	*get_redirection(char **str, int count, int iter)
+{
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	while (str[++iter] != NULL)
+	{
+		if (is_redir(str[iter]) == 1)
+			count++;
+	}
+	token->redirections = malloc(sizeof(char *) * (count + 1));
+	token->files = malloc(sizeof(char *) * (count + 1));
+	token->num_redirections = count;
+	token->num_files = count;
+	count = 0;
+	iter = -1;
+	while (str[++iter] != NULL)
+	{
+		if (is_redir(str[iter]) == 1)
+		{
+			token->redirections[count] = str[iter];
+			token->files[count] = str[iter + 1];
+			count++;
+		}
+	}
+	token->redirections[count] = NULL;
+	token->files[count] = NULL;
+	return (token);
+}
+
+t_token	**divide_tokens(char ***array)
 {
 	int		iter;
-	t_token	*tokens;
+	t_token	**tokens;
 
 	iter = 0;
 	while (array[iter] != NULL)
@@ -81,86 +128,6 @@ t_token	*divide_tokens(char **array)
 		tokens[iter] = create_token(array[iter]);
 		iter++;
 	}
+	tokens[iter] = NULL;
+	return (tokens);
 }
-
-
-char *my_strtok(char *str, char *delim)
-{
-    static char *backup_str; // start of the next search
-    int				quotes;
-    char		*ret_str;
-    
-    if(str == NULL)
-        str = backup_str;
-    if(str == NULL)
-        return NULL;
-    while (*str == ' ' && *str != '\0')
-	str++;
-	
-	
-
-//     while(1)
-//     {
-//         if(is_delim(*srcString, delim))
-//         {
-//             srcString++;
-//             continue;
-//         }
-//         if(*srcString == '\0')
-//         {
-//             // we've reached the end of the string
-//             return NULL; 
-//         }
-//         break;
-//     }
-    ret_str = str;
-    
-    while (*str != '\0')
-    {
-	if (*str == ' ' && quotes == 0)
-	{
-		
-	}
-    }
-    while(1)
-    {
-        if(*srcString == '\0')
-        {
-            /*end of the input string and
-            next exec will return NULL*/
-            backup_string = srcString;
-            return ret;
-        }
-        if(is_delim(*srcString, delim))
-        {
-            *srcString = '\0';
-            backup_string = srcString + 1;
-            return ret;
-        }
-        srcString++;
-    }
-}
-
-
-coco "ola e adeus          amigos"adeus avos
-
-coco
-"ola e adeus          amigos"
-adeus
-avos
-
-coco
-"ola
-e
-adeus
-amigos"adeus
-avos
-
-
-char **
-coco 
-"ola e adeus amigos
-
-
-ft_strjoin(ola, ' ')
-ftstrjoin(ola , e)

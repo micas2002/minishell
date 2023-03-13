@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/22 16:37:41 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/13 18:13 18:22:38 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	terminal(t_shell shell)
 	receive_signal_i();
 	while (1)
 	{
-		shell.nb_tokens = 0;
+		shell.num_tokens = 0;
 		str = readline("myshell:$ ");
 		receive_signal();
 		add_history(str);

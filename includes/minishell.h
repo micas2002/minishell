@@ -30,6 +30,7 @@ extern int		g_exit_value;
 # define ERR_CMD 20
 # define ERR_NO_FILE 30
 # define ERR_NO_PATH 40
+# define ERR_UNCLOSED_QUOTES 50
 
 // Structs
 
@@ -45,7 +46,8 @@ typedef struct s_token
 
 typedef struct s_shell
 {
-	t_token	*tokens;	
+	t_token	**tokens;
+	int		num_tokens;
 	char	**env;
 }	t_shell;
 
@@ -53,7 +55,18 @@ typedef struct s_shell
 void	terminal(t_shell shell);
 
 //INPUT.C
-void	parser(char *str, t_shell *shell);
+void	commands(t_shell *shell, int i);
+int		parser(char *str, t_shell *shell);
+t_token	*create_token(char **str);
+t_token	*get_redirection(char **str, int count, int iter);
+t_token	**divide_tokens(char ***array);
+
+//INPUT_UTILS.C
+int		quote_checker(char *str);
+int		quote_handler(char *str, int i, char c);
+int		get_array_size(char *s, char c);
+char	**minishell_split(char const *s, char c, int i);
+int		is_redir(char *str);
 
 //LEXER.C
 
