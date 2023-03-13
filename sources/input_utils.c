@@ -40,25 +40,15 @@ static int	get_array_size(char *s, char c)
 	return (size);
 }
 
-char	**minishell_split(char const *s, char c)
+char	**minishell_split_loop(char const *s, char c, char **str)
 {
-	int		array_size;
-	char	**str;
-	int		x;
-	int		i;
-	int		begin;
+	int	begin;
+	int	x;
+	int	i;
 
-	if (!s)
-		return (NULL);
-	array_size = get_array_size((char *)s, c);
-	if (array_size == -1)
-		return (NULL);
-	str = (char **)malloc(sizeof(char *) * (array_size + 1));
-	if (!str)
-		return (NULL);
-	x = 0;
-	i = 0;
 	begin = 0;
+	i = 0;
+	x = 0;
 	while (s[i] != '\0')
 	{
 		if (s[i] == '\'')
@@ -68,39 +58,30 @@ char	**minishell_split(char const *s, char c)
 		if (s[i] == ' ')
 		{
 			str[x] = ft_substr((char *)s, begin, i - begin);
-			printf("%s\n", str[x]);
-			i++;
-			begin = i;
+			begin = ++i;
 			x++;
 		}
 		else
 			i++;
 	}
 	str[x] = ft_substr((char *)s, begin, i - begin);
-	printf("%s\n", str[x]);
 	str[++x] = NULL;
 	return (str);
 }
 
-int	main()
+char	**minishell_split(char const *s, char c, int i, int x)
 {
-	char	str[] = "Ola amigos 'ja estamos'aqui chegou";
-	char	**array;
-	int		i = 0;
+	int		array_size;
+	char	**str;
 
-	printf("og:\n%s\nnew:\n", str);
-	array = minishell_split(str, ' ');
-	// while (array[i] != NULL)
-	// {
-	// 	printf("%s\n", array[i]);
-	// 	i++;
-	// }
-	i = 0;
-	while (array[i] != NULL)
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-	return (0);
+	if (!s)
+		return (NULL);
+	array_size = get_array_size((char *)s, c);
+	if (array_size == -1)
+		return (NULL);
+	str = (char **)malloc(sizeof(char *) * (array_size + 1));
+	if (!str)
+		return (NULL);
+	str = minishell_split_loop(s, c, str);
+	return (str);
 }
