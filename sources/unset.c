@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:11:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/22 16:20:40 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:08:55 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ char	**new_env(t_shell *shell, int i)
 	return (new_env);
 }
 
-void	unset(t_shell *shell, int i)
+void	unset(t_shell *shell, int i, int y)
 {
 	char	*env_var;
 	int		x;
 
-	env_var = ft_strjoin(shell->tokens[i + 1], "=");
+	env_var = ft_strjoin(shell->tokens[i]->arguments[y], "=");
 	x = 0;
 	while (shell->env[x] != NULL)
 	{

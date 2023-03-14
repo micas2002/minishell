@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/13 19:40:45 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/14 16:19:14 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@
 void	commands(t_shell *shell, int i)
 {
 	if (ft_strcmp(shell->tokens[i]->program_name, "echo") == 0)
-		echo(shell, i);
+		echo(shell, i, 0);
 	else if (ft_strcmp(shell->tokens[i]->program_name, "cd") == 0)
-		cd(shell, i);
+		cd(shell, i, 0);
 	else if (ft_strcmp(shell->tokens[i]->program_name, "pwd") == 0)
 		pwd(shell);
 	else if (ft_strcmp(shell->tokens[i]->program_name, "export") == 0)
-		export(shell, i);
+		export(shell, i, 0);
 	else if (ft_strcmp(shell->tokens[i]->program_name, "unset") == 0)
-		unset(shell, i);
+		unset(shell, i, 0);
 	else if (ft_strcmp(shell->tokens[i]->program_name, "env") == 0)
 		enviroment(shell);
 	else if (ft_strcmp(shell->tokens[i]->program_name, "exit") == 0 && i == 0)
 		exit (0);
-	else if (ft_strcmp(shell->tokens[i]->program_name, "$?") == 0 && i != 0)
-		exit_status();
-	else
-		execute_program(shell, i, shell->env);
+	// else if (ft_strcmp(shell->tokens[i]->program_name, "$?") == 0 && i != 0)
+	// 	exit_status();
+	// else
+	// 	execute_program(shell, i, shell->env);
 }
 
 //Parser that devides the input into tokens using lexer and then check if the
