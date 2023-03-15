@@ -6,11 +6,21 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:26:46 by fialexan          #+#    #+#             */
-/*   Updated: 2023/03/15 14:27:38 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/15 15:07:47 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	get_double_array_size(char **str)
+{
+	int	iter;
+
+	iter = 0;
+	while (str[iter] != NULL)
+		iter++;
+	return (iter);
+}
 
 int	is_redir(char *str)
 {
