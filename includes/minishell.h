@@ -54,6 +54,12 @@ void	parser(char *str, t_shell *shell);
 int		get_size_of_array(char **array);
 t_token	**divide_tokens(char **cmds);
 
+//INPUT_UTILS.C
+char	*get_env_var(t_shell *shell, char *str, int i);
+t_token	**handle_dollar(t_token *tokens);
+t_token **divide_tokens(char **cmds);
+int	get_array_size(char **str);
+
 //LEXER.C
 
 /**
@@ -176,7 +182,6 @@ char	**get_arguments(t_shell *shell, int i);
 
 //ENV.C
 void	enviroment(t_shell *shell);
-char	*get_env_var(t_shell *shell, char *str);
 
 //UNSET.C
 void	unset(t_shell *shell, int i);
