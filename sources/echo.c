@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:51:10 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/15 18:26:10 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/15 19:22:20 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,25 @@ void	echo(t_shell *shell, int i)
 	printf("\n");
 }
 
+char	*delete_quotes(char *s, int quote)
+{
+	int		iter;
+	int 	begin;
+	char	*tmp;
+	char	*str;
+	
+	iter = 0;
+	begin = 0;
+	while (s[iter] != '\0')
+	{
+		if (s[iter] == '\'' && quote == 0)
+		{
+			quote = 1;
+			str = ft_strjoin(str,)
+		}
+	}
+	
+}
 
 void	echo(t_token *token)
 {
@@ -58,5 +77,12 @@ void	echo(t_token *token)
 	{
 		printf("\n");
 		return ;
+	}
+	iter = 1;
+	if (ft_strcmp(token->args[1], "-n") == 0)
+		iter++;
+	while (token->args[iter] != NULL)
+	{
+
 	}
 }
