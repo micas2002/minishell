@@ -21,6 +21,13 @@
 # include <sys/wait.h>
 # include "./libft.h"
 
+
+typedef struct s_token
+{
+	char *str;
+	char **args;
+} t_token;
+
 /**
  * @brief 
  * 
@@ -30,7 +37,7 @@
 typedef struct s_shell
 {
 	int		nb_tokens;
-	char	**tokens;
+	t_token	**tokens;
 	char	**env;
 }	t_shell;
 
@@ -42,7 +49,10 @@ extern int		g_exit_value;
 void	terminal(t_shell shell);
 
 //INPUT.C
+void	commands(t_shell *shell, int i);
 void	parser(char *str, t_shell *shell);
+int		get_size_of_array(char **array);
+t_token	**divide_tokens(char **cmds);
 
 //LEXER.C
 
@@ -56,7 +66,8 @@ void	parser(char *str, t_shell *shell);
  * @param str char *
  * @param shell t_shell *
  */
-void	lexer(char *str, t_shell *shell);
+char	**lexer(char *s, char c);
+char	**lexer_loop(char const *s, char **str);
 
 //LEXER_UTILS.C
 

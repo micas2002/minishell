@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:18:32 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/24 12:17:34 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:31:36 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_operator(char c)
 {
-	if (c == '|' || c == '&' || c == ';' || c == '(' || c == ')' || c == '<'
+	if (c == '&' || c == ';' || c == '(' || c == ')' || c == '<'
 		|| c == '>')
 		return (1);
 	return (0);
@@ -25,7 +25,7 @@ int	operators(char *str, int i)
 	while (str[++i])
 	{
 		if (is_operator(str[i]) == 0)
-			break ;
+			return (i);
 	}
 	return (i);
 }

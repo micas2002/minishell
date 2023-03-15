@@ -6,81 +6,55 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/27 16:41:24 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:34:48 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	save_tokens(t_shell *shell, char *str, int x)
+char	**lexer_loop(char const *s, char **str)
 {
-	char	*env_var;
-	int		i;
-	int		a;
-	int		y;
+	int	begin;
+	int	i;
+	int x;
 
 	i = 0;
-	y = 0;
-	while (str[i])
+	x = 0;
+	begin = 0;
+	while (s[i] != '\0')
 	{
-		if (str[i] == ' ' || str[i] == '\t')
-			i++;
-		else
+		if (s[i] == '\'')
+			i = quote_handler((char *)s, i + 1, '\'') + 1;
+		if (s[i] == '\"')
+			i = quote_handler((char *)s, i + 1, '\"') + 1;
+		if (s[i] == ' ')
 		{
-			x = i;
-			if (str[i] == '$' && (str[i + 1] != '\0'
-					&& str[i + 1] != ' ' && str[i + 1] != '\t'))
-			{
-				a = i;
-				while (str[a] && (str[a] != ' ' && str[a] != '\t'))
-					a++;
-				env_var = ft_substr(str, i + 1, a - i - 1);
-				shell->tokens[y] = get_env_var(shell, env_var);
-				i = a;
-				// free(env_var);
-			}
-			else
-			{
-				if (str[i] == '\"')
-					i = d_quotes(str, i, shell);
-				if (str[i] == '\'')
-					i = s_quotes(str, i, shell);
-				if (is_operator(str[i]) == 1)
-					i = operators(str, i);
-				else
-					i = other_input(str, i);
-				shell->tokens[y] = ft_substr(str, x, i - x);
-			}
-			y++;
+			str[x] = ft_substr((char *)s, begin, i - begin);
+			i++;
+			begin = i;
+			x++;
 		}
+		else
+			i++;
 	}
-	shell->tokens[y] = NULL;
+	str[x] = ft_substr((char *)s, begin, i - begin);
+	str[++x] = NULL;
+	return (str);
 }
 
-void	lexer(char *str, t_shell *shell)
+char	**lexer(char *s, char c)
 {
-	int		i;
+	int		array_size;
+	char	**str;
 
-	if (shell)
-		free_tokens(shell);
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ' ' || str[i] == '	')
-			i++;
-		else
-		{
-			if (str[i] == '\"')
-				i = d_quotes(str, i, shell);
-			if (str[i] == '\'')
-				i = s_quotes(str, i, shell);
-			if (is_operator(str[i]) == 1)
-				i = operators(str, i);
-			else
-				i = other_input(str, i);
-			shell->nb_tokens++;
-		}
-	}
-	shell->tokens = malloc(sizeof(char *) * (shell->nb_tokens + 1));
-	save_tokens(shell, str, 0);
+	if (!s)
+		return (NULL);
+	array_size = get_array_size((char *)s, c);
+	if (array_size == -1)
+		return (NULL);
+	str = (char **)malloc(sizeof(char *) * (array_size + 1));
+	if (!str)
+		return (NULL);
+	str = minishell_split_loop(s, str, 0, 0);
+	return (minishell_split_loop(s, str, 0, 0));
 }

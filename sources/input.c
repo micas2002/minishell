@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexn <fialexa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 15:01:08 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/27 16:06:21 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/15 16:16:31 by fialexa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,20 @@ void	commands(t_shell *shell, int i)
 //command given is valid or not. If valid, calls command function
 void	parser(char *str, t_shell *shell)
 {
-	int	i;
-	int	len;
-
-	lexer(str, shell);
-	// i = -1;
-	// printf("%d\n", shell->nb_tokens);
-	// while (shell->tokens[++i])
-	// 	printf("token:%s\n", shell->tokens[i]);
-	i = 0;
-	while (shell->tokens[i])
+	int		i;
+	char	**cmds;
+	
+	cmds = ft_split(str, '|');
+	shell->nb_tokens = get_size_of_array(cmds);
+	shell->tokens = divide_tokens(cmds);
+	free_double_array(cmds);
+	if (shell->nb_tokens != 1)
 	{
-		if (i != 0)
-			len = ft_strlen(shell->tokens[i - 1]);
-		if (i == 0 || (len > 0 && shell->tokens[i - 1][len - 1] == '|'))
-			commands(shell, i);
-		i++;
 	}
+	else if (shell->nb_tokens == 1/*check redirections*/)
+	{
+	}
+	else
+		commands(shell->tokens[0], 0);
+
 }
