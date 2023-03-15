@@ -15,23 +15,23 @@
 
 //Checks if command is valid. If yes, gives paramaters to the respetcitve
 //function and executes the command funciton. If not found, prints a message
-void	commands(t_shell *shell, int i)
+void	commands(t_token *token, int i)
 {
-	if (ft_strcmp(shell->tokens[i], "echo") == 0)
+	if (ft_strcmp(token->args[0], "echo") == 0)
 		echo(shell, i);
-	else if (ft_strcmp(shell->tokens[i], "cd") == 0)
+	else if (ft_strcmp(token->args[0], "cd") == 0)
 		cd(shell, i);
-	else if (ft_strcmp(shell->tokens[i], "pwd") == 0)
+	else if (ft_strcmp(token->args[0], "pwd") == 0)
 		pwd(shell);
-	else if (ft_strcmp(shell->tokens[i], "export") == 0)
+	else if (ft_strcmp(token->args[i], "export") == 0)
 		export(shell, i);
-	else if (ft_strcmp(shell->tokens[i], "unset") == 0)
+	else if (ft_strcmp(token->args[0], "unset") == 0)
 		unset(shell, i);
-	else if (ft_strcmp(shell->tokens[i], "env") == 0)
+	else if (ft_strcmp(token->args[0], "env") == 0)
 		enviroment(shell);
-	else if (ft_strcmp(shell->tokens[i], "exit") == 0 && i == 0)
+	else if (ft_strcmp(token->args[0], "exit") == 0 && i == 0)
 		exit (0);
-	else if (ft_strcmp(shell->tokens[i], "$?") == 0 && i != 0)
+	else if (ft_strcmp(token->args[0], "$?") == 0 && i != 0)
 		exit_status();
 	else
 		execute_program(shell, i, shell->env);
@@ -47,6 +47,7 @@ void	parser(char *str, t_shell *shell)
 	cmds = ft_split(str, '|');
 	shell->nb_tokens = get_size_of_array(cmds);
 	shell->tokens = divide_tokens(cmds);
+	shell->tokens = handle_dollar(shell->tokens);
 	free_double_array(cmds);
 	if (shell->nb_tokens != 1)
 	{
