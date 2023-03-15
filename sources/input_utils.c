@@ -6,11 +6,44 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/15 18:22:29 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/15 19:18:07 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_var(char *str, int i)
+{
+	while (str[i] != '\0' && str[i] != '$')
+		i++;
+	if (str[i] == '$')
+		return (i - 1);
+	return (i);
+}
+
+char *get_env_var(t_shell *shell, char *str, int i)
+{
+	char	*tmp;
+	int		start;
+	int		x;
+
+	start = i;
+	x = 0;
+	i = check_var(str, i);
+	tmp = ft_strjoin(ft_substr(str, start, i - start), "=");
+	while (shell->env[x])
+	{
+		if (ft_strncmp(shell->env[x], tmp, ft_strlen(tmp)) == 0)
+		{
+			free(str);
+			str = ft_substr(shell->env[x], ft_strlen(tmp), ft_strlen(shell->env[x]));
+			free(tmp);
+			return (str);
+		}
+		x++;
+	}
+	return ("");
+}
 
 t_token	**handle_dollar(t_token *tokens)
 {
