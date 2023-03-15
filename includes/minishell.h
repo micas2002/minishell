@@ -57,16 +57,20 @@ void	terminal(t_shell shell);
 //INPUT.C
 void	commands(t_shell *shell, int i);
 int		parser(char *str, t_shell *shell);
+
+//INPUT_UTILS.C
+char	**minishell_split(char const *s, char c, int i);
+char	**minishell_split_loop(char const *s, char **str, int i, int x);
 t_token	*create_token(char **str);
 t_token	*get_redirection(char **str, int count, int iter);
 t_token	**divide_tokens(char ***array);
 
-//INPUT_UTILS.C
+// INPUT_UTILS2.C
+int		get_double_array_size(char **str);
+int		is_redir(char *str);
 int		quote_checker(char *str);
 int		quote_handler(char *str, int i, char c);
 int		get_array_size(char *s, char c);
-char	**minishell_split(char const *s, char c, int i);
-int		is_redir(char *str);
 
 //LEXER.C
 
