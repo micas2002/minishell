@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/15 19:18:07 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/16 16:28:25 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,64 +18,67 @@ int	check_var(char *str, int i)
 		i++;
 	if (str[i] == '$')
 		return (i - 1);
-	return (i);
+	return (-1);
 }
 
-char *get_env_var(t_shell *shell, char *str, int i)
+char	*get_env_var(t_shell *shell, char *str)
 {
-	char	*tmp;
-	int		start;
 	int		x;
+	int		y;
+	char	*tmp;
+	char	*tmp2;
 
-	start = i;
-	x = 0;
-	i = check_var(str, i);
-	tmp = ft_strjoin(ft_substr(str, start, i - start), "=");
-	while (shell->env[x])
+	x = check_var(str, 0);
+	if (x == -1)
+		return (str);
+	tmp = ft_substr(str, 0, x + 1);
+	y = check_var(str, x + 1);
+	if (y == -1)
 	{
-		if (ft_strncmp(shell->env[x], tmp, ft_strlen(tmp)) == 0)
-		{
-			free(str);
-			str = ft_substr(shell->env[x], ft_strlen(tmp), ft_strlen(shell->env[x]));
-			free(tmp);
-			return (str);
-		}
-		x++;
+		tmp2 = ft_substr(str, x + 1, ft_strlen(str) - x);
+		tmp = ft_strjoin(tmp, get_env_variable(shell, tmp2, ft_strlen(tmp2)));
+		tmp = ft_strjoin(tmp, tmp2);
+		free(tmp2);
+		return (tmp);
 	}
-	return ("");
+	tmp2 = ft_substr(str, y + 1, ft_strlen(str) - y);
+	tmp = ft_strjoin(tmp, get_env_variable(shell, tmp2, y));
+	tmp = ft_strjoin(tmp, tmp2);
+	free(tmp2);
+	return (tmp);
 }
 
-t_token	**handle_dollar(t_token *tokens)
+t_token	**handle_dollar(t_shell *shell, t_token **tokens)
 {
 	int		iter;
-	int		iter2;
+	int		x;
+	int		y;
 	char	*tmp;
 
 	iter = 0;
-	while (tokens->args[iter] != NULL)
+	while (tokens[iter] != NULL)
 	{
-		iter2 = 0;
-		while (tokens->args[iter][iter2] != '\0')
+		x = 0;
+		while (tokens[iter]->args[x] != NULL)
 		{
-			if (tokens->args[iter][iter2] == '$')
+			while (ft_findchar(tokens[iter]->args[x], '$') == 1)
 			{
-				tmp = ft_strdup(tokens->args[iter]);
-				free(tokens->args[iter]);
-				tokens->args[iter] = ft_strjoin(ft_substr(tmp, 0, iter2), ft_substr(tmp, iter2 + 1, ft_strlen(tmp)));
-				free(tmp);
+				tmp = get_env_var(shell, tokens[iter]->args[x]);
+				free(tokens[iter]->args[x]);
+				tokens[iter]->args[x] = tmp;
 			}
-			iter2++;
+			x++;
 		}
 		iter++;
 	}
-	return (tokens->args);
+	return (tokens);
 }
 
-t_token **divide_tokens(char **cmds)
+t_token	**divide_tokens(char **cmds)
 {
 	t_token	**tokens;
 	int		iter;
-	
+
 	iter = 0;
 	while (cmds[iter] != NULL)
 		iter++;
@@ -98,5 +101,5 @@ int	get_array_size(char **str)
 	iter = 0;
 	while (str[iter] != NULL)
 		iter++;
-	return (iter);	
+	return (iter);
 }
