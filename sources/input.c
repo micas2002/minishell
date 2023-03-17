@@ -41,20 +41,19 @@ void	commands(t_shell *shell, int i)
 //command given is valid or not. If valid, calls command function
 void	parser(char *str, t_shell *shell)
 {
-	int		i;
 	char	**cmds;
 
 	cmds = ft_split(str, '|');
 	shell->nb_tokens = get_size_of_array(cmds);
 	shell->tokens = divide_tokens(cmds);
-	shell->tokens = handle_dollar(shell->tokens);
+	shell->tokens = handle_dollar(shell, shell->tokens);
 	free_double_array(cmds);
-	if (shell->nb_tokens != 1)
-	{
-	}
-	else if (shell->nb_tokens == 1/*check redirections*/)
-	{
-	}
-	else
-		commands(shell->tokens[0], 0);
+	// if (shell->nb_tokens != 1)
+	// {
+	// }
+	// else if (shell->nb_tokens == 1/*check redirections*/)
+	// {
+	// }
+	// else
+	commands(shell, 0);
 }

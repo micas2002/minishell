@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/16 16:28:25 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/17 19:54:53 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_token	**handle_dollar(t_shell *shell, t_token **tokens)
 		{
 			while (ft_findchar(tokens[iter]->args[x], '$') == 1)
 			{
-				tmp = get_env_var(shell, tokens[iter]->args[x]);
+				tmp = get_env_var(shell, tokens[iter]->args[x], );
 				free(tokens[iter]->args[x]);
 				tokens[iter]->args[x] = tmp;
 			}
