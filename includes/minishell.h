@@ -190,7 +190,7 @@ char	**new_env(t_shell *shell, int i);
 int		get_env_size(char **env);
 
 //EXPORT.C
-void	export(t_shell *shell, int i);
+void	export(t_shell *shell, t_token *token, int i);
 
 // Free
 
