@@ -21,12 +21,11 @@
 # include <sys/wait.h>
 # include "./libft.h"
 
-
 typedef struct s_token
 {
-	char *str;
-	char **args;
-} t_token;
+	char	*str;
+	char	**args;
+}	t_token;
 
 /**
  * @brief 
@@ -41,7 +40,7 @@ typedef struct s_shell
 	char	**env;
 }	t_shell;
 
-extern int		g_exit_value;
+extern int	g_exit_value;
 
 // Defines
 
@@ -57,8 +56,8 @@ t_token	**divide_tokens(char **cmds);
 //INPUT_UTILS.C
 char	*get_env_var(t_shell *shell, char *str, int i);
 t_token	**handle_dollar(t_token *tokens);
-t_token **divide_tokens(char **cmds);
-int	get_array_size(char **str);
+t_token	**divide_tokens(char **cmds);
+int		get_array_size(char **str);
 
 //LEXER.C
 
@@ -127,7 +126,9 @@ int		operators(char *str, int i);
 int		is_operator(char c);
 
 //ECHO.C
-void	echo(t_shell *shell, int i);
+char	*delete_quotes(char	*str, char current_quote, int iter, int str_iter);
+int		check_option(char *str);
+void	echo(t_token *token);
 
 //PWD.C
 void	pwd(t_shell *shell);
