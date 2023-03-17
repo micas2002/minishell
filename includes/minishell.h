@@ -131,10 +131,10 @@ int		check_option(char *str);
 void	echo(t_token *token);
 
 //PWD.C
-void	pwd(t_shell *shell);
+void	pwd(void);
 
 //CD.C
-void	cd(t_shell *shell, int i);
+void	cd(t_token *token);
 
 //SIGNALS.C
 void	receive_signal(void);
@@ -214,6 +214,6 @@ void	free_double_array(char **double_array);
  * @brief Returns the exit status of the last executed command
  * 
  */
-int	exit_status(void);
+int		exit_status(void);
 
 #endif
