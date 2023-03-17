@@ -54,8 +54,8 @@ int		get_size_of_array(char **array);
 t_token	**divide_tokens(char **cmds);
 
 //INPUT_UTILS.C
-char	*get_env_var(t_shell *shell, char *str, int i);
-t_token	**handle_dollar(t_token *tokens);
+char	*get_env_var(t_shell *shell, char *str);
+t_token	**handle_dollar(t_shell *shell, t_token **tokens);
 t_token	**divide_tokens(char **cmds);
 int		get_array_size(char **str);
 
@@ -73,6 +73,7 @@ int		get_array_size(char **str);
  */
 char	**lexer(char *s, char c);
 char	**lexer_loop(char const *s, char **str);
+int		get_lexer_array_size(char *s, char c);
 
 //LEXER_UTILS.C
 
@@ -182,6 +183,7 @@ void	run_program(t_shell *shell, int i, char **env);
 char	**get_arguments(t_shell *shell, int i);
 
 //ENV.C
+char	*get_env_variable(t_shell *shell, char *str, int i);
 void	enviroment(t_shell *shell);
 
 //UNSET.C
@@ -193,7 +195,6 @@ int		get_env_size(char **env);
 void	export(t_shell *shell, t_token *token, int i);
 
 // Free
-
 /**
  * @brief Frees all the tokens previously allocate for shell.
  * 
