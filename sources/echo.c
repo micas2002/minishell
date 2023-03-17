@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 11:51:10 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/15 19:22:20 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/17 18:38:49 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@
 //input, it prints the message. If the -n flag exists, it doesn't print the
 //newline
 
-void	echo(t_shell *shell, int i)
+/*void	echo(t_token *tokens)
 {
 	char	*str;
 	int		x;
 
-	if (!shell->tokens[i + 1])
+	if (!tokens->args[1])
 	{
 		printf("\n");
 		return ;
 	}
 	x = i + 1;
-	if (ft_strcmp(shell->tokens[++i], "-n") == 0)
+	if (ft_strcmp(tokens[i]->args[i + 1], "-n") == 0)
 		i++;
 	while (shell->tokens[i] && ft_strcmp(shell->tokens[i], "|") != 0)
 	{
@@ -46,43 +46,89 @@ void	echo(t_shell *shell, int i)
 	if (ft_strcmp(shell->tokens[x], "-n") == 0)
 		return ;
 	printf("\n");
+} */
+
+char	*delete_quotes(char	*str)
+{
+	char	current_quote;
+	char	*new_str;
+	int		iter;
+	int		str_iter;
+	
+	new_str = (char *)ft_calloc(sizeof(char), ft_strlen(str) + 1);
+	if (new_str == NULL)
+		return (NULL);
+	iter = 0;
+	str_iter = 0;
+	current_quote = ' ';
+	while (str[iter] != '\0')
+	{
+		if ((str[iter] == '\'' || str[iter] == '\"'))
+		{
+			if (str[iter] != current_quote && current_quote != ' ')
+			{
+				new_str[str_iter] = str[iter];
+				str_iter++;
+			}
+			else if (str[iter] == current_quote && current_quote != ' ')
+				current_quote = ' ';
+			else
+				current_quote = str[iter];
+		}
+		else
+		{
+			new_str[str_iter] = str[iter];
+			str_iter++;
+		}
+		iter++;
+	}
+	return (new_str);
 }
 
-char	*delete_quotes(char *s, int quote)
+int	check_option(char *str)
 {
-	int		iter;
-	int 	begin;
-	char	*tmp;
-	char	*str;
+	int	iter;
 	
-	iter = 0;
-	begin = 0;
-	while (s[iter] != '\0')
+	if (str[0] != '-')
+		return (0);
+	iter = 1;
+	while (str[iter] != '\0')
 	{
-		if (s[iter] == '\'' && quote == 0)
-		{
-			quote = 1;
-			str = ft_strjoin(str,)
-		}
+		if (str[iter] != 'n')
+			return (0);
+		iter++;
 	}
-	
+	return (1);
 }
 
 void	echo(t_token *token)
 {
 	char	*str;
 	int		iter;
-	
+
 	if (token->args[1] == NULL)
 	{
 		printf("\n");
 		return ;
 	}
 	iter = 1;
-	if (ft_strcmp(token->args[1], "-n") == 0)
+	if (check_option(token->args[1]) == 1)
 		iter++;
 	while (token->args[iter] != NULL)
 	{
-
+		if (ft_srchr(token->args[iter], '\'') != NULL
+				|| ft_strchr(token->args[iter], '\"') != NULL)
+		{
+			str = delete_quotes(token->args[iter]);
+			printf("%s", str);
+			free(str);
+		}
+		else
+			printf("%s", token->args[iter]);
+		if (token->args[iter + 1] != NULL)
+			printf(" ");
+		iter++;
 	}
+	if (check_option(token->args[1]) == 0)
+		printf("\n");
 }
