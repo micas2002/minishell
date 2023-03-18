@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:18:32 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/15 17:31:36 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/18 15:57:01 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,32 +40,12 @@ int	other_input(char *str, int i)
 	return (i);
 }
 
-int	d_quotes(char *str, int i, t_shell *shell)
+int	quote_handler(char *str, int i, char c)
 {
 	while (str[++i])
 	{
-		if (str[i] == '\"')
+		if (str[i] == c)
 			break ;
-	}
-	if (str[i] == '\0' && str[i - 1] != '\"')
-	{
-		printf("ERROR: unclosed quotes\n");
-		terminal(*shell);
-	}
-	return (i);
-}
-
-int	s_quotes(char *str, int i, t_shell *shell)
-{
-	while (str[++i])
-	{
-		if (str[i] == '\'')
-			break ;
-	}
-	if (str[i] == '\0' && str[i - 1] != '\'')
-	{
-		printf("ERROR: unclosed quotes\n");
-		terminal(*shell);
 	}
 	return (i);
 }
