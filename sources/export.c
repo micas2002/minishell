@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:22:41 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/17 19:37:55 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/18 16:49:12 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_token_chars(char *arg)
 	x = 0;
 	if (arg[x] == '=')
 		return (0);
-	while (arg[x] != NULL && arg[x] != '=')
+	while (arg[x] != '\0' && arg[x] != '=')
 	{
 		if (ft_isalnum(arg[x]) == 0)
 			return (0);
