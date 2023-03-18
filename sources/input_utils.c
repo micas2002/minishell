@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/17 19:54:53 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/18 17:09:54 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ t_token	**handle_dollar(t_shell *shell, t_token **tokens)
 {
 	int		iter;
 	int		x;
-	int		y;
 	char	*tmp;
 
 	iter = 0;
@@ -63,7 +62,7 @@ t_token	**handle_dollar(t_shell *shell, t_token **tokens)
 		{
 			while (ft_findchar(tokens[iter]->args[x], '$') == 1)
 			{
-				tmp = get_env_var(shell, tokens[iter]->args[x], );
+				tmp = get_env_var(shell, tokens[iter]->args[x]);
 				free(tokens[iter]->args[x]);
 				tokens[iter]->args[x] = tmp;
 			}
@@ -87,7 +86,7 @@ t_token	**divide_tokens(char **cmds)
 	while (cmds[iter] != NULL)
 	{
 		tokens[iter] = (t_token *)malloc(sizeof(t_token));
-		tokens[iter]->args = lexer(cmds[iter], ' ');
+		tokens[iter]->args = lexer(cmds[iter]);
 		tokens[iter]->str = ft_strdup(cmds[iter]);
 		iter++;
 	}
