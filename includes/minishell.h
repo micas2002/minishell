@@ -71,33 +71,13 @@ int		get_array_size(char **str);
  * @param str char *
  * @param shell t_shell *
  */
-char	**lexer(char *s, char c);
+char	**lexer(char *s);
 char	**lexer_loop(char const *s, char **str);
 int		get_lexer_array_size(char *s, char c);
 
 //LEXER_UTILS.C
 
-/**
- * @brief Saves the single quote token. If the quote is not closed, 
- * promts a message.
- * 
- * @param str char *
- * @param i int
- * @param shell t_shell
- * @return int - return the number of char between single quotes (included).
- */
-int		s_quotes(char *str, int i, t_shell *shell);
-
-/**
- * @brief Saves the double quote token. If the quote is not closed, 
- *  promts a message.
- * 
- * @param str char *
- * @param i int
- * @param shell t_shell * 
- * @return int - return the number of char between double quotes (included).
- */
-int		d_quotes(char *str, int i, t_shell *shell);
+int		quote_handler(char *str, int i, char c);
 
 /**
  * @brief Saves the input that isn't any of the other listed.
@@ -187,7 +167,7 @@ char	*get_env_variable(t_shell *shell, char *str, int i);
 void	enviroment(t_shell *shell);
 
 //UNSET.C
-void	unset(t_shell *shell, int i);
+void	unset(t_shell *shell, t_token *token, int i);
 char	**new_env(t_shell *shell, int i);
 int		get_env_size(char **env);
 
