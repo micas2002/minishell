@@ -26,15 +26,15 @@ void	commands(t_shell *shell, int i)
 	else if (ft_strcmp(shell->tokens[i]->args[i], "export") == 0)
 		export(shell, shell->tokens[i], 1);
 	else if (ft_strcmp(shell->tokens[i]->args[0], "unset") == 0)
-		unset(shell, i);
+		unset(shell, shell->tokens[i], 1);
 	else if (ft_strcmp(shell->tokens[i]->args[0], "env") == 0)
 		enviroment(shell);
 	else if (ft_strcmp(shell->tokens[i]->args[0], "exit") == 0 && i == 0)
 		exit (0);
 	else if (ft_strcmp(shell->tokens[i]->args[0], "$?") == 0 && i != 0)
 		exit_status();
-	else
-		execute_program(shell, i, shell->env);
+	// else
+	// 	execute_program(shell, i, shell->env);
 }
 
 //Parser that devides the input into tokens using lexer and then check if the
@@ -44,7 +44,7 @@ void	parser(char *str, t_shell *shell)
 	char	**cmds;
 
 	cmds = ft_split(str, '|');
-	shell->nb_tokens = get_size_of_array(cmds);
+	shell->nb_tokens = get_array_size(cmds);
 	shell->tokens = divide_tokens(cmds);
 	shell->tokens = handle_dollar(shell, shell->tokens);
 	free_double_array(cmds);
