@@ -6,13 +6,13 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/17 17:09:40 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/18 16:02:47 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**lexer(char *s, char c)
+char	**lexer(char *s)
 {
 	int		array_size;
 	char	**str;
