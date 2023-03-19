@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/18 17:09:54 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/19 17:11:07 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	check_var(char *str, int i)
 {
 	while (str[i] != '\0' && str[i] != '$')
 		i++;
-	if (str[i] == '$')
+	if (i == 0)
+		return (1);
+	else if (str[i] == '$')
 		return (i - 1);
 	return (-1);
 }
@@ -38,13 +40,15 @@ char	*get_env_var(t_shell *shell, char *str)
 		tmp2 = ft_substr(str, x + 1, ft_strlen(str) - x);
 		tmp = ft_strjoin(tmp, get_env_variable(shell, tmp2, ft_strlen(tmp2)));
 		tmp = ft_strjoin(tmp, tmp2);
-		free(tmp2);
+		// if (tmp2)
+		// 	free(tmp2);
 		return (tmp);
 	}
 	tmp2 = ft_substr(str, y + 1, ft_strlen(str) - y);
 	tmp = ft_strjoin(tmp, get_env_variable(shell, tmp2, y));
 	tmp = ft_strjoin(tmp, tmp2);
-	free(tmp2);
+	if (tmp2)
+		free(tmp2);
 	return (tmp);
 }
 
@@ -60,12 +64,13 @@ t_token	**handle_dollar(t_shell *shell, t_token **tokens)
 		x = 0;
 		while (tokens[iter]->args[x] != NULL)
 		{
-			while (ft_findchar(tokens[iter]->args[x], '$') == 1)
+			while (ft_strchr(tokens[iter]->args[x], '$') != NULL)
 			{
 				tmp = get_env_var(shell, tokens[iter]->args[x]);
 				free(tokens[iter]->args[x]);
 				tokens[iter]->args[x] = tmp;
 			}
+			printf("%s\n", tokens[iter]->args[x]);
 			x++;
 		}
 		iter++;
@@ -90,6 +95,7 @@ t_token	**divide_tokens(char **cmds)
 		tokens[iter]->str = ft_strdup(cmds[iter]);
 		iter++;
 	}
+	tokens[iter] = NULL;
 	return (tokens);
 }
 
