@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/19 17:11:07 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/19 18:26:27 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_var(char *str, int i)
 	while (str[i] != '\0' && str[i] != '$')
 		i++;
 	if (i == 0)
-		return (1);
+		return (0);
 	else if (str[i] == '$')
 		return (i - 1);
 	return (-1);
@@ -33,7 +33,7 @@ char	*get_env_var(t_shell *shell, char *str)
 	x = check_var(str, 0);
 	if (x == -1)
 		return (str);
-	tmp = ft_substr(str, 0, x + 1);
+	tmp = ft_substr(str, 0, x);
 	y = check_var(str, x + 1);
 	if (y == -1)
 	{
@@ -57,6 +57,7 @@ t_token	**handle_dollar(t_shell *shell, t_token **tokens)
 	int		iter;
 	int		x;
 	char	*tmp;
+
 
 	iter = 0;
 	while (tokens[iter] != NULL)
