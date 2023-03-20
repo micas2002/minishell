@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/20 16:58:29 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:28:59 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ t_token	**handle_dollar(t_shell *shell, t_token **tokens)
 				free(tokens[iter]->args[x]);
 				tokens[iter]->args[x] = tmp;
 			}
-			printf("%s\n", tokens[iter]->args[x]);
 			x++;
 		}
 		iter++;
