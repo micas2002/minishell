@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:48:53 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/17 17:28:54 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:49:23 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	cd(t_token *token)
 	iter = 0;
 	if (!token->args[iter + 1])
 	{
-		printf("relative or absolute path needed\n");
+		g_exit_value = error_handler(ERR_NO_PATH, EXIT_FAILURE, "");
 		return ;
 	}
 	if (ft_strcmp(token->args[iter + 1], "..") == 0)
@@ -31,6 +31,10 @@ void	cd(t_token *token)
 	else
 	{
 		if (chdir(token->args[iter + 1]) != 0)
-			printf("No such file or directory\n");
+		{
+			g_exit_value = error_handler(ERR_NO_FILE, EXIT_FAILURE, "");
+			return ;
+		}
 	}
+	g_exit_value = EXIT_SUCCESS;
 }

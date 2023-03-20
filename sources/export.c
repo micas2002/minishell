@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:22:41 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/18 16:49:12 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:48:06 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	export(t_shell *shell, t_token *token, int i)
 	{
 		if (check_token_chars(token->args[i]) == 0)
 		{
-			printf("export: `%s': not a valid identifier\n", token->args[i]);
+			g_exit_value = error_handler(ERR_NO_VALID_IDENT, EXIT_FAILURE, token->args[i]);
 			return ;
 		}
 		new_env = malloc(sizeof(char *) * (get_env_size(shell->env) + 2));
@@ -81,4 +81,5 @@ void	export(t_shell *shell, t_token *token, int i)
 		shell->env = new_env;
 		i++;
 	}
+	g_exit_value = EXIT_SUCCESS;
 }
