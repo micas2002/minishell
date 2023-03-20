@@ -49,7 +49,6 @@ extern int	g_exit_value;
 # define ERR_NO_FILE 30
 # define ERR_NO_PATH 40
 # define ERR_UNCLOSED_QUOTES 50
-# define ERR_NO_PATH 60
 # define ERR_NO_VALID_IDENT 70
 
 //MAIN.C
@@ -135,7 +134,7 @@ void	receive_signal_i(void);
 void	handle_signals_i(int signum);
 
 //EXECUTE_PROGRAMS.C
-void	execute_program(t_shell *shell, int i, char **env);
+void	execute_program(t_shell *shell, int i);
 
 /**
  * @brief Receives all the enviroments variables, searhs for the 'PATH' variable
@@ -143,6 +142,12 @@ void	execute_program(t_shell *shell, int i, char **env);
  * 
  * @param envp char **
  * @return char** 
+	while (env[i] != NULL)
+		i++;
+	return (i);
+}
+
+char	**new_env(t_shell *shell, int
  */
 char	**get_command_paths(char **envp);
 
@@ -160,9 +165,8 @@ char	*get_command(char **paths, char *command_name);
  * 
  * @param shell t_shell * 
  * @param i int
- * @param env char **
  */
-void	run_program(t_shell *shell, int i, char **env);
+void	run_program(t_shell *shell, int i);
 
 /**
  * @brief Get the arguments for the command
