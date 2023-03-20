@@ -44,6 +44,12 @@ extern int	g_exit_value;
 
 // Defines
 
+# define ERR_CMD_N_FOUND 10
+# define ERR_CMD 20
+# define ERR_NO_FILE 30
+# define ERR_NO_PATH 40
+# define ERR_UNCLOSED_QUOTES 50
+
 //MAIN.C
 void	terminal(t_shell shell);
 
@@ -199,5 +205,8 @@ void	free_double_array(char **double_array);
  * 
  */
 int		exit_status(void);
+
+//ERROR_HANDLER.C
+int	error_handler(int error_type, int exit_value);
 
 #endif
