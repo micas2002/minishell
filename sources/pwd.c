@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:28:46 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/17 17:30:36 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:42:35 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void	pwd(void)
 	getcwd(dir_path, FILENAME_MAX);
 	printf("%s\n", dir_path);
 	free (dir_path);
+	g_exit_value = EXIT_SUCCESS;
 }

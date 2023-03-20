@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 16:49:12 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/17 19:58:17 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:42:10 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,5 @@ void	enviroment(t_shell *shell)
 		printf("%s\n", shell->env[i]);
 		i++;
 	}
+	g_exit_value = EXIT_SUCCESS;
 }

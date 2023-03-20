@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:11:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/18 16:47:15 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:42:43 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,5 @@ void	unset(t_shell *shell, t_token *token, int i)
 		free(env_var);
 		shell->env = new_env(shell, x);
 	}
+	g_exit_value = EXIT_SUCCESS;
 }
