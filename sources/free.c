@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:53:34 by fialexan          #+#    #+#             */
-/*   Updated: 2023/02/22 15:33:26 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:35:03 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,21 @@
 void	free_tokens(t_shell *shell)
 {
 	int	iter;
+	int	iter2;
 
 	if (shell->tokens != NULL)
 	{
 		iter = 0;
 		while (shell->tokens[iter] != NULL)
 		{
+			iter2 = 0;
+			while (shell->tokens[iter]->args[iter2] != NULL)
+			{
+				free(shell->tokens[iter]->args[iter2]);
+				iter2++;
+			}
+			free(shell->tokens[iter]->args);
+			free(shell->tokens[iter]->str);
 			free(shell->tokens[iter]);
 			iter++;
 		}

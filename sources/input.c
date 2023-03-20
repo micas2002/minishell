@@ -58,4 +58,5 @@ void	parser(char *str, t_shell *shell)
 	}
 	else
 		commands(shell, 0);
+	free_tokens(shell);
 }
