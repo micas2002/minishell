@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/20 12:07:49 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:57:52 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*get_env_var(t_shell *shell, char *str)
 	{
 		tmp2 = ft_substr(str, x + 1, ft_strlen(str) - x);
 		tmp = ft_strjoin(tmp, get_env_variable(shell, tmp2, ft_strlen(tmp2)));
-		tmp = ft_strjoin(tmp, tmp2);
+		// tmp = ft_strjoin(tmp, tmp2);
 		// if (tmp2)
 		// 	free(tmp2);
 		return (tmp);
