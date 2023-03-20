@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/19 18:26:27 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:42:53 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_var(char *str, int i)
 	if (i == 0)
 		return (0);
 	else if (str[i] == '$')
-		return (i - 1);
+		return (i);
 	return (-1);
 }
 
@@ -44,11 +44,11 @@ char	*get_env_var(t_shell *shell, char *str)
 		// 	free(tmp2);
 		return (tmp);
 	}
-	tmp2 = ft_substr(str, y + 1, ft_strlen(str) - y);
-	tmp = ft_strjoin(tmp, get_env_variable(shell, tmp2, y));
+	tmp2 = ft_substr(str, y, ft_strlen(str) - y);
+	tmp = ft_strjoin(tmp, get_env_variable(shell, ft_substr(str, x + 1, y - 1), y));
 	tmp = ft_strjoin(tmp, tmp2);
-	if (tmp2)
-		free(tmp2);
+	// if (tmp2)
+	// 	free(tmp2);
 	return (tmp);
 }
 
