@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/20 15:57:52 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:58:29 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,27 @@ char	*get_env_var(t_shell *shell, char *str)
 {
 	int		x;
 	int		y;
-	char	*tmp;
-	char	*tmp2;
+	char	*before_var;
+	char	*var;
+	char	*after_var;
 
 	x = check_var(str, 0);
 	if (x == -1)
 		return (str);
-	tmp = ft_substr(str, 0, x);
+	before_var = ft_substr(str, 0, x);
 	y = check_var(str, x + 1);
 	if (y == -1)
 	{
-		tmp2 = ft_substr(str, x + 1, ft_strlen(str) - x);
-		tmp = ft_strjoin(tmp, get_env_variable(shell, tmp2, ft_strlen(tmp2)));
-		// tmp = ft_strjoin(tmp, tmp2);
-		// if (tmp2)
-		// 	free(tmp2);
-		return (tmp);
+		var = ft_substr(str, x + 1, ft_strlen(str) - x);
+		before_var = ft_strjoin(before_var,
+				get_env_variable(shell, var, ft_strlen(var)));
+		return (before_var);
 	}
-	tmp2 = ft_substr(str, y, ft_strlen(str) - y);
-	tmp = ft_strjoin(tmp, get_env_variable(shell, ft_substr(str, x + 1, y - 1), y));
-	tmp = ft_strjoin(tmp, tmp2);
-	// if (tmp2)
-	// 	free(tmp2);
-	return (tmp);
+	after_var = ft_substr(str, y, ft_strlen(str) - y);
+	before_var = ft_strjoin(before_var, get_env_variable(shell,
+				ft_substr(str, x + 1, y - x - 1), y - x));
+	before_var = ft_strjoin(before_var, after_var);
+	return (before_var);
 }
 
 t_token	**handle_dollar(t_shell *shell, t_token **tokens)
