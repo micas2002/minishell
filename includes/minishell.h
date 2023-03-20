@@ -49,6 +49,8 @@ extern int	g_exit_value;
 # define ERR_NO_FILE 30
 # define ERR_NO_PATH 40
 # define ERR_UNCLOSED_QUOTES 50
+# define ERR_NO_PATH 60
+# define ERR_NO_VALID_IDENT 70
 
 //MAIN.C
 void	terminal(t_shell shell);
@@ -207,6 +209,6 @@ void	free_double_array(char **double_array);
 int		exit_status(void);
 
 //ERROR_HANDLER.C
-int	error_handler(int error_type, int exit_value);
+int	error_handler(int error_type, int exit_value, char *error_var);
 
 #endif
