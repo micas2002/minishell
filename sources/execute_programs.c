@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_programs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:58:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/16 17:39:11 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:21:21 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //Implementation of the search and execute the right executable. Checks the
 //number of arguments given to the executable and allocates an array with that
 //input. Gives the arguments to execve function
-void	execute_program(t_shell *shell, int i, char **env)
+void	execute_program(t_shell *shell, int i)
 {
 	int	process;
 	int	value;
@@ -23,12 +23,12 @@ void	execute_program(t_shell *shell, int i, char **env)
 	process = fork();
 	value = 0;
 	if (process == 0)
-		run_program(shell, i, env);
+		run_program(shell, i);
 	waitpid(process, &value, 0);
 	g_exit_value = value;
 }
 
-void	run_program(t_shell *shell, int i, char **env)
+void	run_program(t_shell *shell, int i)
 {
 	char	*command;
 	char	**args;
@@ -36,32 +36,23 @@ void	run_program(t_shell *shell, int i, char **env)
 
 	command = NULL;
 	args = NULL;
-	if (ft_strncmp("./", shell->tokens[i], 2) == 0)
+	if (ft_strncmp("./", shell->tokens[i]->args[0], 2) == 0)
 	{
 		command = getcwd(command, FILENAME_MAX);
 		command = ft_strjoin(command, "/");
-		command = ft_strjoin(command, shell->tokens[i] + 2);
+		command = ft_strjoin(command, shell->tokens[i]->args[0] + 2);
 	}
-	else if (shell->tokens[i][0] != '/')
+	else if (shell->tokens[i]->args[0][0] != '/')
 	{
-		args = get_command_paths(env);
-		command = get_command(args, shell->tokens[i]);
+		args = get_command_paths(shell->env);
+		command = get_command(args, shell->tokens[i]->args[0]);
 		if (command == NULL)
-		{
-			printf("command not found\n");
-			exit(EXIT_FAILURE);
-		}
+			exit(error_handler(ERR_CMD_N_FOUND, EXIT_FAILURE, ""));
 	}
 	free_double_array(args);
-	args = get_arguments(shell, i);
-	if (args == NULL)
-		printf("NULL\n");
-	iq = execve(command, args, env);
+	iq = execve(command, shell->tokens[i]->args, shell->env);
 	if (iq == -1)
-	{
-		printf("could not run command\n");
-		exit(EXIT_FAILURE);
-	}
+		exit(error_handler(ERR_CMD, EXIT_FAILURE, ""));
 	exit(EXIT_SUCCESS);
 }
 
@@ -101,31 +92,4 @@ char	**get_command_paths(char **envp)
 		index++;
 	}
 	return (NULL);
-}
-
-char	**get_arguments(t_shell *shell, int i)
-{
-	char	**args;
-	int		iter;
-
-	iter = i;
-	while (shell->tokens[iter] != NULL)
-	{
-		if (is_operator(shell->tokens[iter][0]) == 0)
-			iter++;
-	}
-	args = malloc(sizeof(char *) * (iter - i + 1));
-	if (args == NULL)
-		return (NULL);
-	iter = i;
-	while (shell->tokens[iter] != NULL)
-	{
-		if (is_operator(shell->tokens[iter][0]) == 0)
-		{
-			args[iter - i] = ft_strdup(shell->tokens[iter]);
-			iter++;
-		}
-	}
-	args[iter] = NULL;
-	return (args);
 }
