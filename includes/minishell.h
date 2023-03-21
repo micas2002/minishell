@@ -63,7 +63,7 @@ int		get_size_of_array(char **array);
 t_token	**divide_tokens(char **cmds);
 
 //INPUT_UTILS.C
-char	*get_env_var(t_shell *shell, char *str);
+char	*get_env_var(t_shell *shell, char *str, char *tmp);
 t_token	**handle_dollar(t_shell *shell, t_token **tokens);
 t_token	**divide_tokens(char **cmds);
 int		get_array_size(char **str);
