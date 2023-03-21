@@ -49,11 +49,11 @@ void	parser(char *str, t_shell *shell)
 	shell->tokens = divide_tokens(cmds);
 	shell->tokens = handle_dollar(shell, shell->tokens);
 	free_double_array(cmds);
-	if (check_redirections(shell->tokens[0]) == 1)
+	if (check_redirections(shell->tokens[0]) != 0)
 	{
 		pid = fork();
-		if (pid == 0)
-			//handle_redirections(shell);
+		// if (pid == 0)
+		// 	handle_redirections(shell);
 		waitpid(pid, &g_exit_value, 0);
 	}
 	else
