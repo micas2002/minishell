@@ -50,6 +50,7 @@ extern int	g_exit_value;
 # define ERR_NO_PATH 40
 # define ERR_UNCLOSED_QUOTES 50
 # define ERR_NO_VALID_IDENT 70
+# define ERR_NO_SUCH_FILE_OR_DIR 80
 
 //MAIN.C
 void	terminal(t_shell shell);
