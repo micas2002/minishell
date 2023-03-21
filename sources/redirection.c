@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 16:20:51 by filipe            #+#    #+#             */
-/*   Updated: 2023/03/21 23:17:24 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/21 23:19:30 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	handle_redirections(t_token *token)
 {
-	(void)token;
-	// if (check_redirections(token) == 1)
-	// 	handle_output_redirections(token);
-	// else if (check_redirections(token) == 2)
-	// 	handle_input_redirections(token);
+	if (check_redirections(token) == 1)
+		handle_output_redirections(token);
+	else if (check_redirections(token) == 2)
+		handle_input_redirections(token);
 }
 
 int	here_doc(char *delim)
