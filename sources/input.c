@@ -33,8 +33,8 @@ void	commands(t_shell *shell, int i)
 		exit (0);
 	else if (ft_strcmp(shell->tokens[i]->args[0], "$?") == 0 && i != 0)
 		exit_status();
-	// else
-	// 	execute_program(shell, i, shell->env);
+	else
+		execute_program(shell, i);
 }
 
 //Parser that devides the input into tokens using lexer and then check if the
