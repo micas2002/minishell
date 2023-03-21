@@ -67,7 +67,7 @@ t_token	**divide_tokens(char **cmds);
 int		get_array_size(char **str);
 
 // INPUT_UTILS_2.C
-int	check_redirections(t_token *token);
+int		check_redirections(t_token *token);
 
 //LEXER.C
 
@@ -213,6 +213,6 @@ void	free_double_array(char **double_array);
 int		exit_status(void);
 
 //ERROR_HANDLER.C
-int	error_handler(int error_type, int exit_value, char *error_var);
+int		error_handler(int error_type, int exit_value, char *error_var);
 
 #endif
