@@ -6,7 +6,7 @@
 /*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 17:02:47 by filipe            #+#    #+#             */
-/*   Updated: 2023/03/21 16:28:01 by filipe           ###   ########.fr       */
+/*   Updated: 2023/03/21 22:31:17 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,25 @@ int	check_redirections(t_token *token)
 		iter++;
 	}
 	return (0);
+}
+
+int	input_redirection(char *redirection, char *filename, int num_redirection)
+{
+	int	fd;
+	
+	if (ft_strcmp(redirection, "<") == 0)
+	{
+		fd = open(filename, O_RDONLY);
+		if (fd == -1)
+			exit(error_handler(ERR_NO_SUCH_FILE_OR_DIR, EXIT_FAILURE, filename));
+	}
+	else
+	{
+		fd = here_doc(filename);
+		if (fd == -1)
+			exit(error_handler(ERR_NO_SUCH_FILE_OR_DIR, EXIT_FAILURE, filename));
+	}
+	if (num_redirection == 0)
+		return (fd);
+	return (-1);
 }

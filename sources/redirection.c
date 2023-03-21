@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 16:20:51 by filipe            #+#    #+#             */
-/*   Updated: 2023/03/21 23:19:30 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/21 23:21:25 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,23 @@ void	handle_redirections(t_token *token)
 		handle_input_redirections(token);
 }
 
+void	handle_input_redirections(t_token *token)
+{
+	int	fd;
+	int iter;
+	int num_redirection;
+	int num_heredoc;
+	
+	iter = 0;
+	num_heredoc = 0;
+	num_redirection = 0;
+	while (token->args[iter] != NULL)
+	{
+		if (ft_strcmp(token->args[iter], "<") == 0)
+			
+	}
+}
+
 int	here_doc(char *delim)
 {
 	char	*line;
@@ -27,6 +44,8 @@ int	here_doc(char *delim)
 	int		fd;
 	
 	fd = open(".tmp.txt", O_TRUNC | O_CREAT | O_RDWR, 0666);
+	if (fd == -1)
+		return fd;
 	promt = ft_strjoin(delim, "> ");
 	line = readline(promt);
 	while (1)
