@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/18 16:02:47 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:30:34 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ char	**lexer_loop(char const *s, char **str)
 	{
 		if (s[i] == '\'')
 			i = quote_handler((char *)s, i + 1, '\'') + 1;
-		if (s[i] == '\"')
+		else if (s[i] == '\"')
 			i = quote_handler((char *)s, i + 1, '\"') + 1;
-		if (s[i] == ' ')
+		else if (s[i] == ' ')
 		{
 			str[x] = ft_substr((char *)s, begin, i - begin);
 			i++;

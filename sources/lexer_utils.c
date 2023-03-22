@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:18:32 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/18 15:57:01 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:28:57 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,22 @@ int	operators(char *str, int i)
 
 int	other_input(char *str, int i)
 {
-	while (str[++i])
+	while (str[i])
 	{
 		if (str[i] == ' ' || str[i] == '	' || is_operator(str[i]) == 1)
 			break ;
+		i++;
 	}
 	return (i);
 }
 
 int	quote_handler(char *str, int i, char c)
 {
-	while (str[++i])
+	while (str[i])
 	{
 		if (str[i] == c)
 			break ;
+		i++;
 	}
 	return (i);
 }
