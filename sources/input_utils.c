@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/21 22:34:17 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/22 19:50:26 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 int	check_var(char *str, int i)
 {
-	while (str[i] != '\0' && str[i] != '$')
+	while (str[i] != '\0' && str[i] != '$'
+		&& str[i] != ' ' && str[i] != '\'' && str[i] != '\"')
 		i++;
 	if (i == 0)
 		return (0);
-	else if (str[i] == '$')
+	else if (str[i] == '$' || str[i] == ' ' || str[i] == '\'' || str[i] == '\"')
 		return (i);
 	return (-1);
 }
@@ -31,7 +32,10 @@ char	*get_env_var(t_shell *shell, char *str, char *tmp)
 	char	*var;
 	char	*after_var;
 
-	x = check_var(str, 0);
+	x = 0;
+	if (str[0] == '\'' || str[0] == '\"')
+		x++;
+	x = check_var(str, x);
 	if (x == -1)
 		return (str);
 	before_var = ft_substr(str, 0, x);
