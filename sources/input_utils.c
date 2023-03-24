@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/23 16:29:00 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/24 12:24:14 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,14 @@
 
 int	check_after_var(char *str, int i)
 {
-	while (str[i] != '\0' && str[i] != ' ' && str[i] != '$' && str[i] != '\'' && str[i] != '\"')
-		i++;
+	while (str[i] != '\0' && str[i] != ' ' && str[i] != '$' && str[i] != '\''
+		&& str[i] != '\"')
+	{
+		if (str[i] == '\'')
+			i = quote_handler(str, i, '\'');
+		else
+			i++;
+	}
 	if (i == 0)
 		return (0);
 	else if (str[i] == '$' || str[i] == ' ' || str[i] == '\'' || str[i] == '\"')
@@ -25,8 +31,13 @@ int	check_after_var(char *str, int i)
 
 int	check_var(char *str, int i)
 {
-	while (str[i] != '\0' && str[i] != '$' && str[i] != '\'' && str[i] != '\"')
-		i++;
+	while (str[i] != '\0' && str[i] != '$' && str[i] != '\"')
+	{
+		if (str[i] == '\'')
+			i = quote_handler(str, i + 1, '\'') + 1;
+		else
+			i++;
+	}
 	if (i == 0)
 		return (0);
 	else if (str[i] == '$' || str[i] == '\'' || str[i] == '\"')
@@ -43,7 +54,7 @@ char	*get_env_var(t_shell *shell, char *str, char *tmp)
 	char	*after_var;
 
 	x = 0;
-	if (str[0] == '\'' || str[0] == '\"')
+	if (str[0] == '\"')
 		x++;
 	x = check_var(str, x);
 	if (x == -1)
@@ -93,6 +104,8 @@ t_token	**handle_dollar(t_shell *shell, t_token **tokens)
 			while (ft_strchr(tokens[iter]->args[x], '$') != NULL)
 			{
 				tmp = get_env_var(shell, tokens[iter]->args[x], util);
+				if (ft_strcmp(tmp, tokens[iter]->args[x]) == 0)
+					break ;
 				free(tokens[iter]->args[x]);
 				tokens[iter]->args[x] = tmp;
 			}
