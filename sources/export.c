@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:22:41 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/20 17:48:06 by filipe           ###   ########.fr       */
+/*   Updated: 2023/03/25 14:47:08 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	export(t_shell *shell, t_token *token, int i)
 	{
 		if (check_token_chars(token->args[i]) == 0)
 		{
-			g_exit_value = error_handler(ERR_NO_VALID_IDENT, EXIT_FAILURE, token->args[i]);
+			g_exit_value = error_handler(ERR_NO_VALID_IDENT,
+					EXIT_FAILURE, token->args[i]);
 			return ;
 		}
 		new_env = malloc(sizeof(char *) * (get_env_size(shell->env) + 2));

@@ -63,11 +63,19 @@ int		get_size_of_array(char **array);
 t_token	**divide_tokens(char **cmds);
 
 //INPUT_UTILS.C
-char	*get_env_var(t_shell *shell, char *str, char *tmp);
-t_token	**handle_dollar(t_shell *shell, t_token **tokens);
 t_token	**divide_tokens(char **cmds);
 int		get_array_size(char **str);
 
+//DOLLAR.C
+t_token	**handle_dollar(t_shell *shell, t_token **tokens);
+char	*get_env_var(t_shell *shell, char *str, char *tmp);
+int		check_var(char *str, int i);
+int		check_after_var(char *str, int i);
+
+//DOLLAR_UTILS.C
+void	check_dollar(t_shell *shell, t_token **tokens, int iter);
+char	*no_var_after(t_shell *shell, char *str, char *before_var, int x);
+char	*join_final(char *var, char *after_var, char *before_var, char *tmp);
 
 //LEXER.C
 
@@ -82,7 +90,7 @@ int		get_array_size(char **str);
  * @param shell t_shell *
  */
 char	**lexer(char *s);
-char	**lexer_loop(char const *s, char **str);
+char	**lexer_loop(char const *s, char **str, int i, int x);
 int		get_lexer_array_size(char *s, char c);
 
 //LEXER_UTILS.C

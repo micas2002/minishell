@@ -6,13 +6,13 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 11:55:27 by mibernar          #+#    #+#             */
-/*   Updated: 2023/02/24 11:59:11 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/25 13:55:28 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int exit_status(void)
+int	exit_status(void)
 {
-    return (g_exit_value);
+	return (g_exit_value);
 }

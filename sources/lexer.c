@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/22 18:30:34 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/25 14:51:36 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,14 @@ char	**lexer(char *s)
 	str = (char **)malloc(sizeof(char *) * (array_size + 1));
 	if (!str)
 		return (NULL);
-	str = lexer_loop(s, str);
+	str = lexer_loop(s, str, 0, 0);
 	return (str);
 }
 
-char	**lexer_loop(char const *s, char **str)
+char	**lexer_loop(char const *s, char **str, int i, int x)
 {
 	int	begin;
-	int	i;
-	int	x;
 
-	i = 0;
-	x = 0;
 	begin = 0;
 	while (s[i] != '\0')
 	{
