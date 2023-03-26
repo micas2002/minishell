@@ -47,16 +47,23 @@ void	parser(char *str, t_shell *shell)
 	cmds = ft_split(str, '|');
 	shell->nb_tokens = get_array_size(cmds);
 	shell->tokens = divide_tokens(cmds);
+	if (g_exit_value == EXIT_FAILURE)
+	{
+		free_double_array(cmds);
+		g_exit_value = 0;
+		return ;
+	}
 	shell->tokens = handle_dollar(shell, shell->tokens);
 	free_double_array(cmds);
-	if (check_redirections(shell->tokens[0]) != 0)
-	{
-		pid = fork();
-		// if (pid == 0)
-		// 	handle_redirections(shell);
-		waitpid(pid, &g_exit_value, 0);
-	}
-	else
+	(void)pid;
+	// if (check_redirections(shell->tokens[0]) != 0)
+	// {
+	// 	pid = fork();
+	// 	// if (pid == 0)
+	// 	// 	handle_redirections(shell);
+	// 	waitpid(pid, &g_exit_value, 0);
+	// }
+	// else
 		commands(shell, 0);
 	free_tokens(shell);
 }

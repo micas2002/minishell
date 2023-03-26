@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 13:18:32 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/24 13:18:18 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/26 12:08:38 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int	quote_handler(char *str, int i, char c)
 		i++;
 	}
 	if (str[i] == '\0')
-		i = -1;
+		i = -2;
 	return (i);
 }
