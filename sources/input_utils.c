@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/27 15:49:32 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:41:56 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_token	**divide_tokens(char **cmds)
 			free(tokens);
 			return (NULL);
 		}
-		tokens[iter]->str = ft_strdup(cmds[iter]);
 		iter++;
 	}
 	tokens[iter] = NULL;

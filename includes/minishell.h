@@ -24,7 +24,6 @@
 
 typedef struct s_token
 {
-	char	*str;
 	char	**args;
 }	t_token;
 
@@ -52,6 +51,7 @@ extern int	g_exit_value;
 # define ERR_UNCLOSED_QUOTES 50
 # define ERR_NO_VALID_IDENT 70
 # define ERR_NO_SUCH_FILE_OR_DIR 80
+# define ERR_SYNTAX 90
 
 //MAIN.C
 void	terminal(t_shell shell);
@@ -226,9 +226,12 @@ int		exit_status(void);
 int		error_handler(int error_type, int exit_value, char *error_var);
 
 //REDIRECTION.C
-void	handle_redirections(t_token *token);
+void	handle_redirections(t_shell *shell, int i);
+int		handle_output_redirections(t_token *token);
+int		handle_input_redirections(t_token *token, int iter, int error);
 
 // REDIRECTION_UTILS.C
 int		check_redirections(t_token *token);
+t_token	*clean_redirections(t_token *token);
 
 #endif
