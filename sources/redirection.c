@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 16:20:51 by filipe            #+#    #+#             */
-/*   Updated: 2023/03/27 18:00:23 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/27 21:57:30 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	handle_redirections(t_shell *shell, int i)
 	}
 	shell->tokens[i] = clean_redirections(token);
 	commands(shell, i);
+	exit(EXIT_SUCCESS);
 }
 
 int	handle_output_redirections(t_token *token)
