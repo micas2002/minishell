@@ -24,7 +24,7 @@ void	commands(t_shell *shell, int i)
 	else if (ft_strcmp(shell->tokens[i]->args[0], "pwd") == 0)
 		pwd();
 	else if (ft_strcmp(shell->tokens[i]->args[i], "export") == 0)
-		export(shell, shell->tokens[i], 1);
+		export(shell, shell->tokens[i], 0, 0);
 	else if (ft_strcmp(shell->tokens[i]->args[0], "unset") == 0)
 		unset(shell, shell->tokens[i], 1);
 	else if (ft_strcmp(shell->tokens[i]->args[0], "env") == 0)

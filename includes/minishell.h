@@ -91,6 +91,7 @@ char	*join_final(char *var, char *after_var, char *before_var, char *tmp);
  */
 char	**lexer(char *s);
 char	**lexer_loop(char const *s, char **str, int i, int x);
+char	**unclosed_quote_found(char **str, int x);
 int		get_lexer_array_size(char *s, char c);
 
 //LEXER_UTILS.C
@@ -195,7 +196,8 @@ char	**new_env(t_shell *shell, int i);
 int		get_env_size(char **env);
 
 //EXPORT.C
-void	export(t_shell *shell, t_token *token, int i);
+void	export(t_shell *shell, t_token *token, int i, int x);
+char	**export_loop(t_shell *shell, t_token *token, int i, int x);
 
 // Free
 /**

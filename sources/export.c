@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:22:41 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/25 14:47:08 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:21:50 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,37 @@ int	get_var_size(char *arg)
 	return (len);
 }
 
-void	export(t_shell *shell, t_token *token, int i)
+char	**export_loop(t_shell *shell, t_token *token, int i, int x)
 {
 	char	**new_env;
 	int		ctrl_if_exist;
-	int		x;
 	int		y;
 
-	while (token->args[i] != NULL)
+	new_env = malloc(sizeof(char *) * (get_env_size(shell->env) + 2));
+	ctrl_if_exist = 0;
+	y = -1;
+	while (shell->env[++y] != NULL)
+	{
+		if (ft_strncmp(token->args[i], shell->env[y],
+				get_var_size(token->args[i]) + 1) == 0)
+		{
+			new_env[x++] = ft_strdup(token->args[i]);
+			ctrl_if_exist = 1;
+		}
+		else
+			new_env[x++] = ft_strdup(shell->env[y]);
+	}
+	if (ctrl_if_exist == 0)
+		new_env[x++] = ft_strdup(token->args[++i]);
+	new_env[x] = NULL;
+	return (new_env);
+}
+
+void	export(t_shell *shell, t_token *token, int i, int x)
+{
+	char	**new_env;
+
+	while (token->args[++i] != NULL)
 	{
 		if (check_token_chars(token->args[i]) == 0)
 		{
@@ -55,32 +78,9 @@ void	export(t_shell *shell, t_token *token, int i)
 					EXIT_FAILURE, token->args[i]);
 			return ;
 		}
-		new_env = malloc(sizeof(char *) * (get_env_size(shell->env) + 2));
-		ctrl_if_exist = 0;
-		x = 0;
-		y = 0;
-		while (shell->env[y] != NULL)
-		{
-			if (ft_strncmp(token->args[i], shell->env[y],
-					get_var_size(token->args[i]) + 1) == 0)
-			{
-				new_env[x] = ft_strdup(token->args[i]);
-				ctrl_if_exist = 1;
-			}
-			else
-				new_env[x] = ft_strdup(shell->env[y]);
-			x++;
-			y++;
-		}
-		if (ctrl_if_exist == 0)
-		{
-			new_env[x] = ft_strdup(token->args[++i]);
-			x++;
-		}
-		new_env[x] = NULL;
+		new_env = export_loop(shell, token, i, x);
 		free_double_array(shell->env);
 		shell->env = new_env;
-		i++;
 	}
 	g_exit_value = EXIT_SUCCESS;
 }

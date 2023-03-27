@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/27 15:41:07 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:09:53 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ char	**lexer(char *s)
 	if (!str)
 		return (NULL);
 	str = lexer_loop(s, str, 0, 0);
+	return (str);
+}
+
+char	**unclosed_quote_found(char **str, int x)
+{
+	str[x] = NULL;
+	free_double_array(str);
+	g_exit_value = EXIT_FAILURE;
 	return (str);
 }
 
@@ -50,12 +58,7 @@ char	**lexer_loop(char const *s, char **str, int i, int x)
 		else
 			i++;
 		if (i == -1)
-		{
-			str[x] = NULL;
-			free_double_array(str);
-			g_exit_value = EXIT_FAILURE;
-			return (str);
-		}
+			return (unclosed_quote_found(str, x));
 	}
 	str[x] = ft_substr((char *)s, begin, i - begin);
 	str[++x] = NULL;
