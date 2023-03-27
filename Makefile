@@ -11,7 +11,7 @@ HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 SOURCES_LIST = main.c input.c input_utils.c dollar.c dollar_utils.c\
 		lexer.c lexer_utils.c echo.c pwd.c cd.c signals.c env.c \
 		unset.c export.c free.c exit_status.c execute_programs.c \
-		error_handler.c 
+		error_handler.c  redirection.c redirection_utils.c
 SOURCES_DIRECTORY = ./sources/
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
