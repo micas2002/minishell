@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 13:57:47 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/25 14:45:30 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/27 21:31:28 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ t_token	**handle_dollar(t_shell *shell, t_token **tokens)
 	int		iter;
 
 	iter = 0;
+	if (tokens == NULL)
+		return (NULL);
 	while (tokens[iter] != NULL)
 	{
 		check_dollar(shell, tokens, iter);
