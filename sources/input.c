@@ -50,7 +50,7 @@ void	parser(char *str, t_shell *shell)
 	if (g_exit_value == EXIT_FAILURE)
 	{
 		free_double_array(cmds);
-		g_exit_value = 0;
+		g_exit_value = error_handler(ERR_UNCLOSED_QUOTES, 0, "");
 		return ;
 	}
 	shell->tokens = handle_dollar(shell, shell->tokens);

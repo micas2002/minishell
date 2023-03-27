@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/26 13:45:43 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:49:32 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,10 @@ t_token	**divide_tokens(char **cmds)
 	{
 		tokens[iter] = (t_token *)malloc(sizeof(t_token));
 		tokens[iter]->args = lexer(cmds[iter]);
-		if (tokens[iter]->args == NULL)
+		if (g_exit_value == EXIT_FAILURE)
 		{
 			while (iter >= 0)
 			{
-				// free_double_array(tokens[iter]->args);
 				free(tokens[iter]);
 				iter--;
 			}
