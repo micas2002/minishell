@@ -55,15 +55,15 @@ void	parser(char *str, t_shell *shell)
 	}
 	shell->tokens = handle_dollar(shell, shell->tokens);
 	free_double_array(cmds);
-	(void)pid;
-	// if (check_redirections(shell->tokens[0]) != 0)
-	// {
-	// 	pid = fork();
-	// 	// if (pid == 0)
-	// 	// 	handle_redirections(shell);
-	// 	waitpid(pid, &g_exit_value, 0);
-	// }
-	// else
+	if (check_redirections(shell->tokens[0]) != 0)
+	{
+		pid = fork();
+		if (pid == 0)
+			handle_redirections(shell);
+		waitpid(pid, &g_exit_value, 0);
+		exit(g_exit_value);
+	}
+	else
 		commands(shell, 0);
 	free_tokens(shell);
 }
