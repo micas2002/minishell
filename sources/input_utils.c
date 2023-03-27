@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/27 17:41:56 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/27 21:30:30 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_token	**divide_tokens(char **cmds)
 	int		iter;
 
 	iter = 0;
+	if (cmds == NULL)
+		return (NULL);
 	while (cmds[iter] != NULL)
 		iter++;
 	tokens = (t_token **)malloc(sizeof(t_token *) * (iter + 1));
@@ -47,6 +49,8 @@ int	get_array_size(char **str)
 	int	iter;
 
 	iter = 0;
+	if (str == NULL)
+		return (0);
 	while (str[iter] != NULL)
 		iter++;
 	return (iter);

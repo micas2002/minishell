@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 17:02:47 by filipe            #+#    #+#             */
-/*   Updated: 2023/03/27 17:35:56 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/27 21:53:05 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	check_redirections(t_token *token)
 	int	iter;
 
 	iter = 0;
-	while (token->args[iter])
+	if (token->args == NULL)
+		return (0);
+	while (token->args[iter] != NULL)
 	{
 		if (ft_strcmp(token->args[iter], ">") == 0
 			|| ft_strcmp(token->args[iter], ">>") == 0)
@@ -81,6 +83,8 @@ t_token	*clean_redirections_loop(t_token *new_token, t_token *token)
 	int	iter;
 	int	count;
 
+	iter = 0;
+	count = 0;
 	while (token->args[iter] != NULL)
 	{
 		if (ft_strcmp(token->args[iter], ">") == 0
@@ -90,11 +94,12 @@ t_token	*clean_redirections_loop(t_token *new_token, t_token *token)
 			iter += 2;
 		else
 		{
-			new_token->ars[count] = ft_strdup(token->args[iter]);
+			new_token->args[count] = ft_strdup(token->args[iter]);
 			iter++;
 			count++;
 		}
 	}
 	new_token->args[count] = NULL;
+	free_token(token);
 	return (new_token);
 }
