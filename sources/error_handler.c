@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 12:16:25 by fialexan          #+#    #+#             */
-/*   Updated: 2023/03/21 14:24:42 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/27 16:21:03 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,8 @@ int	error_handler(int error_type, int exit_value, char *error_var)
 		printf("there are some unclosed quotes\n");
 	else if (error_type == ERR_NO_VALID_IDENT)
 		printf("export: `%s': not a valid identifier\n", error_var);
+	else if (error_type == ERR_SYNTAX)
+		printf("minishell: syntax error near unexpected token 'newline'",
+			error_var);
 	return (exit_value);
 }
