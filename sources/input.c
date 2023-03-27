@@ -59,11 +59,10 @@ void	parser(char *str, t_shell *shell)
 	{
 		pid = fork();
 		if (pid == 0)
-			handle_redirections(shell);
+			handle_redirections(shell, 0);
 		waitpid(pid, &g_exit_value, 0);
-		exit(g_exit_value);
 	}
 	else
 		commands(shell, 0);
-	free_tokens(shell);
+	free_all_tokens(shell);
 }

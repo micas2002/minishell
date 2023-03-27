@@ -200,12 +200,14 @@ void	export(t_shell *shell, t_token *token, int i, int x);
 char	**export_loop(t_shell *shell, t_token *token, int i, int x);
 
 // Free
+
+void	free_token(t_token *token);
 /**
  * @brief Frees all the tokens previously allocate for shell.
  * 
  * @param shell t_shell *
  */
-void	free_tokens(t_shell *shell);
+void	free_all_tokens(t_shell *shell);
 
 /**
  * @brief Receives a double array, frees all the arrays and them frees
@@ -229,9 +231,11 @@ int		error_handler(int error_type, int exit_value, char *error_var);
 void	handle_redirections(t_shell *shell, int i);
 int		handle_output_redirections(t_token *token);
 int		handle_input_redirections(t_token *token, int iter, int error);
+int		here_doc(char *delim);
 
 // REDIRECTION_UTILS.C
 int		check_redirections(t_token *token);
 t_token	*clean_redirections(t_token *token);
+t_token	*clean_redirections_loop(t_token *new_token, t_token *token);
 
 #endif
