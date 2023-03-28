@@ -15,21 +15,25 @@
 int	check_redirections(t_token *token)
 {
 	int	iter;
+	int	input;
+	int	output;
 
 	iter = 0;
+	input = 0;
+	output = 0;
 	if (token->args == NULL)
 		return (0);
 	while (token->args[iter] != NULL)
 	{
-		if (ft_strcmp(token->args[iter], ">") == 0
-			|| ft_strcmp(token->args[iter], ">>") == 0)
-			return (1);
-		else if (ft_strcmp(token->args[iter], "<") == 0
-			|| ft_strcmp(token->args[iter], "<<") == 0)
-			return (2);
+		if ((ft_strcmp(token->args[iter], ">") == 0
+			|| ft_strcmp(token->args[iter], ">>") == 0) && output == 0)
+			output += 1;
+		else if ((ft_strcmp(token->args[iter], "<") == 0
+			|| ft_strcmp(token->args[iter], "<<") == 0) && input == 0)
+			input += 2;
 		iter++;
 	}
-	return (0);
+	return (input + output);
 }
 
 int	input_redirection(char *redirection, char *filename, int num_redirection)
