@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 16:20:51 by filipe            #+#    #+#             */
-/*   Updated: 2023/03/27 21:57:30 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/28 23:52:22 by filipe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,20 @@
 void	handle_redirections(t_shell *shell, int i)
 {
 	int		fd;
+	int		redirections;
 	t_token	*token;
 
 	token = shell->tokens[i];
-	if (check_redirections(token) == 1)
+	redirections = check_redirections(token);
+	if (redirections == 1 || redirections == 3)
 	{
 		fd = handle_output_redirections(token);
-		dup2(fd, STDIN_FILENO);
+		dup2(fd, STDOUT_FILENO);
 	}
-	if (check_redirections(token) == 2)
+	if (redirections == 2 || redirections == 3)
 	{
 		fd = handle_input_redirections(token, -1, 0);
-		dup2(fd, STDOUT_FILENO);
+		dup2(fd, STDIN_FILENO);
 	}
 	shell->tokens[i] = clean_redirections(token);
 	commands(shell, i);
