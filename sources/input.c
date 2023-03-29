@@ -42,22 +42,28 @@ void	commands(t_shell *shell, int i)
 void	parser(char *str, t_shell *shell)
 {
 	char	**cmds;
-	int		pid;
 
 	if (str[0] == '\0')
 		return ;
 	cmds = ft_split(str, '|');
 	shell->nb_tokens = get_array_size(cmds);
 	shell->tokens = divide_tokens(shell, cmds);
+	free_double_array(cmds);
+	execute_parser_commands(shell);
+	free_all_tokens(shell);
+}
+
+void	execute_parser_commands(t_shell *shell)
+{
+	int	pid;
+
 	if (shell->unclosed_quotes == 1)
 	{
-		free_double_array(cmds);
 		g_exit_value = error_handler(ERR_UNCLOSED_QUOTES, 0, "");
 		shell->unclosed_quotes = 0;
 		return ;
 	}
 	shell->tokens = handle_dollar(shell, shell->tokens);
-	free_double_array(cmds);
 	if (shell->nb_tokens > 1)
 		handle_pipes(shell);
 	else if (check_redirections(shell->tokens[0]) != 0)
@@ -69,5 +75,4 @@ void	parser(char *str, t_shell *shell)
 	}
 	else
 		commands(shell, 0);
-	free_all_tokens(shell);
 }
