@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 13:57:47 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/27 21:31:28 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:34:06 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*found_exit_status_var(int x, char *str, char *before_var, char *tmp)
+{
+	char	*var;
+	char	*after_var;
+
+	var = ft_itoa(g_exit_value);
+	tmp = ft_strjoin(before_var, var);
+	after_var = ft_substr(str, x + 2, ft_strlen(str) - x - 2);
+	free(before_var);
+	before_var = ft_strjoin(tmp, after_var);
+	free(tmp);
+	free(after_var);
+	free(var);
+	return (before_var);
+}
 
 int	check_after_var(char *str, int i)
 {
@@ -59,12 +75,11 @@ char	*get_env_var(t_shell *shell, char *str, char *tmp)
 	if (x == -1)
 		return (str);
 	before_var = ft_substr(str, 0, x);
+	if (str[x] == '$' && str[x + 1] == '?')
+		return (found_exit_status_var(x, str, before_var, tmp));
 	y = check_after_var(str, x + 1);
 	if (y == -1)
-	{
-		var = no_var_after(shell, str, before_var, x);
-		return (var);
-	}
+		return (no_var_after(shell, str, before_var, x));
 	tmp = ft_substr(str, x + 1, y - x - 1);
 	var = get_env_variable(shell, tmp, y - x);
 	after_var = ft_strjoin(before_var, var);
