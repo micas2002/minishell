@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 14:23:06 by fialexan          #+#    #+#             */
-/*   Updated: 2023/03/29 20:49:33 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/29 21:27:29 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	child_function(t_shell *shell, t_pipe *pipe, int iter)
 {
 	child_input(shell, pipe, iter);
 	child_output(shell, pipe, iter);
-	clean_redirections(shell->tokens[iter]);
+	shell->tokens[iter] = clean_redirections(shell->tokens[iter]);
 	commands(shell, iter);
 	exit(g_exit_value);
 }
