@@ -42,6 +42,7 @@ $(NAME): $(LIBFT) $(OBJECTS_DIRECTORY) $(OBJECTS)
 	@$(CC) $(FLAGS) $(INCLUDES) $(OBJECTS) $(LIBRARIES) -o $(NAME)
 	@echo "$(CYAN)$(NAME):$(RESET) $(GREEN)object files$(RESET) were created and have come to free us, $(YELLOW)monkeys$(RESET) united."
 	@echo "$(CYAN)$(NAME):$(RESET) $(GREEN)$(NAME)$(RESET) was created, like $(BLUE)god$(RESET) intended"
+	@echo "$(CYAN)$(NAME):$(RESET) now watch this video : $(RED)https://www.youtube.com/watch?v=xvFZjo5PgG0$(RESET)" 
 
 $(OBJECTS_DIRECTORY): ## Creates the objects directory
 	@mkdir -p $(OBJECTS_DIRECTORY)
@@ -76,5 +77,6 @@ help: ## Shows all the options and it's uses
 	@echo "usage: make [target]"
 	@echo ""
 	@egrep "^(.+)\:\ .*##\ (.+)" ${MAKEFILE_LIST} | sed 's/:.*##/#/' | column -t -c 2 -s '#'
+	@curl -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash
 
 .PHONY	: re fclean clean all
