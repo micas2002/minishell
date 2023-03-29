@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/29 19:12:50 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/29 20:02:30 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,10 @@ char	**lexer_loop(char const *s, char **str, int i, int x)
 			i = quote_handler((char *)s, i + 1, s[i]) + 1;
 		else if (s[i] == ' ')
 		{
-			str[x] = ft_substr((char *)s, begin, i - begin);
+			str[x++] = ft_substr((char *)s, begin, i - begin);
 			while (s[i] == ' ')
 				i++;
 			begin = i;
-			x++;
 		}
 		else
 			i++;
