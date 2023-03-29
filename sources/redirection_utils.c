@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 17:02:47 by filipe            #+#    #+#             */
-/*   Updated: 2023/03/27 21:53:05 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/29 14:12:18 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int	check_redirections(t_token *token)
 	while (token->args[iter] != NULL)
 	{
 		if ((ft_strcmp(token->args[iter], ">") == 0
-			|| ft_strcmp(token->args[iter], ">>") == 0) && output == 0)
+				|| ft_strcmp(token->args[iter], ">>") == 0) && output == 0)
 			output += 1;
 		else if ((ft_strcmp(token->args[iter], "<") == 0
-			|| ft_strcmp(token->args[iter], "<<") == 0) && input == 0)
+				|| ft_strcmp(token->args[iter], "<<") == 0) && input == 0)
 			input += 2;
 		iter++;
 	}

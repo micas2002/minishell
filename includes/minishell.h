@@ -60,9 +60,9 @@ void	terminal(t_shell shell);
 void	commands(t_shell *shell, int i);
 void	parser(char *str, t_shell *shell);
 int		get_size_of_array(char **array);
-t_token	**divide_tokens(char **cmds);
 
 //INPUT_UTILS.C
+int		divide_tokens_loop(char **cmds, int iter, t_token **tokens);
 t_token	**divide_tokens(char **cmds);
 int		get_array_size(char **str);
 
