@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/29 14:17:38 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:23:53 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,14 @@ int	divide_tokens_loop(char **cmds, int iter, t_token **tokens)
 	return (1);
 }
 
-t_token	**divide_tokens(char **cmds)
+t_token	**divide_tokens(t_shell *shell, char **cmds)
 {
 	t_token	**tokens;
 	int		iter;
+	int		og_exit_value;
 
+	og_exit_value = g_exit_value;
+	g_exit_value = EXIT_SUCCESS;
 	iter = 0;
 	if (cmds == NULL)
 		return (NULL);
@@ -45,7 +48,11 @@ t_token	**divide_tokens(char **cmds)
 		iter++;
 	tokens = (t_token **)malloc(sizeof(t_token *) * (iter + 1));
 	if (divide_tokens_loop(cmds, 0, tokens) == 0)
+	{
+		shell->unclosed_quotes = 1;
+		g_exit_value = og_exit_value;
 		return (NULL);
+	}
 	tokens[iter] = NULL;
 	return (tokens);
 }

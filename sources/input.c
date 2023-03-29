@@ -20,7 +20,7 @@ void	commands(t_shell *shell, int i)
 	if (ft_strcmp(shell->tokens[i]->args[0], "echo") == 0)
 		echo(shell->tokens[i]);
 	else if (ft_strcmp(shell->tokens[i]->args[0], "cd") == 0)
-		cd(shell->tokens[i]);
+		cd(shell, shell->tokens[i]);
 	else if (ft_strcmp(shell->tokens[i]->args[0], "pwd") == 0)
 		pwd();
 	else if (ft_strcmp(shell->tokens[i]->args[i], "export") == 0)
@@ -46,11 +46,12 @@ void	parser(char *str, t_shell *shell)
 
 	cmds = ft_split(str, '|');
 	shell->nb_tokens = get_array_size(cmds);
-	shell->tokens = divide_tokens(cmds);
-	if (g_exit_value == EXIT_FAILURE)
+	shell->tokens = divide_tokens(shell, cmds);
+	if (shell->unclosed_quotes == 1)
 	{
 		free_double_array(cmds);
 		g_exit_value = error_handler(ERR_UNCLOSED_QUOTES, 0, "");
+		shell->unclosed_quotes = 0;
 		return ;
 	}
 	shell->tokens = handle_dollar(shell, shell->tokens);

@@ -35,6 +35,7 @@ typedef struct s_token
  */
 typedef struct s_shell
 {
+	int		unclosed_quotes;
 	int		nb_tokens;
 	t_token	**tokens;
 	char	**env;
@@ -70,7 +71,7 @@ int		get_size_of_array(char **array);
 
 //INPUT_UTILS.C
 int		divide_tokens_loop(char **cmds, int iter, t_token **tokens);
-t_token	**divide_tokens(char **cmds);
+t_token	**divide_tokens(t_shell *shell, char **cmds);
 int		get_array_size(char **str);
 
 //DOLLAR.C
@@ -141,7 +142,7 @@ void	echo(t_token *token);
 void	pwd(void);
 
 //CD.C
-void	cd(t_token *token);
+void	cd(t_shell *shell,t_token *token);
 
 //SIGNALS.C
 void	receive_signal(void);
