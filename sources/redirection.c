@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filipe <filipe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 16:20:51 by filipe            #+#    #+#             */
-/*   Updated: 2023/03/28 23:52:22 by filipe           ###   ########.fr       */
+/*   Updated: 2023/03/29 17:59:29 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	handle_redirections(t_shell *shell, int i)
 	}
 	if (redirections == 2 || redirections == 3)
 	{
-		fd = handle_input_redirections(token, -1, 0);
+		fd = handle_input_redirections(token, -1, 0, -1);
 		dup2(fd, STDIN_FILENO);
 	}
 	shell->tokens[i] = clean_redirections(token);
@@ -41,6 +41,7 @@ int	handle_output_redirections(t_token *token)
 	int	iter;
 
 	iter = 0;
+	fd = -1;
 	while (token->args[iter] != NULL)
 	{
 		if (ft_strcmp(token->args[iter], ">") == 0)
@@ -60,10 +61,8 @@ int	handle_output_redirections(t_token *token)
 	return (fd);
 }
 
-int	handle_input_redirections(t_token *token, int iter, int error)
+int	handle_input_redirections(t_token *token, int iter, int error, int fd)
 {
-	int	fd;
-
 	while (token->args[++iter] != NULL)
 	{
 		if (ft_strcmp(token->args[iter], "<") == 0)
