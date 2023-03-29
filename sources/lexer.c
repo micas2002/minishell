@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/29 16:18:23 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:12:50 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ char	**lexer_loop(char const *s, char **str, int i, int x)
 {
 	int	begin;
 
-	begin = 0;
+	while (s[i] == ' ')
+		i++;
+	begin = i;
 	while (s[i] != '\0')
 	{
 		if (s[i] == '\'' || s[i] == '\"')
