@@ -67,7 +67,7 @@ void	terminal(t_shell shell);
 //INPUT.C
 void	commands(t_shell *shell, int i);
 void	parser(char *str, t_shell *shell);
-int		get_size_of_array(char **array);
+void	execute_parser_commands(t_shell *shell);
 
 //INPUT_UTILS.C
 int		divide_tokens_loop(char **cmds, int iter, t_token **tokens);
@@ -142,7 +142,7 @@ void	echo(t_token *token);
 void	pwd(void);
 
 //CD.C
-void	cd(t_shell *shell,t_token *token);
+void	cd(t_shell *shell, t_token *token);
 
 //SIGNALS.C
 void	receive_signal(void);
@@ -252,5 +252,8 @@ void	child_function(t_shell *shell, t_pipe *pipe, int iter);
 void	child_input(t_shell *shell, t_pipe *pipe, int iter);
 void	child_output(t_shell *shell, t_pipe *pipe, int iter);
 void	wait_all_forks(t_shell *shell, t_pipe *pipe);
+
+// PIPES_UTILS.C
+int		is_special_function(t_shell *shell, int iter);
 
 #endif
