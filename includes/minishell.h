@@ -40,6 +40,13 @@ typedef struct s_shell
 	char	**env;
 }	t_shell;
 
+typedef struct s_pipe
+{
+	pid_t	*pid;
+	int		pipe[2];
+	int		fd;
+}	t_pipe;
+
 extern int	g_exit_value;
 
 // Defines
@@ -230,12 +237,19 @@ int		error_handler(int error_type, int exit_value, char *error_var);
 //REDIRECTION.C
 void	handle_redirections(t_shell *shell, int i);
 int		handle_output_redirections(t_token *token);
-int		handle_input_redirections(t_token *token, int iter, int error);
+int		handle_input_redirections(t_token *token, int iter, int error, int fd);
 int		here_doc(char *delim);
 
 // REDIRECTION_UTILS.C
 int		check_redirections(t_token *token);
 t_token	*clean_redirections(t_token *token);
 t_token	*clean_redirections_loop(t_token *new_token, t_token *token);
+
+// PIPES.C
+void	handle_pipes(t_shell *shell);
+void	child_function(t_shell *shell, t_pipe *pipe, int iter);
+void	child_input(t_shell *shell, t_pipe *pipe, int iter);
+void	child_output(t_shell *shell, t_pipe *pipe, int iter);
+void	wait_all_forks(t_shell *shell, t_pipe *pipe);
 
 #endif
