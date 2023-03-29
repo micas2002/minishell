@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 14:23:06 by fialexan          #+#    #+#             */
-/*   Updated: 2023/03/29 18:00:02 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/03/29 20:49:33 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,20 @@ void	handle_pipes(t_shell *shell)
 	info->pid = malloc(sizeof(pid_t) * shell->nb_tokens);
 	while (shell->tokens[iter])
 	{
-		if (pipe(info->pipe) == -1)
-			return ;
-		info->pid[iter] = fork();
-		if (info->pid[iter] == -1)
-			return ;
-		if (info->pid[iter] == 0)
-			child_function(shell, info, iter);
-		close(info->pipe[1]);
-		info->fd = info->pipe[0];
+		if (is_special_function(shell, iter) == 1)
+			info->pid[iter] = 1;
+		else
+		{
+			if (pipe(info->pipe) == -1)
+				return ;
+			info->pid[iter] = fork();
+			if (info->pid[iter] == -1)
+				return ;
+			if (info->pid[iter] == 0)
+				child_function(shell, info, iter);
+			close(info->pipe[1]);
+			info->fd = info->pipe[0];
+		}
 		iter++;
 	}
 	wait_all_forks(shell, info);
