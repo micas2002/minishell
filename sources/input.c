@@ -44,6 +44,8 @@ void	parser(char *str, t_shell *shell)
 	char	**cmds;
 	int		pid;
 
+	if (str[0] == '\0')
+		return ;
 	cmds = ft_split(str, '|');
 	shell->nb_tokens = get_array_size(cmds);
 	shell->tokens = divide_tokens(shell, cmds);
@@ -56,7 +58,9 @@ void	parser(char *str, t_shell *shell)
 	}
 	shell->tokens = handle_dollar(shell, shell->tokens);
 	free_double_array(cmds);
-	if (check_redirections(shell->tokens[0]) != 0)
+	if (shell->nb_tokens > 1)
+		handle_pipes(shell);
+	else if (check_redirections(shell->tokens[0]) != 0)
 	{
 		pid = fork();
 		if (pid == 0)
