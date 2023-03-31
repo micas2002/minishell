@@ -62,6 +62,7 @@ extern int	g_exit_value;
 # define ERR_SYNTAX 90
 
 //MAIN.C
+char	**dup_env(char **env);
 void	terminal(t_shell shell);
 
 //INPUT.C
@@ -206,6 +207,11 @@ int		get_env_size(char **env);
 //EXPORT.C
 void	export(t_shell *shell, t_token *token, int i, int x);
 char	**export_loop(t_shell *shell, t_token *token, int i, int x);
+void	print_env(char **env);
+
+//EXPORT_UTILS.C
+int		check_token_chars(char *arg);
+int		get_var_size(char *arg);
 
 // Free
 
