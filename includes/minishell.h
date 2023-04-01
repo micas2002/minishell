@@ -207,6 +207,7 @@ int		get_env_size(char **env);
 //EXPORT.C
 void	export(t_shell *shell, t_token *token, int i, int x);
 char	**export_loop(t_shell *shell, t_token *token, int i, int x);
+void	sort_env(char **env);
 void	print_env(char **env);
 
 //EXPORT_UTILS.C

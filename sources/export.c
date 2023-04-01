@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:22:41 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/31 13:48:14 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:34:58 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,31 @@ void	print_env(char **env)
 	}
 }
 
-void	sort(char **names)
+void	sort_env(char **env)
 {
 	char	*temp;
 	int		i;
 	int		j;
 	int		n;
 
-	n = get_env_size(names);
+	n = get_env_size(env);
 	i = 0;
 	while (i < n - 1)
 	{
 		j = 0;
 		while (j < n - i - 1)
 		{
-			if (strcmp(names[j], names[j + 1]) > 0)
+			if (strcmp(env[j], env[j + 1]) > 0)
 			{
-				temp = names[j];
-				names[j] = names[j + 1];
-				names[j + 1] = temp;
+				temp = env[j];
+				env[j] = env[j + 1];
+				env[j + 1] = temp;
 			}
 			j++;
 		}
 		i++;
 	}
-	print_env(names);
+	print_env(env);
 }
 
 char	**export_loop(t_shell *shell, t_token *token, int i, int x)
@@ -74,7 +74,7 @@ char	**export_loop(t_shell *shell, t_token *token, int i, int x)
 			new_env[x++] = ft_strdup(shell->env[y]);
 	}
 	if (ctrl_if_exist == 0)
-		new_env[x++] = ft_strdup(token->args[++i]);
+		new_env[x++] = ft_strdup(token->args[i]);
 	new_env[x] = NULL;
 	return (new_env);
 }
@@ -86,7 +86,7 @@ void	export(t_shell *shell, t_token *token, int i, int x)
 	if (token->args[i + 1] == NULL)
 	{
 		new_env = dup_env(shell->env);
-		sort(new_env);
+		sort_env(new_env);
 		free_double_array(new_env);
 		return ;
 	}
