@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:58:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/04/03 16:17:27 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:28:10 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ void	run_program(t_shell *shell, int i)
 		args = get_command_paths(shell->env);
 		command = get_command(args, shell->tokens[i]->args[0]);
 		if (command == NULL)
-			exit(error_handler(ERR_NO_SUCH_FILE_OR_DIR, EXIT_FAILURE,
-					shell->tokens[i]->args[0]));
+			exit(error_handler(ERR_CMD, EXIT_FAILURE, ""));
 	}
 	free_double_array(args);
 	if (execve(command, shell->tokens[i]->args, shell->env) == -1)
-		exit(error_handler(ERR_CMD, EXIT_FAILURE, ""));
+		exit(error_handler(ERR_NO_SUCH_FILE_OR_DIR, EXIT_FAILURE,
+				shell->tokens[i]->args[0]));
 	exit(EXIT_SUCCESS);
 }
 
