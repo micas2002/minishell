@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/02/17 12:27:56 by fialexan          #+#    #+#              #
-#    Updated: 2023/02/15 16:46:53 by mibernar         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = libft.a
 
 CC = gcc
@@ -32,6 +20,7 @@ SOURCES_LIST =ft_isalpha.c ft_isdigit.c ft_isascii.c ft_isalnum.c ft_isprint.c f
 		format_i.c format_p.c format_s.c format_u.c format_x_big.c \
 		format_x_small.c ft_printf.c ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 		ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_strcmp.c
+
 SOURCES_DIRECTORY = sources/
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
@@ -50,15 +39,15 @@ RESET = \033[0m
 
 # RULES
 
-all: $(NAME)
+all: $(NAME) ## Compiles the project
 
 $(NAME): $(OBJECTS_DIRECTORY) $(OBJECTS)
 	@ar rc $(NAME) $(OBJECTS)
 	@ranlib $(NAME)
-	@echo "\n\t$(CYAN)$(NAME): $(GREEN) objects files $(RESET)were created"
+	@echo "\t$(CYAN)$(NAME): $(GREEN) objects files $(RESET)were created"
 	@echo "\t$(CYAN)$(NAME): $(GREEN)$(NAME)$(RESET) was created"
 	
-$(OBJECTS_DIRECTORY):
+$(OBJECTS_DIRECTORY): ## Creates the objects directory and compiles all files to .o
 	@mkdir -p $(OBJECTS_DIRECTORY)
 	@echo "\t$(CYAN)$(NAME): $(GREEN)$(OBJECTS_DIRECTORY) was created$(RESET)"
 	
@@ -66,17 +55,23 @@ $(OBJECTS_DIRECTORY)%.o: $(SOURCES_DIRECTORY)%.c $(HEADERS)
 	@$(CC) $(FLAGS) $(INCLUDES) $< -o $@
 	@echo "$(GREEN).$(RESET)\c"
 
-clean:
+clean: ## Cleans the project
 	@rm -rf $(OBJECTS_DIRECTORY)
 	@echo "\t$(CYAN)$(NAME): $(RED)$(OBJECTS_DIRECTORY)$(RESET) was deleted"
 	@echo "\t$(CYAN)$(NAME): $(RED) object files$(RESET) were annihilated"
 
-fclean:
+fclean: clean ## Deep cleans the project
 	@rm -f $(NAME)
 	@echo "\t$(CYAN)$(NAME): $(RED)$(NAME)$(RESET) was erased from the world surface"
 
-re:
+re: ## Deep cleans and recompiles the project
 	@make fclean
 	@make all
 
+help: ## Shows all the options and it's uses
+	@echo "Usage: make [target]"
+	@echo ""
+	@egrep "^(.+)\:\ .*##\ (.+)" ${MAKEFILE_LIST} | sed 's/:.*##/#/' | column -t -c 2 -s '#'
+
+.PHONY: all clean fclean re help
 
