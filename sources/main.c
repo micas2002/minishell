@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/31 13:50:50 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/04/06 12:41:05 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,7 @@ void	terminal(t_shell shell)
 		shell.nb_tokens = 0;
 		str = readline("myshell:$ ");
 		if (!str)
-		{
-			printf("\n");
-			continue ;
-		}
+			break ;
 		receive_signal();
 		add_history(str);
 		parser(str, &shell);
