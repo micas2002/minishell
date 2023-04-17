@@ -65,7 +65,7 @@ void	execute_parser_commands(t_shell *shell)
 	}
 	shell->tokens = handle_dollar(shell, shell->tokens);
 	if (shell->nb_tokens > 1)
-		handle_pipes(shell);
+		handle_pipes(shell, 0);
 	else if (check_redirections(shell->tokens[0]) != 0)
 	{
 		pid = fork();
@@ -76,3 +76,4 @@ void	execute_parser_commands(t_shell *shell)
 	else
 		commands(shell, 0);
 }
+	

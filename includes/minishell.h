@@ -254,7 +254,7 @@ t_token	*clean_redirections(t_token *token);
 t_token	*clean_redirections_loop(t_token *new_token, t_token *token);
 
 // PIPES.C
-void	handle_pipes(t_shell *shell);
+void	handle_pipes(t_shell *shell, int iter);
 void	child_function(t_shell *shell, t_pipe *pipe, int iter);
 void	child_input(t_shell *shell, t_pipe *pipe, int iter);
 void	child_output(t_shell *shell, t_pipe *pipe, int iter);

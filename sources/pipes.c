@@ -6,18 +6,16 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 14:23:06 by fialexan          #+#    #+#             */
-/*   Updated: 2023/03/29 21:27:29 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/04/17 15:05:20 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_pipes(t_shell *shell)
+void	handle_pipes(t_shell *shell, int iter)
 {
 	t_pipe	*info;
-	int		iter;
 
-	iter = 0;
 	info = malloc(sizeof(t_pipe));
 	info->pid = malloc(sizeof(pid_t) * shell->nb_tokens);
 	while (shell->tokens[iter])
@@ -38,11 +36,15 @@ void	handle_pipes(t_shell *shell)
 		}
 		iter++;
 	}
-	wait_all_forks(shell, info);
+	waitpid(info->pid[iter - 1], &g_exit_value, 0);
+	free(info->pid);
+	free(info);
 }
 
 void	child_function(t_shell *shell, t_pipe *pipe, int iter)
 {
+	if (iter != 0)
+		waitpid(pipe->pid[iter - 1], &g_exit_value, 0);
 	child_input(shell, pipe, iter);
 	child_output(shell, pipe, iter);
 	shell->tokens[iter] = clean_redirections(shell->tokens[iter]);
