@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 11:43:32 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/29 20:20:37 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/04/06 12:41:05 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,20 @@
 
 int		g_exit_value;
 
-void	dup_env(t_shell *shell, char **env)
+char	**dup_env(char **env)
 {
-	int	i;
+	char	**new_env;
+	int		i;
 
-	shell->env = malloc(sizeof(char *) *(get_env_size(env) + 1));
+	new_env = malloc(sizeof(char *) *(get_env_size(env) + 1));
 	i = 0;
 	while (env[i])
 	{
-		shell->env[i] = ft_strdup(env[i]);
+		new_env[i] = ft_strdup(env[i]);
 		i++;
 	}
-	shell->env[i] = NULL;
+	new_env[i] = NULL;
+	return (new_env);
 }
 
 void	terminal(t_shell shell)
@@ -46,10 +48,7 @@ void	terminal(t_shell shell)
 		shell.nb_tokens = 0;
 		str = readline("myshell:$ ");
 		if (!str)
-		{
-			printf("\n");
-			continue ;
-		}
+			break ;
 		receive_signal();
 		add_history(str);
 		parser(str, &shell);
@@ -63,7 +62,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
 
-	dup_env(&shell, env);
+	shell.env = dup_env(env);
 	shell.tokens = NULL;
 	(void) argc;
 	(void) argv;

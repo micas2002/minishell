@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_programs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:58:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/21 14:25:38 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:28:10 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,29 @@ void	execute_program(t_shell *shell, int i)
 void	run_program(t_shell *shell, int i)
 {
 	char	*command;
+	char	*tmp;
 	char	**args;
-	int		iq;
 
 	command = NULL;
 	args = NULL;
 	if (ft_strncmp("./", shell->tokens[i]->args[0], 2) == 0)
 	{
 		command = getcwd(command, FILENAME_MAX);
-		command = ft_strjoin(command, "/");
-		command = ft_strjoin(command, shell->tokens[i]->args[0] + 2);
+		tmp = ft_strjoin(command, "/");
+		free(command);
+		command = ft_strjoin(tmp, shell->tokens[i]->args[0] + 2);
 	}
 	else if (shell->tokens[i]->args[0][0] != '/')
 	{
 		args = get_command_paths(shell->env);
 		command = get_command(args, shell->tokens[i]->args[0]);
 		if (command == NULL)
-			exit(error_handler(ERR_NO_SUCH_FILE_OR_DIR, EXIT_FAILURE,
-					shell->tokens[i]->args[0]));
+			exit(error_handler(ERR_CMD, EXIT_FAILURE, ""));
 	}
 	free_double_array(args);
-	iq = execve(command, shell->tokens[i]->args, shell->env);
-	if (iq == -1)
-		exit(error_handler(ERR_CMD, EXIT_FAILURE, ""));
+	if (execve(command, shell->tokens[i]->args, shell->env) == -1)
+		exit(error_handler(ERR_NO_SUCH_FILE_OR_DIR, EXIT_FAILURE,
+				shell->tokens[i]->args[0]));
 	exit(EXIT_SUCCESS);
 }
 

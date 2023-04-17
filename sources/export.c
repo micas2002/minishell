@@ -6,38 +6,51 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:22:41 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/27 16:21:50 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/04/01 14:34:58 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_token_chars(char *arg)
+void	print_env(char **env)
 {
-	int	x;
+	int	i;
 
-	x = 0;
-	if (arg[x] == '=')
-		return (0);
-	while (arg[x] != '\0' && arg[x] != '=')
+	i = 0;
+	while (env[i] != NULL)
 	{
-		if (ft_isalnum(arg[x]) == 0)
-			return (0);
-		x++;
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(env[i], 1);
+		ft_putstr_fd("\n", 1);
+		i++;
 	}
-	if (arg[x] == '\0')
-		return (0);
-	return (1);
 }
 
-int	get_var_size(char *arg)
+void	sort_env(char **env)
 {
-	int	len;
+	char	*temp;
+	int		i;
+	int		j;
+	int		n;
 
-	len = 0;
-	while (arg[len] && arg[len] != '=')
-		len++;
-	return (len);
+	n = get_env_size(env);
+	i = 0;
+	while (i < n - 1)
+	{
+		j = 0;
+		while (j < n - i - 1)
+		{
+			if (strcmp(env[j], env[j + 1]) > 0)
+			{
+				temp = env[j];
+				env[j] = env[j + 1];
+				env[j + 1] = temp;
+			}
+			j++;
+		}
+		i++;
+	}
+	print_env(env);
 }
 
 char	**export_loop(t_shell *shell, t_token *token, int i, int x)
@@ -61,7 +74,7 @@ char	**export_loop(t_shell *shell, t_token *token, int i, int x)
 			new_env[x++] = ft_strdup(shell->env[y]);
 	}
 	if (ctrl_if_exist == 0)
-		new_env[x++] = ft_strdup(token->args[++i]);
+		new_env[x++] = ft_strdup(token->args[i]);
 	new_env[x] = NULL;
 	return (new_env);
 }
@@ -70,6 +83,13 @@ void	export(t_shell *shell, t_token *token, int i, int x)
 {
 	char	**new_env;
 
+	if (token->args[i + 1] == NULL)
+	{
+		new_env = dup_env(shell->env);
+		sort_env(new_env);
+		free_double_array(new_env);
+		return ;
+	}
 	while (token->args[++i] != NULL)
 	{
 		if (check_token_chars(token->args[i]) == 0)
