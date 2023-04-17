@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 15:49:49 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/29 20:02:30 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/04/17 16:01:44 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**unclosed_quote_found(char **str, int x)
 	str[x] = NULL;
 	free_double_array(str);
 	g_exit_value = EXIT_FAILURE;
-	return (str);
+	return (NULL);
 }
 
 char	**lexer_loop(char const *s, char **str, int i, int x)
