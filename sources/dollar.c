@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 13:57:47 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/29 18:34:06 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/04/18 16:13:55 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,16 @@ int	check_var(char *str, int i)
 {
 	if (str[0] == '\"')
 		i++;
-	while (str[i] != '\0' && str[i] != '$' && str[i] != '\"')
+	while (str[i] != '\0' && str[i] != '\"')
 	{
-		if (str[i] == '\'')
+		if (str[i] == '$')
+		{
+			if (str[i + 1] == ' ' || str[i + 1] == '\0'	)
+				i++ ;
+			else
+				break ;
+		}
+		else if (str[i] == '\'')
 			i = quote_handler(str, i + 1, '\'') + 1;
 		else
 			i++;
