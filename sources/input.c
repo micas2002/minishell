@@ -59,7 +59,7 @@ void	execute_parser_commands(t_shell *shell)
 
 	if (shell->unclosed_quotes == 1)
 	{
-		g_exit_value = error_handler(ERR_UNCLOSED_QUOTES, 0, "");
+		g_exit_value = error_handler(ERR_UNCLOSED_QUOTES, 1, "");
 		shell->unclosed_quotes = 0;
 		return ;
 	}

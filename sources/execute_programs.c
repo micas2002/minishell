@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:58:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/04/03 16:28:10 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/04/18 16:38:59 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	execute_program(t_shell *shell, int i)
 	if (process == 0)
 		run_program(shell, i);
 	waitpid(process, &value, 0);
-	g_exit_value = value;
+	g_exit_value = 127;
 }
 
 void	run_program(t_shell *shell, int i)
