@@ -76,4 +76,3 @@ void	execute_parser_commands(t_shell *shell)
 	else
 		commands(shell, 0);
 }
-	

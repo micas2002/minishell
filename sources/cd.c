@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:48:53 by mibernar          #+#    #+#             */
-/*   Updated: 2023/04/18 16:43:28 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/04/18 17:26:46 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,10 @@ void	cd_has_path(t_shell *shell, t_token *token, int iter)
 			return ;
 		}
 	}
-	else
+	else if (chdir(token->args[iter + 1]) != 0)
 	{
-		if (chdir(token->args[iter + 1]) != 0)
-		{
-			g_exit_value = error_handler(ERR_NO_FILE, 1, "");
-			return ;
-		}
+		g_exit_value = error_handler(ERR_NO_FILE, 1, "");
+		return ;
 	}
 	if (home_path != NULL)
 		free (home_path);
