@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:22:41 by mibernar          #+#    #+#             */
-/*   Updated: 2023/04/01 14:34:58 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/04/18 16:48:16 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,7 @@ void	export(t_shell *shell, t_token *token, int i, int x)
 	{
 		if (check_token_chars(token->args[i]) == 0)
 		{
-			g_exit_value = error_handler(ERR_NO_VALID_IDENT,
-					EXIT_FAILURE, token->args[i]);
+			g_exit_value = error_handler(ERR_NO_VALID_IDENT, 1, token->args[i]);
 			return ;
 		}
 		new_env = export_loop(shell, token, i, x);

@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 15:48:53 by mibernar          #+#    #+#             */
-/*   Updated: 2023/03/29 15:16:28 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/04/18 16:43:28 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	cd_has_path(t_shell *shell, t_token *token, int iter)
 		if (chdir(home_path) != 0)
 		{
 			free (home_path);
-			g_exit_value = error_handler(ERR_NO_FILE, EXIT_FAILURE, "");
+			g_exit_value = error_handler(ERR_NO_FILE, 1, "");
 			return ;
 		}
 	}
@@ -37,12 +37,13 @@ void	cd_has_path(t_shell *shell, t_token *token, int iter)
 	{
 		if (chdir(token->args[iter + 1]) != 0)
 		{
-			g_exit_value = error_handler(ERR_NO_FILE, EXIT_FAILURE, "");
+			g_exit_value = error_handler(ERR_NO_FILE, 1, "");
 			return ;
 		}
 	}
 	if (home_path != NULL)
 		free (home_path);
+	g_exit_value = EXIT_SUCCESS;
 }
 
 void	cd(t_shell *shell, t_token *token)
@@ -52,9 +53,8 @@ void	cd(t_shell *shell, t_token *token)
 	iter = 0;
 	if (!token->args[iter + 1])
 	{
-		g_exit_value = error_handler(ERR_NO_PATH, EXIT_FAILURE, "");
+		g_exit_value = error_handler(ERR_NO_PATH, 1, "");
 		return ;
 	}
 	cd_has_path(shell, token, iter);
-	g_exit_value = EXIT_SUCCESS;
 }
