@@ -44,7 +44,7 @@ all: $(NAME) ## Compiles the project
 $(NAME): $(OBJECTS_DIRECTORY) $(OBJECTS)
 	@ar rc $(NAME) $(OBJECTS)
 	@ranlib $(NAME)
-	@echo "\t$(CYAN)$(NAME): $(GREEN) objects files $(RESET)were created"
+	@echo "\n\t$(CYAN)$(NAME): $(GREEN) objects files $(RESET)were created"
 	@echo "\t$(CYAN)$(NAME): $(GREEN)$(NAME)$(RESET) was created"
 	
 $(OBJECTS_DIRECTORY): ## Creates the objects directory and compiles all files to .o
