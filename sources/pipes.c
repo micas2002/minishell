@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 14:23:06 by fialexan          #+#    #+#             */
-/*   Updated: 2023/04/17 15:05:20 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/04/18 16:57:35 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	handle_pipes(t_shell *shell, int iter)
 
 	info = malloc(sizeof(t_pipe));
 	info->pid = malloc(sizeof(pid_t) * shell->nb_tokens);
-	while (shell->tokens[iter])
+	while (shell->tokens[iter] != NULL)
 	{
 		if (is_special_function(shell, iter) == 1)
 			info->pid[iter] = 1;
