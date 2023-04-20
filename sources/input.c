@@ -23,7 +23,7 @@ void	commands(t_shell *shell, int i)
 		cd(shell, shell->tokens[i]);
 	else if (ft_strcmp(shell->tokens[i]->args[0], "pwd") == 0)
 		pwd();
-	else if (ft_strcmp(shell->tokens[i]->args[i], "export") == 0)
+	else if (ft_strcmp(shell->tokens[i]->args[0], "export") == 0)
 		export(shell, shell->tokens[i], 0, 0);
 	else if (ft_strcmp(shell->tokens[i]->args[0], "unset") == 0)
 		unset(shell, shell->tokens[i], 1);
@@ -45,7 +45,7 @@ void	parser(char *str, t_shell *shell)
 
 	if (str[0] == '\0')
 		return ;
-	cmds = ft_split(str, '|');
+	cmds = ft_split_minishell(str, '|', 0, 0);
 	shell->nb_tokens = get_array_size(cmds);
 	shell->tokens = divide_tokens(shell, cmds);
 	free_double_array(cmds);

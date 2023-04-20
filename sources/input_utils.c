@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/04/17 16:16:36 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/04/18 18:24:18 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_token	**divide_tokens(t_shell *shell, char **cmds)
 	int		iter;
 
 	iter = 0;
+	shell->unclosed_quotes = 0;
 	if (cmds == NULL)
 		return (NULL);
 	while (cmds[iter] != NULL)
