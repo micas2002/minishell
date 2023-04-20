@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 14:23:06 by fialexan          #+#    #+#             */
-/*   Updated: 2023/04/18 16:57:35 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/04/20 17:22:35 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,11 @@ void	handle_pipes(t_shell *shell, int iter)
 		}
 		iter++;
 	}
-	waitpid(info->pid[iter - 1], &g_exit_value, 0);
-	free(info->pid);
-	free(info);
+	wait_all_forks(shell, info);
 }
 
 void	child_function(t_shell *shell, t_pipe *pipe, int iter)
 {
-	if (iter != 0)
-		waitpid(pipe->pid[iter - 1], &g_exit_value, 0);
 	child_input(shell, pipe, iter);
 	child_output(shell, pipe, iter);
 	shell->tokens[iter] = clean_redirections(shell->tokens[iter]);
@@ -78,7 +74,7 @@ void	child_output(t_shell *shell, t_pipe *pipe, int iter)
 	int	output_fd;
 
 	output_fd = handle_output_redirections(shell->tokens[iter]);
-	if (output_fd == -1 && iter < shell->nb_tokens - 1)
+	if (output_fd == -1 && iter < (shell->nb_tokens - 1))
 		dup2(pipe->pipe[1], STDOUT_FILENO);
 	else if (output_fd != -1)
 	{
@@ -95,6 +91,7 @@ void	wait_all_forks(t_shell *shell, t_pipe *pipe)
 	while (iter < shell->nb_tokens)
 	{
 		waitpid(pipe->pid[iter], &g_exit_value, 0);
+		g_exit_value = (g_exit_value & 0xff00) >> 8;
 		iter++;
 	}
 	free(pipe->pid);

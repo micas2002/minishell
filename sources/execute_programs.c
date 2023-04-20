@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_programs.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:58:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/04/18 16:38:59 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/04/18 19:04:09 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,37 +23,45 @@ void	execute_program(t_shell *shell, int i)
 	process = fork();
 	value = 0;
 	if (process == 0)
-		run_program(shell, i);
+		run_program(shell, i, NULL, NULL);
 	waitpid(process, &value, 0);
-	g_exit_value = 127;
+	g_exit_value = (value & 0xff00) >> 8;
 }
 
-void	run_program(t_shell *shell, int i)
+void	run_program(t_shell *shell, int i, char *command, char **args)
 {
-	char	*command;
 	char	*tmp;
-	char	**args;
 
-	command = NULL;
-	args = NULL;
 	if (ft_strncmp("./", shell->tokens[i]->args[0], 2) == 0)
 	{
 		command = getcwd(command, FILENAME_MAX);
 		tmp = ft_strjoin(command, "/");
 		free(command);
 		command = ft_strjoin(tmp, shell->tokens[i]->args[0] + 2);
+		free(tmp);
 	}
 	else if (shell->tokens[i]->args[0][0] != '/')
 	{
 		args = get_command_paths(shell->env);
 		command = get_command(args, shell->tokens[i]->args[0]);
 		if (command == NULL)
-			exit(error_handler(ERR_CMD, EXIT_FAILURE, ""));
+			exit(error_handler(ERR_CMD, 127, ""));
 	}
+	else
+		command = shell->tokens[i]->args[0];
 	free_double_array(args);
+	execute_command(shell, i, command);
+}
+
+void	execute_command(t_shell *shell, int i, char *command)
+{
 	if (execve(command, shell->tokens[i]->args, shell->env) == -1)
-		exit(error_handler(ERR_NO_SUCH_FILE_OR_DIR, EXIT_FAILURE,
+	{
+		free(command);
+		exit(error_handler(ERR_NO_SUCH_FILE_OR_DIR, 127,
 				shell->tokens[i]->args[0]));
+	}
+	free(command);
 	exit(EXIT_SUCCESS);
 }
 
