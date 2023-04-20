@@ -11,7 +11,7 @@ HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 SOURCES_LIST = main.c input.c input_utils.c dollar.c dollar_utils.c\
 		lexer.c lexer_utils.c echo.c pwd.c cd.c signals.c env.c \
 		unset.c export.c export_utils.c free.c exit_status.c execute_programs.c \
-		error_handler.c  redirection.c redirection_utils.c pipes.c \
+		error_handler.c  redirection.c redirection_utils.c pipes.c split.c \
 		pipes_utils.c
 SOURCES_DIRECTORY = ./sources/
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
@@ -59,6 +59,7 @@ $(LIBFT): ## Compiles the libft
 
 clean: ## Cleans all the '*.o' files and deletes the objects directory
 	@rm -rf $(OBJECTS_DIRECTORY)
+	@rm -rf .tmp.txt
 	@echo "$(CYAN)$(NAME): $(RED)$(OBJECTS_DIRECTORY)$(RESET) was deleted, *insert sadge emote*"
 	@echo "$(CYAN)$(NAME): $(RED)object files$(RESET) deleted, it was like Voldemort said *FETUS DELETUS*"
 	@make -sC $(LIBFT_DIRECTORY) clean --no-print-directory
