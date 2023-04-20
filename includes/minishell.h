@@ -153,6 +153,7 @@ void	handle_signals_i(int signum);
 
 //EXECUTE_PROGRAMS.C
 void	execute_program(t_shell *shell, int i);
+void	execute_command(t_shell *shell, int i, char *command);
 
 /**
  * @brief Receives all the enviroments variables, searhs for the 'PATH' variable
@@ -184,7 +185,7 @@ char	*get_command(char **paths, char *command_name);
  * @param shell t_shell * 
  * @param i int
  */
-void	run_program(t_shell *shell, int i);
+void	run_program(t_shell *shell, int i, char *command, char **args);
 
 /**
  * @brief Get the arguments for the command
@@ -262,5 +263,8 @@ void	wait_all_forks(t_shell *shell, t_pipe *pipe);
 
 // PIPES_UTILS.C
 int		is_special_function(t_shell *shell, int iter);
+
+//SPLIT.C
+char	**ft_split_minishell(char const *s, char c, int begin, int end);
 
 #endif
