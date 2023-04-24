@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 16:20:51 by filipe            #+#    #+#             */
-/*   Updated: 2023/03/29 17:59:29 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:33:18 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,18 @@ void	handle_redirections(t_shell *shell, int i)
 	if (redirections == 1 || redirections == 3)
 	{
 		fd = handle_output_redirections(token);
+		if (fd == -1)
+			exit(error_handler(ERR_NO_FILE, EXIT_FAILURE, ""));
 		dup2(fd, STDOUT_FILENO);
+		close(fd);
 	}
 	if (redirections == 2 || redirections == 3)
 	{
 		fd = handle_input_redirections(token, -1, 0, -1);
+		if (fd == -1)
+			exit(error_handler(ERR_NO_FILE, EXIT_FAILURE, ""));
 		dup2(fd, STDIN_FILENO);
+		close(fd);
 	}
 	shell->tokens[i] = clean_redirections(token);
 	commands(shell, i);
@@ -105,10 +111,13 @@ int	here_doc(char *delim)
 			&& ft_strlen(line) > 1)
 			break ;
 		ft_putstr_fd(line, fd);
+		ft_putchar_fd('\n', fd);
 		free(line);
 		line = readline(promt);
 	}
 	free(promt);
 	free(line);
+	close(fd);
+	fd = open(".tmp.txt", O_RDONLY, 0777);
 	return (fd);
 }
