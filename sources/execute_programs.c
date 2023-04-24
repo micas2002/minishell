@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:58:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/04/24 18:07:11 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:31:31 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	run_program(t_shell *shell, int i, char *command, char **args)
 
 void	execute_command(t_shell *shell, int i, char *command)
 {
+	free(shell->tokens[i]->args[0]);
+	shell->tokens[i]->args[0] = ft_strdup(command);
 	if (execve(command, shell->tokens[i]->args, shell->env) == -1)
 	{
 		free(command);
