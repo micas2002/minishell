@@ -74,6 +74,8 @@ void	execute_parser_commands(t_shell *shell);
 int		divide_tokens_loop(char **cmds, int iter, t_token **tokens);
 t_token	**divide_tokens(t_shell *shell, char **cmds);
 int		get_array_size(char **str);
+int		ft_isspace(char c);
+int		is_only_spaces(char *str);
 
 //DOLLAR.C
 t_token	**handle_dollar(t_shell *shell, t_token **tokens);

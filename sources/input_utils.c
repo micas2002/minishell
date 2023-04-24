@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:27:33 by mibernar          #+#    #+#             */
-/*   Updated: 2023/04/18 18:24:18 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:20:25 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,24 @@ int	get_array_size(char **str)
 	while (str[iter] != NULL)
 		iter++;
 	return (iter);
+}
+
+int	ft_isspace(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\f' || c == '\n' || c == '\r'
+		|| c == '\v');
+}
+
+int	is_only_spaces(char *str)
+{
+	int	iter;
+
+	iter = 0;
+	while (str[iter] != '\0')
+	{
+		if (ft_isspace(str[iter]) == 0)
+			return (0);
+		iter++;
+	}
+	return (1);
 }

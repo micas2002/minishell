@@ -43,7 +43,7 @@ void	parser(char *str, t_shell *shell)
 {
 	char	**cmds;
 
-	if (str[0] == '\0')
+	if (str[0] == '\0' || is_only_spaces(str) == 1)
 		return ;
 	cmds = ft_split_minishell(str, '|', 0, 0);
 	shell->nb_tokens = get_array_size(cmds);
