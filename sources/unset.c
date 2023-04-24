@@ -6,7 +6,7 @@
 /*   By: mibernar <mibernar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 19:11:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/04/03 15:26:28 by mibernar         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:26:34 by mibernar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	unset(t_shell *shell, t_token *token, int i)
 			x++;
 		}
 		free(env_var);
+		if (shell->env[x] == NULL)
+			return ;
 		shell->env = new_env(shell, x);
 		i++;
 	}
