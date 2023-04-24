@@ -6,7 +6,7 @@
 /*   By: fialexan <fialexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:58:14 by mibernar          #+#    #+#             */
-/*   Updated: 2023/04/18 19:04:09 by fialexan         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:07:11 by fialexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ char	*get_command(char **paths, char *command_name)
 	char	*command;
 
 	index = 0;
+	if (paths == NULL)
+		return (NULL);
 	while (paths[index] != NULL)
 	{
 		temporary = ft_strjoin(paths[index], "/");
